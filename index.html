@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Studio Anda — Tonton &amp; Langgan</title>
+
+<!-- ============================================================
+     LAMAN OTT SAH (AVOD / SVOD)
+     ------------------------------------------------------------
+     Cara guna:
+     1. Senarai video "GRID KANDUNGAN" di bawah adalah contoh.
+        Gantikan tajuk, gambar & link dengan KANDUNGAN ANDA SENDIRI
+        (video yang anda ada hak / kontrak / bebas royalti).
+     2. "Dapatkan Langganan" butang boleh ditaip ke platform SVOD
+        (Uscreen / Kajabi / Vimeo OTT).
+     3. Iklan sponsorship boleh dijual dalam slot "Penaja Utama".
+   ============================================================ -->
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family:'Segoe UI',system-ui,Arial,sans-serif; background:#0b0f14; color:#e8edf3; line-height:1.6; }
+  a { color:#4da3ff; text-decoration:none; }
+
+  header {
+    background:linear-gradient(180deg,#101720,#0b0f14);
+    border-bottom:1px solid #1e2a38; padding:16px 24px;
+    display:flex; align-items:center; gap:14px; position:sticky; top:0; z-index:20;
+  }
+  .logo { width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,#ff3d3d,#7a1fff);
+    display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;flex-shrink:0;font-size:18px; }
+  .brand h1 { font-size:19px; } .brand p { font-size:12.5px;color:#8fa3b8; }
+  .nav { margin-left:auto; display:flex; gap:10px; flex-wrap:wrap; }
+  .btn { padding:9px 14px;border-radius:8px;font-size:14px;font-weight:600;border:1px solid #2a3a4d;color:#e8edf3;background:#17212d;transition:.15s;cursor:pointer; }
+  .btn:hover{background:#22303f;}
+  .btn.primary{background:#1470d2;border-color:#1470d2;} .btn.primary:hover{background:#1a82ee;}
+  .btn.gold{background:#f5a623;border-color:#f5a623;color:#1a1200;} .btn.gold:hover{background:#ffb733;}
+
+  .hero { text-align:center; padding:48px 20px 30px; }
+  .hero h2 { font-size:30px; font-weight:800; margin-bottom:8px; }
+  .hero p { color:#9fb2c5; max-width:640px; margin:0 auto 18px; font-size:15px; }
+  .hero .badge { display:inline-block; background:#12202f; border:1px solid #26405a; border-radius:20px;
+    padding:5px 14px; font-size:12.5px; color:#7fd0ff; margin-bottom:14px; }
+
+  main { max-width:1140px; margin:0 auto; padding:10px 20px 120px; }
+
+  /* Sponsor banner slot */
+  .sponsor { display:flex; align-items:center; gap:14px; background:#0f1722; border:1px solid #1e2a38;
+    border-radius:12px; padding:14px 16px; margin-bottom:30px; flex-wrap:wrap; }
+  .sponsor .tag { font-size:11px; font-weight:700; letter-spacing:.5px; color:#8fa3b8; text-transform:uppercase; }
+  .sponsor strong { color:#e8edf3; }
+
+  .section-title { font-size:18px; font-weight:700; margin:6px 0 16px; }
+
+  /* Content grid */
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:16px; }
+  .card { background:#10161f; border:1px solid #1e2a38; border-radius:14px; overflow:hidden; transition:.15s; }
+  .card:hover { transform:translateY(-3px); border-color:#2c4257; box-shadow:0 14px 30px rgba(0,0,0,.4); }
+  .thumb { aspect-ratio:16/9; background:linear-gradient(135deg,#1a2635,#0d141d); position:relative; }
+  .thumb img { width:100%; height:100%; object-fit:cover; display:block; }
+  .thumb .tag { position:absolute; top:8px; left:8px; background:rgba(0,0,0,.7); color:#fff; font-size:11px;
+    padding:3px 8px; border-radius:6px; }
+  .thumb .free { background:#12a44c; }
+  .card-body { padding:12px 14px 14px; }
+  .card-body h4 { font-size:14.5px; margin-bottom:4px; }
+  .card-body p { font-size:12.5px; color:#8fa3b8; }
+  .play { display:inline-block; margin-top:10px; font-size:13px; font-weight:700; color:#4da3ff; }
+  .play:hover{text-decoration:underline;}
+
+  /* Pricing */
+  .pricing { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:16px; margin-top:16px; }
+  .plan { background:#10161f; border:1px solid #1e2a38; border-radius:16px; padding:24px; text-align:center; }
+  .plan.featured { border-color:#f5a623; box-shadow:0 0 0 1px #f5a623 inset; }
+  .plan .price { font-size:34px; font-weight:800; margin:6px 0; }
+  .plan ul { list-style:none; margin:14px 0; text-align:left; font-size:14px; color:#c6d1dc; }
+  .plan li { padding:5px 0; }
+  .plan li::before { content:"✔"; color:#2bd97a; margin-right:8px; }
+  .plan-note { text-align:center; color:#8fa3b8; font-size:12.5px; margin-top:14px; }
+
+  footer { border-top:1px solid #1e2a38; padding:20px; text-align:center; color:#7d8ea1; font-size:13px; }
+  .legal { max-width:900px; margin:0 auto; padding:20px; font-size:12.5px; color:#8fa3b8; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">▶</div>
+  <div class="brand"><h1>Nama Studio Anda</h1><p>Tonton &amp; Langgan — Kandungan Sah</p></div>
+  <nav class="nav">
+    <a class="btn" href="#kandungan">📚 Kandungan</a>
+    <a class="btn" href="#langganan">💎 Langganan</a>
+    <a class="btn primary" href="#langganan">Mula</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <span class="badge">✨ Semua kandungan disiarkan secara sah</span>
+    <h2>Tonton. Dengar. Nikmati.</h2>
+    <p>Platform streaming anda sendiri. Saksikan video &amp; saluran eksklusif — percuma dengan iklan, atau langgan untuk tanpa iklan &amp; kandungan penuh.</p>
+    <a href="#kandungan" class="btn primary">▶ Terus Menonton</a>
+  </section>
+
+  <!-- Slot penaja (iklan/sponsor) — boleh dijual kepada perniagaan -->
+  <div class="sponsor">
+    <div>
+      <div class="tag">Slot Penaja Utama</div>
+      <strong>Ruang iklan anda di sini — hubungi untuk sewa slot.</strong>
+    </div>
+    <a class="btn gold" href="#">Iklan / Penaja →</a>
+  </div>
+
+  <!-- ============ GRID KANDUNGAN ============ -->
+  <section id="kandungan">
+    <div class="section-title">📚 Kandungan Terkini</div>
+    <div class="grid">
+      <!-- Kad contoh — GANTIKAN dengan kandungan anda sendiri -->
+      <div class="card">
+        <div class="thumb"><div class="tag free">PERCUMA</div></div>
+        <div class="card-body">
+          <h4>Episod 1 — Tajuk Video Anda</h4>
+          <p>Kategori · 12 minit</p>
+          <a class="play" href="#">▶ Tonton</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="thumb"><div class="tag free">PERCUMA</div></div>
+        <div class="card-body">
+          <h4>Episod 2 — Tajuk Video Anda</h4>
+          <p>Kategori · 15 minit</p>
+          <a class="play" href="#">▶ Tonton</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="thumb"><div class="tag">PREMIUM</div></div>
+        <div class="card-body">
+          <h4>Episod 3 — Tajuk Video Anda</h4>
+          <p>Kategori · 22 minit</p>
+          <a class="play" href="#">🔒 Langgan</a>
+        </div>
+      </div>
+    </div>
+    <p class="plan-note">Kad di atas adalah contoh. Gantikan tajuk, gambar &amp; link dengan konten yang anda ada hak.</p>
+  </section>
+
+  <!-- ============ HARGA ============ -->
+  <section id="langganan" style="margin-top:40px">
+    <div class="section-title">💰 Pilih Pelan Anda</div>
+    <div class="pricing">
+      <div class="plan">
+        <h4>Percuma (AVOD)</h4>
+        <div class="price">RM0</div>
+        <ul>
+          <li>Semua video percuma</li>
+          <li>Disertai iklan</li>
+          <li>Akses tanpa had</li>
+        </ul>
+        <button class="btn">Pilih Pelan</button>
+      </div>
+      <div class="plan featured">
+        <h4>Premium (SVOD)</h4>
+        <div class="price">RM9.90<span style="font-size:14px">/bln</span></div>
+        <ul>
+          <li>Tanpa iklan</li>
+          <li>Kandungan eksklusif</li>
+          <li>Tonton luar talian</li>
+          <li>Kualiti HD</li>
+        </ul>
+        <button class="btn gold">💎 Langgan Sekarang</button>
+      </div>
+      <div class="plan">
+        <h4>Korporat / Penaja</h4>
+        <div class="price">Sesuai</div>
+        <ul>
+          <li>Slot iklan</li>
+          <li>Penajaan episod</li>
+          <li>Penyiaran logo</li>
+        </ul>
+        <button class="btn">Hubungi Kami</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="legal">
+  <strong>Notis kandungan (penting):</strong> Laman ini hanya untuk menyiarkan kandungan yang anda miliki hak cipta, atau yang anda ada kebenaran/lesen, atau kandungan bebas royalti. Jangan siar semula filem/rancangan orang lain tanpa izin — ia menyalahi Akta Hak Cipta 1987 dan boleh membawa denda/penjara.
+</div>
+
+<footer>© Nama Studio Anda — Platform Streaming Sah. Dibina dengan ❤.</footer>
+
+<!-- Nota: Untuk video sebenar, anda akan guna player (cth jika dari YouTube,
+     guna iframe; jika video sendiri, guna <video> dengan URL HLS/MP4).
+     Butang "Tonton" di atas cuma contoh. -->
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a36f25b41b886be7',t:'MTc4ODcxNTI1Ng=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
