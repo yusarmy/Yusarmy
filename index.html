@@ -3,288 +3,770 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>CinemaKlasik — Filem & Cerita Percuma</title>
-
-<!-- ============================================================
-     PLATFORM HIBURAN & CERITA MALAYSIA
-     ============================================================ -->
+<title>CinemaKlasik Premium — Streaming Platform Malaysia</title>
 
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family:'Segoe UI',system-ui,Arial,sans-serif; background:#0b0f14; color:#e8edf3; line-height:1.6; }
-  a { color:#4da3ff; text-decoration:none; }
-
-  header {
-    background:linear-gradient(180deg,#101720,#0b0f14);
-    border-bottom:1px solid #1e2a38; padding:16px 24px;
-    display:flex; align-items:center; gap:14px; position:sticky; top:0; z-index:20;
-  }
-  .logo { width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,#ff6b35,#004e89);
-    display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;flex-shrink:0;font-size:18px; }
-  .brand h1 { font-size:19px; } .brand p { font-size:12.5px;color:#8fa3b8; }
-  .nav { margin-left:auto; display:flex; gap:10px; flex-wrap:wrap; }
-  .btn { padding:9px 14px;border-radius:8px;font-size:14px;font-weight:600;border:1px solid #2a3a4d;color:#e8edf3;background:#17212d;transition:.15s;cursor:pointer; }
-  .btn:hover{background:#22303f;}
-  .btn.primary{background:#1470d2;border-color:#1470d2;} .btn.primary:hover{background:#1a82ee;}
-  .btn.gold{background:#f5a623;border-color:#f5a623;color:#1a1200;} .btn.gold:hover{background:#ffb733;}
-
-  .hero { text-align:center; padding:48px 20px 30px; }
-  .hero h2 { font-size:30px; font-weight:800; margin-bottom:8px; }
-  .hero p { color:#9fb2c5; max-width:640px; margin:0 auto 18px; font-size:15px; }
-  .hero .badge { display:inline-block; background:#12202f; border:1px solid #26405a; border-radius:20px;
-    padding:5px 14px; font-size:12.5px; color:#7fd0ff; margin-bottom:14px; }
-
-  main { max-width:1140px; margin:0 auto; padding:10px 20px 120px; }
-
-  .sponsor { display:flex; align-items:center; gap:14px; background:#0f1722; border:1px solid #1e2a38;
-    border-radius:12px; padding:14px 16px; margin-bottom:30px; flex-wrap:wrap; }
-  .sponsor .tag { font-size:11px; font-weight:700; letter-spacing:.5px; color:#8fa3b8; text-transform:uppercase; }
-  .sponsor strong { color:#e8edf3; }
-
-  .section-title { font-size:18px; font-weight:700; margin:6px 0 16px; }
-
-  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:16px; }
-  .card { background:#10161f; border:1px solid #1e2a38; border-radius:14px; overflow:hidden; transition:.15s; }
-  .card:hover { transform:translateY(-3px); border-color:#2c4257; box-shadow:0 14px 30px rgba(0,0,0,.4); }
-  .thumb { aspect-ratio:16/9; background:linear-gradient(135deg,#1a2635,#0d141d); position:relative; display:flex;align-items:center;justify-content:center; }
-  .thumb img { width:100%; height:100%; object-fit:cover; display:block; }
-  .thumb .tag { position:absolute; top:8px; left:8px; background:rgba(0,0,0,.7); color:#fff; font-size:11px;
-    padding:3px 8px; border-radius:6px; }
-  .thumb .free { background:#12a44c; }
-  .thumb .emoji { font-size:48px; }
-  .card-body { padding:12px 14px 14px; }
-  .card-body h4 { font-size:14.5px; margin-bottom:4px; }
-  .card-body p { font-size:12.5px; color:#8fa3b8; }
-  .play { display:inline-block; margin-top:10px; font-size:13px; font-weight:700; color:#4da3ff; }
-  .play:hover{text-decoration:underline;}
-
-  .pricing { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:16px; margin-top:16px; }
-  .plan { background:#10161f; border:1px solid #1e2a38; border-radius:16px; padding:24px; text-align:center; }
-  .plan.featured { border-color:#f5a623; box-shadow:0 0 0 1px #f5a623 inset; }
-  .plan .price { font-size:34px; font-weight:800; margin:6px 0; }
-  .plan ul { list-style:none; margin:14px 0; text-align:left; font-size:14px; color:#c6d1dc; }
-  .plan li { padding:5px 0; }
-  .plan li::before { content:"✔"; color:#2bd97a; margin-right:8px; }
-  .plan-note { text-align:center; color:#8fa3b8; font-size:12.5px; margin-top:14px; }
-
-  footer { border-top:1px solid #1e2a38; padding:20px; text-align:center; color:#7d8ea1; font-size:13px; }
-  .legal { max-width:900px; margin:0 auto; padding:20px; font-size:12.5px; color:#8fa3b8; }
+  body { font-family:'Segoe UI',system-ui,-apple-system,sans-serif; background:#0a0e27; color:#e8edf3; line-height:1.6; overflow-x:hidden; }
+  html { scroll-behavior: smooth; }
   
-  .social-links { display:flex; gap:12px; margin:20px 0; flex-wrap:wrap; justify-content:center; }
-  .social-links a { padding:10px 16px; background:#17212d; border:1px solid #2a3a4d; border-radius:8px; display:inline-flex; align-items:center; gap:6px; }
-  .social-links a:hover { background:#22303f; border-color:#3a4a5d; }
+  a { color:#00d4ff; text-decoration:none; transition:.2s; }
+  a:hover { color:#00ffff; }
+  
+  /* ============ HEADER ============ */
+  header {
+    background:linear-gradient(180deg,#0f1729 0%,#0a0e27 100%);
+    border-bottom:1px solid #1a2847; padding:16px 24px;
+    display:flex; align-items:center; gap:16px; position:sticky; top:0; z-index:100;
+    box-shadow:0 4px 20px rgba(0,0,0,.5);
+  }
+  
+  .logo { width:50px; height:50px; border-radius:12px; background:linear-gradient(135deg,#ff6b35 0%,#004e89 100%);
+    display:flex; align-items:center; justify-content:center; font-weight:900; color:#fff; flex-shrink:0; font-size:24px; box-shadow:0 8px 20px rgba(255,107,53,.3); }
+  
+  .brand h1 { font-size:22px; font-weight:900; letter-spacing:1px; background:linear-gradient(135deg,#00d4ff,#0099ff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+  .brand p { font-size:11px; color:#7a8ba0; text-transform:uppercase; letter-spacing:.5px; }
+  
+  .nav { margin-left:auto; display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
+  .nav-btn { padding:10px 16px; border-radius:8px; font-size:13px; font-weight:600; border:1px solid #1a2847; color:#e8edf3; background:rgba(26,40,71,.6); transition:.2s; cursor:pointer; backdrop-filter:blur(10px); }
+  .nav-btn:hover { background:rgba(26,40,71,.9); border-color:#2a5a8a; }
+  .nav-btn.premium { background:linear-gradient(135deg,#ff6b35,#004e89); border:none; color:#fff; box-shadow:0 8px 20px rgba(255,107,53,.3); }
+  .nav-btn.premium:hover { box-shadow:0 12px 30px rgba(255,107,53,.5); transform:translateY(-2px); }
+  
+  /* ============ HERO ============ */
+  .hero {
+    background:linear-gradient(135deg,rgba(0,212,255,.1) 0%,rgba(0,78,137,.1) 100%),url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(0,212,255,.05)" stroke-width=".5"/></pattern></defs><rect width="1200" height="400" fill="url(%23grid)"/></svg>');
+    background-size:cover; background-position:center; padding:80px 24px; text-align:center; position:relative; overflow:hidden;
+  }
+  
+  .hero::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at 50% 0%, rgba(0,212,255,.15), transparent 70%); pointer-events:none; }
+  
+  .hero-content { position:relative; z-index:2; max-width:800px; margin:0 auto; }
+  .hero .badge { display:inline-block; background:rgba(0,212,255,.1); border:1px solid rgba(0,212,255,.3); border-radius:30px; padding:8px 18px; font-size:12px; color:#00d4ff; margin-bottom:20px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; }
+  
+  .hero h2 { font-size:56px; font-weight:900; margin-bottom:16px; background:linear-gradient(180deg,#00ffff 0%,#00d4ff 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; line-height:1.2; }
+  
+  .hero p { font-size:18px; color:#a0b2c8; margin-bottom:32px; line-height:1.8; max-width:600px; margin-left:auto; margin-right:auto; }
+  
+  .hero-buttons { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+  .btn { padding:14px 32px; border-radius:10px; font-size:15px; font-weight:700; border:none; cursor:pointer; transition:.3s; text-transform:uppercase; letter-spacing:.5px; }
+  .btn-primary { background:linear-gradient(135deg,#ff6b35 0%,#ff5722 100%); color:#fff; box-shadow:0 12px 30px rgba(255,107,53,.4); }
+  .btn-primary:hover { transform:translateY(-3px); box-shadow:0 16px 40px rgba(255,107,53,.6); }
+  .btn-secondary { background:rgba(255,255,255,.1); color:#00d4ff; border:2px solid #00d4ff; }
+  .btn-secondary:hover { background:rgba(0,212,255,.1); }
+  
+  /* ============ FEATURED SECTION ============ */
+  .featured-section {
+    max-width:1200px; margin:0 auto; padding:60px 24px;
+  }
+  
+  .section-title {
+    font-size:28px; font-weight:900; margin-bottom:8px; color:#fff;
+    text-transform:uppercase; letter-spacing:1px;
+  }
+  
+  .section-subtitle {
+    font-size:14px; color:#7a8ba0; margin-bottom:30px; text-transform:uppercase; letter-spacing:.5px;
+  }
+  
+  /* ============ CAROUSEL ============ */
+  .carousel {
+    position:relative; height:500px; border-radius:16px; overflow:hidden; margin-bottom:60px;
+    background:linear-gradient(135deg,#1a2635 0%,#0d141d 100%);
+    box-shadow:0 20px 60px rgba(0,0,0,.5);
+  }
+  
+  .carousel-slide {
+    position:absolute; inset:0; opacity:0; transition:opacity .8s ease-in-out;
+    background:linear-gradient(to right, rgba(10,14,39,.9), transparent), 
+              linear-gradient(180deg, transparent, rgba(10,14,39,.9));
+    display:flex; align-items:center; padding:60px 40px;
+  }
+  
+  .carousel-slide.active { opacity:1; }
+  
+  .carousel-content { max-width:500px; }
+  .carousel-badge { display:inline-block; background:rgba(255,107,53,.2); border:1px solid #ff6b35; color:#ff6b35; padding:6px 12px; border-radius:6px; font-size:12px; font-weight:700; margin-bottom:16px; }
+  .carousel-title { font-size:48px; font-weight:900; margin-bottom:12px; color:#fff; line-height:1.2; }
+  .carousel-meta { font-size:14px; color:#a0b2c8; margin-bottom:20px; }
+  .carousel-desc { font-size:16px; color:#b0c2d8; margin-bottom:24px; line-height:1.6; }
+  .carousel-tag { display:inline-block; background:linear-gradient(135deg,#ff6b35,#ff5722); color:#fff; padding:8px 16px; border-radius:6px; font-size:12px; font-weight:700; margin-right:12px; }
+  
+  .carousel-buttons { display:flex; gap:12px; margin-top:28px; }
+  .carousel-buttons .btn { padding:12px 28px; font-size:14px; }
+  
+  .carousel-controls {
+    position:absolute; bottom:20px; left:50%; transform:translateX(-50%); display:flex; gap:12px; z-index:10;
+  }
+  
+  .carousel-dot {
+    width:12px; height:12px; border-radius:50%; background:rgba(255,255,255,.3); cursor:pointer; transition:.3s;
+    border:2px solid transparent;
+  }
+  
+  .carousel-dot.active {
+    background:linear-gradient(135deg,#ff6b35,#004e89); border-color:#fff; width:28px; border-radius:6px;
+  }
+  
+  /* ============ GRID ============ */
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:20px; }
+  
+  .card {
+    background:linear-gradient(135deg,#1a2635 0%,#0d141d 100%);
+    border:1px solid rgba(0,212,255,.1); border-radius:12px; overflow:hidden;
+    transition:.3s; cursor:pointer; position:relative; group;
+  }
+  
+  .card:hover {
+    transform:translateY(-8px) scale(1.05);
+    border-color:rgba(0,212,255,.3);
+    box-shadow:0 20px 40px rgba(0,212,255,.2);
+  }
+  
+  .card-thumb {
+    aspect-ratio:9/13; background:linear-gradient(135deg,#2a3f5f,#1a2f4f);
+    position:relative; display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+  }
+  
+  .card-thumb::before {
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(135deg,rgba(0,212,255,.1),rgba(255,107,53,.1));
+    opacity:0; transition:.3s;
+  }
+  
+  .card:hover .card-thumb::before { opacity:1; }
+  
+  .card-thumb-content {
+    text-align:center; z-index:2; color:#fff;
+  }
+  
+  .card-thumb-emoji { font-size:60px; margin-bottom:12px; display:block; }
+  .card-thumb-title { font-size:14px; font-weight:700; }
+  
+  .card-badge {
+    position:absolute; top:12px; left:12px; z-index:5;
+    padding:6px 12px; border-radius:6px; font-size:11px; font-weight:700;
+    text-transform:uppercase; letter-spacing:.5px;
+  }
+  
+  .badge-free { background:#12a44c; color:#fff; }
+  .badge-premium { background:linear-gradient(135deg,#ff6b35,#ff5722); color:#fff; }
+  .badge-coming { background:rgba(122,139,160,.3); color:#7a8ba0; }
+  
+  .card-lock {
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    background:rgba(10,14,39,.8); backdrop-filter:blur(10px);
+    width:100%; height:100%; display:flex; align-items:center; justify-content:center;
+    z-index:3; opacity:0; transition:.3s;
+  }
+  
+  .card:hover .card-lock { opacity:1; }
+  .card-lock-icon { font-size:48px; }
+  
+  .card-body {
+    padding:16px;
+  }
+  
+  .card-title { font-size:15px; font-weight:800; margin-bottom:6px; color:#fff; }
+  .card-meta { font-size:12px; color:#7a8ba0; margin-bottom:12px; }
+  .card-rating {
+    display:flex; gap:4px; margin-bottom:12px;
+  }
+  
+  .star { color:#ffc107; font-size:12px; }
+  
+  .card-cta { display:inline-block; color:#00d4ff; font-size:12px; font-weight:700; }
+  .card-cta:hover { color:#00ffff; }
+  
+  /* ============ PRICING ============ */
+  .pricing-section {
+    max-width:1200px; margin:0 auto; padding:60px 24px; background:linear-gradient(135deg,rgba(0,212,255,.05),rgba(255,107,53,.05)); border-radius:16px; margin-bottom:60px;
+  }
+  
+  .pricing-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:24px; margin-top:40px; }
+  
+  .pricing-card {
+    background:linear-gradient(135deg,#1a2635,#0d141d); border:2px solid rgba(0,212,255,.1); border-radius:14px;
+    padding:32px 24px; text-align:center; position:relative; transition:.3s;
+  }
+  
+  .pricing-card:hover {
+    border-color:rgba(0,212,255,.3);
+    box-shadow:0 20px 60px rgba(0,212,255,.15);
+    transform:translateY(-8px);
+  }
+  
+  .pricing-card.featured {
+    border-color:#ff6b35; box-shadow:0 0 0 1px #ff6b35 inset, 0 20px 60px rgba(255,107,53,.2);
+    transform:scale(1.05);
+  }
+  
+  .pricing-badge { display:inline-block; background:#ff6b35; color:#fff; padding:6px 12px; border-radius:6px; font-size:11px; font-weight:700; margin-bottom:16px; }
+  
+  .pricing-title { font-size:22px; font-weight:900; margin-bottom:12px; }
+  .pricing-price { font-size:42px; font-weight:900; margin-bottom:8px; background:linear-gradient(135deg,#00d4ff,#00ffff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+  .pricing-period { font-size:13px; color:#7a8ba0; margin-bottom:24px; }
+  
+  .pricing-features { list-style:none; margin:24px 0; text-align:left; }
+  .pricing-features li { padding:10px 0; font-size:14px; color:#b0c2d8; border-bottom:1px solid rgba(255,255,255,.05); }
+  .pricing-features li::before { content:'✓'; color:#00d4ff; margin-right:10px; font-weight:900; }
+  
+  .pricing-button { width:100%; padding:14px; border-radius:10px; border:none; font-size:14px; font-weight:700; cursor:pointer; margin-top:24px; text-transform:uppercase; letter-spacing:.5px; transition:.3s; }
+  .pricing-button.primary { background:linear-gradient(135deg,#ff6b35,#ff5722); color:#fff; }
+  .pricing-button.primary:hover { box-shadow:0 12px 30px rgba(255,107,53,.4); transform:translateY(-2px); }
+  .pricing-button.secondary { background:rgba(0,212,255,.1); color:#00d4ff; border:2px solid #00d4ff; }
+  .pricing-button.secondary:hover { background:rgba(0,212,255,.2); }
+  
+  /* ============ FOOTER ============ */
+  footer {
+    background:linear-gradient(180deg,#0a0e27,#050810); border-top:1px solid #1a2847; padding:40px 24px; margin-top:80px;
+  }
+  
+  .footer-content { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:40px; margin-bottom:40px; }
+  
+  .footer-section h4 { font-size:14px; font-weight:900; text-transform:uppercase; margin-bottom:16px; color:#00d4ff; }
+  .footer-section p { font-size:13px; color:#7a8ba0; line-height:1.8; }
+  .footer-section a { display:block; margin-bottom:8px; font-size:13px; }
+  
+  .footer-social { display:flex; gap:12px; margin-top:16px; }
+  .footer-social a {
+    width:40px; height:40px; display:flex; align-items:center; justify-content:center;
+    background:rgba(0,212,255,.1); border:1px solid rgba(0,212,255,.2); border-radius:8px;
+    font-size:18px;
+  }
+  
+  .footer-bottom {
+    border-top:1px solid #1a2847; padding-top:24px; text-align:center; font-size:12px; color:#5a6b80;
+  }
+  
+  /* ============ RESPONSIVE ============ */
+  @media (max-width:768px) {
+    .hero h2 { font-size:36px; }
+    .carousel-title { font-size:32px; }
+    .carousel-slide { padding:40px 20px; }
+    .grid { grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px; }
+    .pricing-card.featured { transform:scale(1); }
+    .nav { gap:8px; }
+    .nav-btn { padding:8px 12px; font-size:12px; }
+  }
+  
+  @media (max-width:480px) {
+    header { padding:12px 16px; }
+    .hero { padding:40px 16px; }
+    .hero h2 { font-size:28px; }
+    .hero-buttons { flex-direction:column; }
+    .btn { width:100%; }
+    .featured-section { padding:40px 16px; }
+    .carousel { height:350px; }
+    .carousel-content { max-width:100%; }
+    .carousel-title { font-size:24px; }
+  }
 </style>
 </head>
 <body>
 
+<!-- ============ HEADER ============ -->
 <header>
   <div class="logo">🎬</div>
-  <div class="brand"><h1>CinemaKlasik</h1><p>Filem Klasik & Cerita Malaysia — Percuma & Sah</p></div>
+  <div class="brand">
+    <h1>CINEMAKLASIK</h1>
+    <p>Premium Streaming Platform</p>
+  </div>
   <nav class="nav">
-    <a class="btn" href="#kandungan">📚 Koleksi</a>
-    <a class="btn" href="#langganan">💎 Langganan</a>
-    <a class="btn primary" href="#langganan">Mula Tonton</a>
+    <button class="nav-btn">🏠 Beranda</button>
+    <button class="nav-btn">🎬 Filem</button>
+    <button class="nav-btn">📺 TV Series</button>
+    <button class="nav-btn premium">💎 Berlangganan</button>
   </nav>
 </header>
 
-<main>
-  <section class="hero">
-    <span class="badge">✨ Filem Klasik + Cerita Malaysia — 100% Sah & Percuma</span>
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-content">
+    <span class="badge">✨ Premium Streaming Dimulai Dari Sini</span>
     <h2>Hiburan Tanpa Batas</h2>
-    <p>Koleksi filem paling bersejarah dunia + cerita menarik dari Malaysia. Streaming berkualiti tanpa iklan mengganggu — pilih plan anda sekarang!</p>
-    <a href="#kandungan" class="btn primary">▶ Mulai Menonton Sekarang</a>
-  </section>
-
-  <!-- Sponsor banner -->
-  <div class="sponsor">
-    <div>
-      <div class="tag">Slot Penaja Utama</div>
-      <strong>Promosi brand anda kepada penggemar hiburan — hubungi untuk sewa slot.</strong>
+    <p>Tonton filem klasik dunia, serial TV terbaik, dan cerita menarik dari Malaysia. Streaming berkualiti tinggi tanpa gangguan iklan.</p>
+    <div class="hero-buttons">
+      <button class="btn btn-primary">▶ Mulai Menonton Percuma</button>
+      <button class="btn btn-secondary">📖 Ketahui Lebih Lanjut</button>
     </div>
-    <a class="btn gold" href="#">Iklan / Penaja →</a>
   </div>
+</section>
 
-  <!-- ============ FILEM KLASIK ============ -->
-  <section id="kandungan">
-    <div class="section-title">🎞️ Filem Klasik Dunia</div>
-    <div class="grid">
-      <div class="card">
-        <div class="thumb"><div class="tag free">PERCUMA</div></div>
-        <div class="card-body">
-          <h4>The Gold Rush (1925)</h4>
-          <p>Komedi Klasik · Charlie Chaplin · 95 minit</p>
-          <a class="play" href="https://archive.org/details/goldrushjanus" target="_blank">▶ Tonton</a>
-        </div>
-      </div>
-      
-      <div class="card">
-        <div class="thumb"><div class="tag free">PERCUMA</div></div>
-        <div class="card-body">
-          <h4>The General (1926)</h4>
-          <p>Aksi Klasik · Buster Keaton · 55 minit</p>
-          <a class="play" href="https://archive.org/details/thegeneral_1926" target="_blank">▶ Tonton</a>
-        </div>
-      </div>
-      
-      <div class="card">
-        <div class="thumb"><div class="tag">PREMIUM</div></div>
-        <div class="card-body">
-          <h4>Nosferatu (1922)</h4>
-          <p>Seram Klasik · F.W. Murnau · 94 minit</p>
-          <a class="play" href="https://archive.org/details/nosferatu" target="_blank">🔒 Langganan Diperlukan</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="thumb"><div class="tag free">PERCUMA</div></div>
-        <div class="card-body">
-          <h4>City Lights (1931)</h4>
-          <p>Romantik Klasik · Charlie Chaplin · 87 minit</p>
-          <a class="play" href="https://archive.org/details/citylights_1931" target="_blank">▶ Tonton</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="thumb"><div class="tag free">PERCUMA</div></div>
-        <div class="card-body">
-          <h4>Steamboat Bill Jr. (1928)</h4>
-          <p>Komedi Klasik · Buster Keaton · 72 minit</p>
-          <a class="play" href="https://archive.org/details/steamboatbilljr_1928" target="_blank">▶ Tonton</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="thumb"><div class="tag">PREMIUM</div></div>
-        <div class="card-body">
-          <h4>Battleship Potemkin (1925)</h4>
-          <p>Sejarah & Drama · Sergei Eisenstein · 75 minit</p>
-          <a class="play" href="https://archive.org/details/battleship-potemkin" target="_blank">🔒 Langganan Diperlukan</a>
+<!-- ============ FEATURED ============ -->
+<section class="featured-section">
+  <h2 class="section-title">🔥 TAYANGAN PILIHAN</h2>
+  <p class="section-subtitle">Konten premium yang mesti anda tonton</p>
+  
+  <!-- Carousel -->
+  <div class="carousel">
+    <!-- Slide 1 -->
+    <div class="carousel-slide active">
+      <div class="carousel-content">
+        <span class="carousel-badge">FILEM KLASIK</span>
+        <h3 class="carousel-title">The Gold Rush</h3>
+        <p class="carousel-meta">1925 · Komedi Klasik · 95 Minit</p>
+        <p class="carousel-desc">Masterpiece Charlie Chaplin yang penuh tawa dan emosi. Kisah prospector emas di Yukon yang mencari cinta dan harta.</p>
+        <span class="carousel-tag">✅ PERCUMA</span>
+        <div class="carousel-buttons">
+          <button class="btn btn-primary">▶ Tonton Sekarang</button>
+          <button class="btn btn-secondary">ℹ Info Lanjut</button>
         </div>
       </div>
     </div>
-    <p class="plan-note">Semua filem adalah public domain dan sah untuk ditonton. Sumber: Internet Archive.</p>
-  </section>
-
-  <!-- ============ CERITA MALAYSIA ============ -->
-  <section style="margin-top:40px">
-    <div class="section-title">📖 Cerita & Artikel Malaysia</div>
-    <p style="color:#9fb2c5; margin-bottom:20px;">Koleksi cerita menarik, artikel informatif, dan tips berguna tentang Malaysia dan budaya Melayu.</p>
     
-    <div class="grid">
-      <div class="card">
-        <div class="thumb"><div class="emoji">💄</div></div>
-        <div class="card-body">
-          <h4>Kecantikan & Kesihatan</h4>
-          <p>Tips perawatan kulit, produk kecantikan, dan panduan kesihatan untuk Anda</p>
-          <a class="play" href="https://cerita-malaysiaku.blogspot.com" target="_blank">📖 Baca Selengkapnya</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="thumb"><div class="emoji">🇲🇾</div></div>
-        <div class="card-body">
-          <h4>Isu Semasa Malaysia</h4>
-          <p>Berita terkini, isu semasa, dan perbincangan tentang negara kita</p>
-          <a class="play" href="https://cerita-malaysiaku.blogspot.com" target="_blank">📖 Baca Selengkapnya</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="thumb"><div class="emoji">📚</div></div>
-        <div class="card-body">
-          <h4>Sejarah & Budaya</h4>
-          <p>Kisah hikayat Melayu, warisan budaya, dan cerita bersejarah dari masa lalu</p>
-          <a class="play" href="https://cerita-malaysiaku.blogspot.com" target="_blank">📖 Baca Selengkapnya</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="thumb"><div class="emoji">😄</div></div>
-        <div class="card-body">
-          <h4>Humor & Santai</h4>
-          <p>Cerita lucu, lelucon, dan cerita santai untuk menghibur hari Anda</p>
-          <a class="play" href="https://cerita-malaysiaku.blogspot.com" target="_blank">📖 Baca Selengkapnya</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="thumb"><div class="emoji">💡</div></div>
-        <div class="card-body">
-          <h4>Tips & Panduan</h4>
-          <p>Panduan praktis, tips rumah tangga, dan saran berguna untuk kehidupan sehari-hari</p>
-          <a class="play" href="https://cerita-malaysiaku.blogspot.com" target="_blank">📖 Baca Selengkapnya</a>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="thumb"><div class="emoji">🎥</div></div>
-        <div class="card-body">
-          <h4>Channel YouTube</h4>
-          <p>Video terbaru, dokumenter, dan konten eksklusif di channel YouTube kami</p>
-          <a class="play" href="https://www.youtube.com/@yunuschannel86" target="_blank">📺 Tonton Sekarang</a>
+    <!-- Slide 2 -->
+    <div class="carousel-slide">
+      <div class="carousel-content">
+        <span class="carousel-badge">CERITA MALAYSIA</span>
+        <h3 class="carousel-title">Cerita Hikayat Melayu</h3>
+        <p class="carousel-meta">Sejarah & Budaya · Artikel Mendalam</p>
+        <p class="carousel-desc">Jelajahi warisan budaya Melayu yang kaya dengan kisah-kisah bersejarah dan nilai-nilai tradisional yang masih relevan hari ini.</p>
+        <span class="carousel-tag">📖 BLOG</span>
+        <div class="carousel-buttons">
+          <button class="btn btn-primary">📖 Baca Artikel</button>
+          <button class="btn btn-secondary">💬 Bincang</button>
         </div>
       </div>
     </div>
-    <p class="plan-note">Semua konten dari cerita-malaysiaku.blogspot.com dan @yunuschannel86 — cerita otentik dan berkualiti tinggi!</p>
-  </section>
-
-  <!-- ============ HARGA ============ -->
-  <section id="langganan" style="margin-top:40px">
-    <div class="section-title">💰 Pilih Pelan Anda</div>
-    <div class="pricing">
-      <div class="plan">
-        <h4>Percuma</h4>
-        <div class="price">RM0</div>
-        <ul>
-          <li>6 filem klasik</li>
-          <li>Akses blog & cerita</li>
-          <li>Dengan iklan</li>
-          <li>Tiada komitmen</li>
-        </ul>
-        <button class="btn">Terus Menonton</button>
-      </div>
-      <div class="plan featured">
-        <h4>Premium</h4>
-        <div class="price">RM4.90<span style="font-size:14px">/bln</span></div>
-        <ul>
-          <li>Semua filem & cerita</li>
-          <li>Tanpa iklan</li>
-          <li>Akses eksklusif</li>
-          <li>HD streaming</li>
-        </ul>
-        <button class="btn gold">🎬 Langganan Sekarang</button>
-      </div>
-      <div class="plan">
-        <h4>Keluarga</h4>
-        <div class="price">RM7.90<span style="font-size:14px">/bln</span></div>
-        <ul>
-          <li>Semua filem & cerita</li>
-          <li>4 akaun pengguna</li>
-          <li>Tonton secara bersamaan</li>
-          <li>Sokongan keutamaan</li>
-        </ul>
-        <button class="btn gold">👨‍👩‍👧‍👦 Langganan Keluarga</button>
+    
+    <!-- Slide 3 -->
+    <div class="carousel-slide">
+      <div class="carousel-content">
+        <span class="carousel-badge">EKSKLUSIF PREMIUM</span>
+        <h3 class="carousel-title">Koleksi Lengkap</h3>
+        <p class="carousel-meta">Dengan Langganan Premium · Dari RM4.90/Bulan</p>
+        <p class="carousel-desc">Akses unlimited ke semua filem, series TV, dan artikel eksklusif. Streaming tanpa ads, kualiti HD, dan lebih banyak lagi.</p>
+        <span class="carousel-tag">💎 PREMIUM</span>
+        <div class="carousel-buttons">
+          <button class="btn btn-primary">💳 Berlangganan Sekarang</button>
+          <button class="btn btn-secondary">🎁 Uji Coba Percuma</button>
+        </div>
       </div>
     </div>
-  </section>
-
-  <!-- ============ SOCIAL LINKS ============ -->
-  <section style="margin-top:40px; text-align:center;">
-    <div class="section-title">🤝 Ikuti Kami</div>
-    <p style="color:#9fb2c5; margin-bottom:20px;">Hubungi kami di media sosial untuk update terbaru dan konten eksklusif</p>
-    <div class="social-links">
-      <a href="https://www.youtube.com/@yunuschannel86" target="_blank">📺 YouTube Channel</a>
-      <a href="https://cerita-malaysiaku.blogspot.com" target="_blank">📖 Blog Cerita</a>
-      <a href="https://www.facebook.com/share/1EK9tkYq2s/" target="_blank">👍 Facebook</a>
+    
+    <!-- Carousel Controls -->
+    <div class="carousel-controls">
+      <div class="carousel-dot active" onclick="changeSlide(0)"></div>
+      <div class="carousel-dot" onclick="changeSlide(1)"></div>
+      <div class="carousel-dot" onclick="changeSlide(2)"></div>
     </div>
-  </section>
-</main>
+  </div>
+</section>
 
-<div class="legal">
-  <strong>Notis Kandungan Sah:</strong> Platform ini menyiarkan kandungan public domain, creative commons, dan konten original dari penulis. Semua filem klasik adalah bebas royalti. Kami menghormati hak cipta — semua konten dipilih dengan cermat untuk memastikan kesahan dan legalitas. Jangan siar semula filem/rancangan orang lain tanpa izin — ia menyalahi Akta Hak Cipta 1987 dan boleh membawa denda hingga RM250,000 atau penjara hingga 5 tahun.
-</div>
+<!-- ============ FILEM POPULER ============ -->
+<section class="featured-section">
+  <h2 class="section-title">🎬 FILEM POPULER</h2>
+  <p class="section-subtitle">Pilihan terbaik dari koleksi kami</p>
+  
+  <div class="grid">
+    <!-- Filem 1 -->
+    <div class="card">
+      <div class="card-thumb">
+        <span class="card-badge badge-free">PERCUMA</span>
+        <div class="card-lock">
+          <div class="card-lock-icon">▶</div>
+        </div>
+        <div class="card-thumb-content">
+          <span class="card-thumb-emoji">🎪</span>
+          <p class="card-thumb-title">The Gold Rush</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <h4 class="card-title">The Gold Rush</h4>
+        <p class="card-meta">1925 · Charlie Chaplin</p>
+        <div class="card-rating">
+          <span class="star">★★★★★</span>
+        </div>
+        <a href="#" class="card-cta">TONTON →</a>
+      </div>
+    </div>
+    
+    <!-- Filem 2 -->
+    <div class="card">
+      <div class="card-thumb">
+        <span class="card-badge badge-free">PERCUMA</span>
+        <div class="card-lock">
+          <div class="card-lock-icon">▶</div>
+        </div>
+        <div class="card-thumb-content">
+          <span class="card-thumb-emoji">🚂</span>
+          <p class="card-thumb-title">The General</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <h4 class="card-title">The General</h4>
+        <p class="card-meta">1926 · Buster Keaton</p>
+        <div class="card-rating">
+          <span class="star">★★★★★</span>
+        </div>
+        <a href="#" class="card-cta">TONTON →</a>
+      </div>
+    </div>
+    
+    <!-- Filem 3 -->
+    <div class="card">
+      <div class="card-thumb">
+        <span class="card-badge badge-premium">PREMIUM</span>
+        <div class="card-lock">
+          <div class="card-lock-icon">🔒</div>
+        </div>
+        <div class="card-thumb-content">
+          <span class="card-thumb-emoji">🧛</span>
+          <p class="card-thumb-title">Nosferatu</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <h4 class="card-title">Nosferatu</h4>
+        <p class="card-meta">1922 · F.W. Murnau</p>
+        <div class="card-rating">
+          <span class="star">★★★★★</span>
+        </div>
+        <a href="#" class="card-cta">LANGGANAN →</a>
+      </div>
+    </div>
+    
+    <!-- Filem 4 -->
+    <div class="card">
+      <div class="card-thumb">
+        <span class="card-badge badge-free">PERCUMA</span>
+        <div class="card-lock">
+          <div class="card-lock-icon">▶</div>
+        </div>
+        <div class="card-thumb-content">
+          <span class="card-thumb-emoji">🏙️</span>
+          <p class="card-thumb-title">City Lights</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <h4 class="card-title">City Lights</h4>
+        <p class="card-meta">1931 · Charlie Chaplin</p>
+        <div class="card-rating">
+          <span class="star">★★★★★</span>
+        </div>
+        <a href="#" class="card-cta">TONTON →</a>
+      </div>
+    </div>
+    
+    <!-- Filem 5 -->
+    <div class="card">
+      <div class="card-thumb">
+        <span class="card-badge badge-free">PERCUMA</span>
+        <div class="card-lock">
+          <div class="card-lock-icon">▶</div>
+        </div>
+        <div class="card-thumb-content">
+          <span class="card-thumb-emoji">🚢</span>
+          <p class="card-thumb-title">Steamboat Bill Jr.</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <h4 class="card-title">Steamboat Bill Jr.</h4>
+        <p class="card-meta">1928 · Buster Keaton</p>
+        <div class="card-rating">
+          <span class="star">★★★★★</span>
+        </div>
+        <a href="#" class="card-cta">TONTON →</a>
+      </div>
+    </div>
+    
+    <!-- Filem 6 -->
+    <div class="card">
+      <div class="card-thumb">
+        <span class="card-badge badge-premium">PREMIUM</span>
+        <div class="card-lock">
+          <div class="card-lock-icon">🔒</div>
+        </div>
+        <div class="card-thumb-content">
+          <span class="card-thumb-emoji">🚢⚓</span>
+          <p class="card-thumb-title">Battleship Potemkin</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <h4 class="card-title">Battleship Potemkin</h4>
+        <p class="card-meta">1925 · Sergei Eisenstein</p>
+        <div class="card-rating">
+          <span class="star">★★★★★</span>
+        </div>
+        <a href="#" class="card-cta">LANGGANAN →</a>
+      </div>
+    </div>
+  </div>
+</section>
 
-<footer>© CinemaKlasik 2024 — Platform Filem Klasik & Cerita Malaysia. Koleksi Dunia, Cerita Lokal, Hiburan Berkualiti. Dibina dengan ❤ untuk rakyat Malaysia.</footer>
+<!-- ============ TV SERIES ============ -->
+<section class="featured-section">
+  <h2 class="section-title">📺 SERIAL TV TERBAIK</h2>
+  <p class="section-subtitle">Binge-watch series yang paling seru</p>
+  
+  <div class="grid">
+    <div class="card">
+      <div class="card-thumb">
+        <span class="card-badge badge-premium">PREMIUM</span>
+        <div class="card-lock">
+          <div class="card-lock-icon">🔒</div>
+        </div>
+        <div class="card-thumb-content">
+          <span class="card-thumb-emoji">👑</span>
+          <p class="card-thumb-title">The Crown</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <h4 class="card-title">The Crown</h4>
+        <p class="card-meta">Drama Biografi · 5 Musim</p>
+        <div class="card-rating">
+          <span class="star">★★★★★</span>
+        </div>
+        <a href="#" class="card-cta">LANGGANAN →</a>
+      </div>
+    </div>
+    
+    <div class="card">
+      <div class="card-thumb">
+        <span class="card-badge badge-premium">PREMIUM</span>
+        <div class="card-lock">
+          <div class="card-lock-icon">🔒</div>
+        </div>
+        <div class="card-thumb-content">
+          <span class="card-thumb-emoji">🧠</span>
+          <p class="card-thumb-title">Breaking Bad</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <h4 class="card-title">Breaking Bad</h4>
+        <p class="card-meta">Drama Thriller · 5 Musim</p>
+        <div class="card-rating">
+          <span class="star">★★★★★</span>
+        </div>
+        <a href="#" class="card-cta">LANGGANAN →</a>
+      </div>
+    </div>
+    
+    <div class="card">
+      <div class="card-thumb">
+        <span class="card-badge badge-premium">PREMIUM</span>
+        <div class="card-lock">
+          <div class="card-lock-icon">🔒</div>
+        </div>
+        <div class="card-thumb-content">
+          <span class="card-thumb-emoji">🐉</span>
+          <p class="card-thumb-title">Game of Thrones</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <h4 class="card-title">Game of Thrones</h4>
+        <p class="card-meta">Fantasy Drama · 8 Musim</p>
+        <div class="card-rating">
+          <span class="star">★★★★★</span>
+        </div>
+        <a href="#" class="card-cta">LANGGANAN →</a>
+      </div>
+    </div>
+    
+    <div class="card">
+      <div class="card-thumb">
+        <span class="card-badge badge-premium">PREMIUM</span>
+        <div class="card-lock">
+          <div class="card-lock-icon">🔒</div>
+        </div>
+        <div class="card-thumb-content">
+          <span class="card-thumb-emoji">💼</span>
+          <p class="card-thumb-title">Succession</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <h4 class="card-title">Succession</h4>
+        <p class="card-meta">Drama Korporat · 4 Musim</p>
+        <div class="card-rating">
+          <span class="star">★★★★★</span>
+        </div>
+        <a href="#" class="card-cta">LANGGANAN →</a>
+      </div>
+    </div>
+    
+    <div class="card">
+      <div class="card-thumb">
+        <span class="card-badge badge-premium">PREMIUM</span>
+        <div class="card-lock">
+          <div class="card-lock-icon">🔒</div>
+        </div>
+        <div class="card-thumb-content">
+          <span class="card-thumb-emoji">🎭</span>
+          <p class="card-thumb-title">The Office</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <h4 class="card-title">The Office</h4>
+        <p class="card-meta">Komedi · 9 Musim</p>
+        <div class="card-rating">
+          <span class="star">★★★★★</span>
+        </div>
+        <a href="#" class="card-cta">LANGGANAN →</a>
+      </div>
+    </div>
+    
+    <div class="card">
+      <div class="card-thumb">
+        <span class="card-badge badge-coming">SEGERA HADIR</span>
+        <div class="card-lock">
+          <div class="card-lock-icon">⏰</div>
+        </div>
+        <div class="card-thumb-content">
+          <span class="card-thumb-emoji">🔮</span>
+          <p class="card-thumb-title">Series Eksklusif</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <h4 class="card-title">Series Terbaru</h4>
+        <p class="card-meta">Coming Soon 2024</p>
+        <div class="card-rating">
+          <span class="star">★★★★★</span>
+        </div>
+        <a href="#" class="card-cta">NOTIS →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRICING ============ -->
+<section class="pricing-section">
+  <div style="max-width:800px; margin:0 auto; text-align:center; margin-bottom:40px;">
+    <h2 class="section-title">💎 PILIH PELAN ANDA</h2>
+    <p class="section-subtitle">Streaming tanpa batas untuk semua</p>
+    <p style="color:#a0b2c8; font-size:15px;">Nikmati akses unlimited ke semua konten kami dengan harga yang terjangkau</p>
+  </div>
+  
+  <div class="pricing-grid">
+    <!-- Free Plan -->
+    <div class="pricing-card">
+      <h3 class="pricing-title">Percuma</h3>
+      <div class="pricing-price">RM0<span style="font-size:18px; color:#7a8ba0;">/bulan</span></div>
+      <p class="pricing-period">Tanpa komitmen</p>
+      
+      <ul class="pricing-features">
+        <li>6 filem klasik</li>
+        <li>Tayangan preview</li>
+        <li>Dengan iklan</li>
+        <li>Standard quality</li>
+        <li>1 perangkat</li>
+      </ul>
+      
+      <button class="pricing-button secondary">Mulai Percuma</button>
+    </div>
+    
+    <!-- Premium Plan -->
+    <div class="pricing-card featured">
+      <span class="pricing-badge">PALING POPULAR</span>
+      <h3 class="pricing-title">Premium</h3>
+      <div class="pricing-price">RM4.90<span style="font-size:18px; color:#7a8ba0;">/bulan</span></div>
+      <p class="pricing-period">Batal kapan saja</p>
+      
+      <ul class="pricing-features">
+        <li>✓ Semua filem & TV series</li>
+        <li>✓ Tanpa iklan</li>
+        <li>✓ HD streaming</li>
+        <li>✓ Tonton di mana saja</li>
+        <li>✓ Konten eksklusif</li>
+      </ul>
+      
+      <button class="pricing-button primary">Berlangganan Sekarang</button>
+    </div>
+    
+    <!-- Family Plan -->
+    <div class="pricing-card">
+      <h3 class="pricing-title">Keluarga</h3>
+      <div class="pricing-price">RM7.90<span style="font-size:18px; color:#7a8ba0;">/bulan</span></div>
+      <p class="pricing-period">Untuk 4 orang</p>
+      
+      <ul class="pricing-features">
+        <li>Semua filem & TV series</li>
+        <li>Tanpa iklan</li>
+        <li>4 profil pengguna</li>
+        <li>Tonton secara bersamaan</li>
+        <li>Dukungan prioritas</li>
+      </ul>
+      
+      <button class="pricing-button primary">Berlangganan Keluarga</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="footer-content">
+    <div class="footer-section">
+      <h4>Platform</h4>
+      <p>CinemaKlasik adalah platform streaming premium yang menyediakan filem klasik dunia dan cerita menarik dari Malaysia dengan kualiti terbaik.</p>
+      <div class="footer-social">
+        <a href="https://www.youtube.com/@yunuschannel86" target="_blank">📺</a>
+        <a href="https://cerita-malaysiaku.blogspot.com" target="_blank">📖</a>
+        <a href="https://www.facebook.com/share/1EK9tkYq2s/" target="_blank">👍</a>
+      </div>
+    </div>
+    
+    <div class="footer-section">
+      <h4>Navigasi</h4>
+      <a href="#beranda">Beranda</a>
+      <a href="#filem">Filem</a>
+      <a href="#tv">Serial TV</a>
+      <a href="#pricing">Harga</a>
+    </div>
+    
+    <div class="footer-section">
+      <h4>Bantuan</h4>
+      <a href="#faq">Soalan Lazim</a>
+      <a href="#hubungi">Hubungi Kami</a>
+      <a href="#syarat">Syarat & Terma</a>
+      <a href="#privasi">Dasar Privasi</a>
+    </div>
+    
+    <div class="footer-section">
+      <h4>Komuniti</h4>
+      <a href="https://cerita-malaysiaku.blogspot.com" target="_blank">Blog Cerita</a>
+      <a href="https://www.youtube.com/@yunuschannel86" target="_blank">Channel YouTube</a>
+      <a href="https://www.facebook.com/share/1EK9tkYq2s/" target="_blank">Media Sosial</a>
+    </div>
+  </div>
+  
+  <div class="footer-bottom">
+    <p>© 2024 CinemaKlasik Premium. Semua hak terpelihara. | Platform Streaming Berkualiti untuk Rakyat Malaysia 🇲🇾</p>
+    <p style="margin-top:12px; font-size:11px;">Dibina dengan ❤️ untuk pengalaman menonton yang terbaik.</p>
+  </div>
+</footer>
+
+<script>
+  // Carousel functionality
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.carousel-slide');
+  const dots = document.querySelectorAll('.carousel-dot');
+  
+  function changeSlide(n) {
+    slides.forEach(slide => slide.classList.remove('active'));
+    dots.forEach(dot => dot.classList.remove('active'));
+    
+    slides[n].classList.add('active');
+    dots[n].classList.add('active');
+    currentSlide = n;
+  }
+  
+  // Auto-rotate carousel
+  setInterval(() => {
+    currentSlide = (currentSlide + 1) % slides.length;
+    changeSlide(currentSlide);
+  }, 6000);
+  
+  // Smooth scroll for navigation
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+</script>
 
 </body>
 </html>
