@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>CinemaKlasik — Tonton Filem Percuma</title>
+<title>CinemaKlasik — Filem & Cerita Percuma</title>
 
 <!-- ============================================================
-     LAMAN OTT SAH (AVOD / SVOD)
+     PLATFORM HIBURAN & CERITA MALAYSIA
      ============================================================ -->
 
 <style>
@@ -36,7 +36,6 @@
 
   main { max-width:1140px; margin:0 auto; padding:10px 20px 120px; }
 
-  /* Sponsor banner slot */
   .sponsor { display:flex; align-items:center; gap:14px; background:#0f1722; border:1px solid #1e2a38;
     border-radius:12px; padding:14px 16px; margin-bottom:30px; flex-wrap:wrap; }
   .sponsor .tag { font-size:11px; font-weight:700; letter-spacing:.5px; color:#8fa3b8; text-transform:uppercase; }
@@ -44,22 +43,21 @@
 
   .section-title { font-size:18px; font-weight:700; margin:6px 0 16px; }
 
-  /* Content grid */
   .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:16px; }
   .card { background:#10161f; border:1px solid #1e2a38; border-radius:14px; overflow:hidden; transition:.15s; }
   .card:hover { transform:translateY(-3px); border-color:#2c4257; box-shadow:0 14px 30px rgba(0,0,0,.4); }
-  .thumb { aspect-ratio:16/9; background:linear-gradient(135deg,#1a2635,#0d141d); position:relative; }
+  .thumb { aspect-ratio:16/9; background:linear-gradient(135deg,#1a2635,#0d141d); position:relative; display:flex;align-items:center;justify-content:center; }
   .thumb img { width:100%; height:100%; object-fit:cover; display:block; }
   .thumb .tag { position:absolute; top:8px; left:8px; background:rgba(0,0,0,.7); color:#fff; font-size:11px;
     padding:3px 8px; border-radius:6px; }
   .thumb .free { background:#12a44c; }
+  .thumb .emoji { font-size:48px; }
   .card-body { padding:12px 14px 14px; }
   .card-body h4 { font-size:14.5px; margin-bottom:4px; }
   .card-body p { font-size:12.5px; color:#8fa3b8; }
   .play { display:inline-block; margin-top:10px; font-size:13px; font-weight:700; color:#4da3ff; }
   .play:hover{text-decoration:underline;}
 
-  /* Pricing */
   .pricing { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:16px; margin-top:16px; }
   .plan { background:#10161f; border:1px solid #1e2a38; border-radius:16px; padding:24px; text-align:center; }
   .plan.featured { border-color:#f5a623; box-shadow:0 0 0 1px #f5a623 inset; }
@@ -71,13 +69,17 @@
 
   footer { border-top:1px solid #1e2a38; padding:20px; text-align:center; color:#7d8ea1; font-size:13px; }
   .legal { max-width:900px; margin:0 auto; padding:20px; font-size:12.5px; color:#8fa3b8; }
+  
+  .social-links { display:flex; gap:12px; margin:20px 0; flex-wrap:wrap; justify-content:center; }
+  .social-links a { padding:10px 16px; background:#17212d; border:1px solid #2a3a4d; border-radius:8px; display:inline-flex; align-items:center; gap:6px; }
+  .social-links a:hover { background:#22303f; border-color:#3a4a5d; }
 </style>
 </head>
 <body>
 
 <header>
   <div class="logo">🎬</div>
-  <div class="brand"><h1>CinemaKlasik</h1><p>Filem Terbaik Zaman Dulu — Percuma & Sah</p></div>
+  <div class="brand"><h1>CinemaKlasik</h1><p>Filem Klasik & Cerita Malaysia — Percuma & Sah</p></div>
   <nav class="nav">
     <a class="btn" href="#kandungan">📚 Koleksi</a>
     <a class="btn" href="#langganan">💎 Langganan</a>
@@ -87,26 +89,25 @@
 
 <main>
   <section class="hero">
-    <span class="badge">✨ Filem Klasik 1920-1960 — 100% Sah & Percuma</span>
-    <h2>Sinema Klasik Dunia</h2>
-    <p>Koleksi filem paling bersejarah daripada era silent film hingga cinemascope awal. Dari Charlie Chaplin, Buster Keaton, hingga dokumentari jarang didapati — semua percuma tanpa iklan mengganggu.</p>
+    <span class="badge">✨ Filem Klasik + Cerita Malaysia — 100% Sah & Percuma</span>
+    <h2>Hiburan Tanpa Batas</h2>
+    <p>Koleksi filem paling bersejarah dunia + cerita menarik dari Malaysia. Streaming berkualiti tanpa iklan mengganggu — pilih plan anda sekarang!</p>
     <a href="#kandungan" class="btn primary">▶ Mulai Menonton Sekarang</a>
   </section>
 
-  <!-- Slot penaja (iklan/sponsor) — boleh dijual kepada perniagaan -->
+  <!-- Sponsor banner -->
   <div class="sponsor">
     <div>
       <div class="tag">Slot Penaja Utama</div>
-      <strong>Promosi brand anda kepada penggemar filem klasik — hubungi untuk sewa slot.</strong>
+      <strong>Promosi brand anda kepada penggemar hiburan — hubungi untuk sewa slot.</strong>
     </div>
     <a class="btn gold" href="#">Iklan / Penaja →</a>
   </div>
 
-  <!-- ============ GRID KANDUNGAN ============ -->
+  <!-- ============ FILEM KLASIK ============ -->
   <section id="kandungan">
-    <div class="section-title">🎞️ Filem Terkini</div>
+    <div class="section-title">🎞️ Filem Klasik Dunia</div>
     <div class="grid">
-      <!-- Filem 1: Charlie Chaplin - The Gold Rush -->
       <div class="card">
         <div class="thumb"><div class="tag free">PERCUMA</div></div>
         <div class="card-body">
@@ -116,7 +117,6 @@
         </div>
       </div>
       
-      <!-- Filem 2: Buster Keaton - The General -->
       <div class="card">
         <div class="thumb"><div class="tag free">PERCUMA</div></div>
         <div class="card-body">
@@ -126,7 +126,6 @@
         </div>
       </div>
       
-      <!-- Filem 3: Nosferatu - Horror Klasik -->
       <div class="card">
         <div class="thumb"><div class="tag">PREMIUM</div></div>
         <div class="card-body">
@@ -136,7 +135,6 @@
         </div>
       </div>
 
-      <!-- Filem 4: City Lights -->
       <div class="card">
         <div class="thumb"><div class="tag free">PERCUMA</div></div>
         <div class="card-body">
@@ -146,7 +144,6 @@
         </div>
       </div>
 
-      <!-- Filem 5: Steamboat Bill -->
       <div class="card">
         <div class="thumb"><div class="tag free">PERCUMA</div></div>
         <div class="card-body">
@@ -156,7 +153,6 @@
         </div>
       </div>
 
-      <!-- Filem 6: Battleship Potemkin -->
       <div class="card">
         <div class="thumb"><div class="tag">PREMIUM</div></div>
         <div class="card-body">
@@ -166,7 +162,70 @@
         </div>
       </div>
     </div>
-    <p class="plan-note">Semua filem adalah public domain dan sah untuk ditonton. Sumber: Internet Archive. Nikmati filem klasik tanpa iklan mengganggu!</p>
+    <p class="plan-note">Semua filem adalah public domain dan sah untuk ditonton. Sumber: Internet Archive.</p>
+  </section>
+
+  <!-- ============ CERITA MALAYSIA ============ -->
+  <section style="margin-top:40px">
+    <div class="section-title">📖 Cerita & Artikel Malaysia</div>
+    <p style="color:#9fb2c5; margin-bottom:20px;">Koleksi cerita menarik, artikel informatif, dan tips berguna tentang Malaysia dan budaya Melayu.</p>
+    
+    <div class="grid">
+      <div class="card">
+        <div class="thumb"><div class="emoji">💄</div></div>
+        <div class="card-body">
+          <h4>Kecantikan & Kesihatan</h4>
+          <p>Tips perawatan kulit, produk kecantikan, dan panduan kesihatan untuk Anda</p>
+          <a class="play" href="https://cerita-malaysiaku.blogspot.com" target="_blank">📖 Baca Selengkapnya</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumb"><div class="emoji">🇲🇾</div></div>
+        <div class="card-body">
+          <h4>Isu Semasa Malaysia</h4>
+          <p>Berita terkini, isu semasa, dan perbincangan tentang negara kita</p>
+          <a class="play" href="https://cerita-malaysiaku.blogspot.com" target="_blank">📖 Baca Selengkapnya</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumb"><div class="emoji">📚</div></div>
+        <div class="card-body">
+          <h4>Sejarah & Budaya</h4>
+          <p>Kisah hikayat Melayu, warisan budaya, dan cerita bersejarah dari masa lalu</p>
+          <a class="play" href="https://cerita-malaysiaku.blogspot.com" target="_blank">📖 Baca Selengkapnya</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumb"><div class="emoji">😄</div></div>
+        <div class="card-body">
+          <h4>Humor & Santai</h4>
+          <p>Cerita lucu, lelucon, dan cerita santai untuk menghibur hari Anda</p>
+          <a class="play" href="https://cerita-malaysiaku.blogspot.com" target="_blank">📖 Baca Selengkapnya</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumb"><div class="emoji">💡</div></div>
+        <div class="card-body">
+          <h4>Tips & Panduan</h4>
+          <p>Panduan praktis, tips rumah tangga, dan saran berguna untuk kehidupan sehari-hari</p>
+          <a class="play" href="https://cerita-malaysiaku.blogspot.com" target="_blank">📖 Baca Selengkapnya</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="thumb"><div class="emoji">🎥</div></div>
+        <div class="card-body">
+          <h4>Channel YouTube</h4>
+          <p>Video terbaru, dokumenter, dan konten eksklusif di channel YouTube kami</p>
+          <a class="play" href="https://www.youtube.com/@yunuschannel86" target="_blank">📺 Tonton Sekarang</a>
+        </div>
+      </div>
+    </div>
+    <p class="plan-note">Semua konten dari cerita-malaysiaku.blogspot.com dan @yunuschannel86 — cerita otentik dan berkualiti tinggi!</p>
   </section>
 
   <!-- ============ HARGA ============ -->
@@ -177,9 +236,9 @@
         <h4>Percuma</h4>
         <div class="price">RM0</div>
         <ul>
-          <li>50+ filem klasik</li>
-          <li>Akses penuh percuma</li>
-          <li>Streaming berkualiti</li>
+          <li>6 filem klasik</li>
+          <li>Akses blog & cerita</li>
+          <li>Dengan iklan</li>
           <li>Tiada komitmen</li>
         </ul>
         <button class="btn">Terus Menonton</button>
@@ -188,10 +247,10 @@
         <h4>Premium</h4>
         <div class="price">RM4.90<span style="font-size:14px">/bln</span></div>
         <ul>
-          <li>100+ filem eksklusif</li>
+          <li>Semua filem & cerita</li>
           <li>Tanpa iklan</li>
-          <li>Tonton luar talian</li>
-          <li>Kualiti HD+ 4K</li>
+          <li>Akses eksklusif</li>
+          <li>HD streaming</li>
         </ul>
         <button class="btn gold">🎬 Langganan Sekarang</button>
       </div>
@@ -199,7 +258,7 @@
         <h4>Keluarga</h4>
         <div class="price">RM7.90<span style="font-size:14px">/bln</span></div>
         <ul>
-          <li>Semua filem tersedia</li>
+          <li>Semua filem & cerita</li>
           <li>4 akaun pengguna</li>
           <li>Tonton secara bersamaan</li>
           <li>Sokongan keutamaan</li>
@@ -208,13 +267,24 @@
       </div>
     </div>
   </section>
+
+  <!-- ============ SOCIAL LINKS ============ -->
+  <section style="margin-top:40px; text-align:center;">
+    <div class="section-title">🤝 Ikuti Kami</div>
+    <p style="color:#9fb2c5; margin-bottom:20px;">Hubungi kami di media sosial untuk update terbaru dan konten eksklusif</p>
+    <div class="social-links">
+      <a href="https://www.youtube.com/@yunuschannel86" target="_blank">📺 YouTube Channel</a>
+      <a href="https://cerita-malaysiaku.blogspot.com" target="_blank">📖 Blog Cerita</a>
+      <a href="https://www.facebook.com/share/1EK9tkYq2s/" target="_blank">👍 Facebook</a>
+    </div>
+  </section>
 </main>
 
 <div class="legal">
-  <strong>Notis Kandungan Sah:</strong> Laman ini menyiarkan kandungan public domain dan Creative Commons yang 100% sah. Semua filem dalam koleksi CinemaKlasik adalah bebas royalti dan boleh ditonton percuma. Kami tidak menyiarkan filem berlepasan atau filem berproteksian hak cipta. Jangan siar semula filem/rancangan orang lain tanpa izin — ia menyalahi Akta Hak Cipta 1987 dan boleh membawa denda hingga RM250,000 atau penjara hingga 5 tahun.
+  <strong>Notis Kandungan Sah:</strong> Platform ini menyiarkan kandungan public domain, creative commons, dan konten original dari penulis. Semua filem klasik adalah bebas royalti. Kami menghormati hak cipta — semua konten dipilih dengan cermat untuk memastikan kesahan dan legalitas. Jangan siar semula filem/rancangan orang lain tanpa izin — ia menyalahi Akta Hak Cipta 1987 dan boleh membawa denda hingga RM250,000 atau penjara hingga 5 tahun.
 </div>
 
-<footer>© CinemaKlasik 2024 — Platform Filem Klasik Percuma. Koleksi Dunia, Cerita Kekal. Dibina dengan ❤.</footer>
+<footer>© CinemaKlasik 2024 — Platform Filem Klasik & Cerita Malaysia. Koleksi Dunia, Cerita Lokal, Hiburan Berkualiti. Dibina dengan ❤ untuk rakyat Malaysia.</footer>
 
 </body>
 </html>
