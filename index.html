@@ -4,6 +4,11 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>CinemaKlasik Premium — Streaming Platform Malaysia</title>
+<meta name="description" content="CinemaKlasik Premium — platform streaming filem klasik dunia dan serial TV. Tonton di web atau muat turun aplikasi Android." />
+<meta name="theme-color" content="#0a0e27" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="icon" type="image/png" href="favicon-32.png" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
 
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -30,7 +35,7 @@
   .nav { margin-left:auto; display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
   .nav-btn { padding:10px 16px; border-radius:8px; font-size:13px; font-weight:600; border:1px solid #1a2847; color:#e8edf3; background:rgba(26,40,71,.6); transition:.2s; cursor:pointer; backdrop-filter:blur(10px); }
   .nav-btn:hover { background:rgba(26,40,71,.9); border-color:#2a5a8a; }
-  .nav-btn.premium { background:linear-gradient(135deg,#ff6b35,#004e89); border:none; color:#fff; box-shadow:0 8px 20px rgba(255,107,53,.3); }
+  .nav-btn.premium { background:linear-gradient(135deg,#ff6b35,#004e89); border:none; color:#0a0e27; box-shadow:0 8px 20px rgba(255,107,53,.3); }
   .nav-btn.premium:hover { box-shadow:0 12px 30px rgba(255,107,53,.5); transform:translateY(-2px); }
   
   /* ============ HERO ============ */
@@ -50,7 +55,7 @@
   
   .hero-buttons { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
   .btn { padding:14px 32px; border-radius:10px; font-size:15px; font-weight:700; border:none; cursor:pointer; transition:.3s; text-transform:uppercase; letter-spacing:.5px; }
-  .btn-primary { background:linear-gradient(135deg,#ff6b35 0%,#ff5722 100%); color:#fff; box-shadow:0 12px 30px rgba(255,107,53,.4); }
+  .btn-primary { background:linear-gradient(135deg,#ff6b35 0%,#ff5722 100%); color:#0a0e27; box-shadow:0 12px 30px rgba(255,107,53,.4); }
   .btn-primary:hover { transform:translateY(-3px); box-shadow:0 16px 40px rgba(255,107,53,.6); }
   .btn-secondary { background:rgba(255,255,255,.1); color:#00d4ff; border:2px solid #00d4ff; }
   .btn-secondary:hover { background:rgba(0,212,255,.1); }
@@ -90,7 +95,7 @@
   .carousel-title { font-size:48px; font-weight:900; margin-bottom:12px; color:#fff; line-height:1.2; }
   .carousel-meta { font-size:14px; color:#a0b2c8; margin-bottom:20px; }
   .carousel-desc { font-size:16px; color:#b0c2d8; margin-bottom:24px; line-height:1.6; }
-  .carousel-tag { display:inline-block; background:linear-gradient(135deg,#ff6b35,#ff5722); color:#fff; padding:8px 16px; border-radius:6px; font-size:12px; font-weight:700; margin-right:12px; }
+  .carousel-tag { display:inline-block; background:linear-gradient(135deg,#ff6b35,#ff5722); color:#0a0e27; padding:8px 16px; border-radius:6px; font-size:12px; font-weight:700; margin-right:12px; }
   
   .carousel-buttons { display:flex; gap:12px; margin-top:28px; }
   .carousel-buttons .btn { padding:12px 28px; font-size:14px; }
@@ -150,9 +155,9 @@
     text-transform:uppercase; letter-spacing:.5px;
   }
   
-  .badge-free { background:#12a44c; color:#fff; }
-  .badge-premium { background:linear-gradient(135deg,#ff6b35,#ff5722); color:#fff; }
-  .badge-coming { background:rgba(122,139,160,.3); color:#7a8ba0; }
+  .badge-free { background:#0e7d38; color:#fff; }
+  .badge-premium { background:linear-gradient(135deg,#ff6b35,#ff5722); color:#0a0e27; }
+  .badge-coming { background:rgba(122,139,160,.3); color:#b0c2d8; }
   
   .card-lock {
     position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
@@ -169,7 +174,7 @@
   }
   
   .card-title { font-size:15px; font-weight:800; margin-bottom:6px; color:#fff; }
-  .card-meta { font-size:12px; color:#7a8ba0; margin-bottom:12px; }
+  .card-meta { font-size:12px; color:#93a5ba; margin-bottom:12px; }
   .card-rating {
     display:flex; gap:4px; margin-bottom:12px;
   }
@@ -202,7 +207,7 @@
     transform:scale(1.05);
   }
   
-  .pricing-badge { display:inline-block; background:#ff6b35; color:#fff; padding:6px 12px; border-radius:6px; font-size:11px; font-weight:700; margin-bottom:16px; }
+  .pricing-badge { display:inline-block; background:#ff6b35; color:#0a0e27; padding:6px 12px; border-radius:6px; font-size:11px; font-weight:700; margin-bottom:16px; }
   
   .pricing-title { font-size:22px; font-weight:900; margin-bottom:12px; }
   .pricing-price { font-size:42px; font-weight:900; margin-bottom:8px; background:linear-gradient(135deg,#00d4ff,#00ffff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
@@ -213,7 +218,7 @@
   .pricing-features li::before { content:'✓'; color:#00d4ff; margin-right:10px; font-weight:900; }
   
   .pricing-button { width:100%; padding:14px; border-radius:10px; border:none; font-size:14px; font-weight:700; cursor:pointer; margin-top:24px; text-transform:uppercase; letter-spacing:.5px; transition:.3s; }
-  .pricing-button.primary { background:linear-gradient(135deg,#ff6b35,#ff5722); color:#fff; }
+  .pricing-button.primary { background:linear-gradient(135deg,#ff6b35,#ff5722); color:#0a0e27; }
   .pricing-button.primary:hover { box-shadow:0 12px 30px rgba(255,107,53,.4); transform:translateY(-2px); }
   .pricing-button.secondary { background:rgba(0,212,255,.1); color:#00d4ff; border:2px solid #00d4ff; }
   .pricing-button.secondary:hover { background:rgba(0,212,255,.2); }
@@ -262,41 +267,56 @@
     .carousel-content { max-width:100%; }
     .carousel-title { font-size:24px; }
   }
+  /* [A11Y] Fokus papan kekunci yang jelas */
+  a:focus-visible, button:focus-visible { outline:3px solid #00d4ff; outline-offset:2px; border-radius:4px; }
+  .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0; }
+  /* [A11Y] Pautan langkau ke kandungan */
+  .skip-link { position:absolute; left:-9999px; top:0; background:#ff6b35; color:#0a0e27; padding:10px 16px; border-radius:0 0 8px 0; z-index:100; font-weight:700; }
+  .skip-link:focus { left:0; }
+  /* [A11Y] Butang titik karusel - buang gaya lalai pelayar */
+  .carousel-dot { border:none; padding:0; cursor:pointer; }
+  .apk-link { color:#00d4ff; font-weight:700; text-decoration:none; }
+  .apk-link:hover { text-decoration:underline; }
+  /* [A11Y] Hormati prefers-reduced-motion */
+  @media (prefers-reduced-motion: reduce) { * { transition:none !important; animation:none !important; } }
 </style>
 </head>
 <body>
+<a class="skip-link" href="#utama">Langkau ke kandungan utama</a>
 
 <!-- ============ HEADER ============ -->
 <header>
-  <div class="logo">🎬</div>
+  <div class="logo" aria-hidden="true">🎬</div>
   <div class="brand">
     <h1>CINEMAKLASIK</h1>
     <p>Premium Streaming Platform</p>
   </div>
-  <nav class="nav">
-    <button class="nav-btn">🏠 Beranda</button>
-    <button class="nav-btn">🎬 Filem</button>
-    <button class="nav-btn">📺 TV Series</button>
-    <button class="nav-btn premium">💎 Berlangganan</button>
+  <nav class="nav" aria-label="Navigasi utama">
+    <a class="nav-btn" href="#beranda"><span aria-hidden="true">🏠</span> Beranda</a>
+    <a class="nav-btn" href="#filem"><span aria-hidden="true">🎬</span> Filem</a>
+    <a class="nav-btn" href="#tv"><span aria-hidden="true">📺</span> TV Series</a>
+    <a class="nav-btn premium" href="#pricing"><span aria-hidden="true">💎</span> Berlangganan</a>
   </nav>
 </header>
 
+<main id="utama">
+
 <!-- ============ HERO ============ -->
-<section class="hero">
+<section class="hero" id="beranda">
   <div class="hero-content">
-    <span class="badge">✨ Premium Streaming Dimulai Dari Sini</span>
+    <span class="badge"><span aria-hidden="true">✨</span> Premium Streaming Dimulai Dari Sini</span>
     <h2>Hiburan Tanpa Batas</h2>
     <p>Tonton filem klasik dunia, serial TV terbaik, dan cerita menarik dari Malaysia. Streaming berkualiti tinggi tanpa gangguan iklan.</p>
     <div class="hero-buttons">
-      <button class="btn btn-primary">▶ Mulai Menonton Percuma</button>
-      <button class="btn btn-secondary">📖 Ketahui Lebih Lanjut</button>
+      <button type="button" class="btn btn-primary">▶ Mulai Menonton Percuma</button>
+      <button type="button" class="btn btn-secondary">📖 Ketahui Lebih Lanjut</button>
     </div>
   </div>
 </section>
 
 <!-- ============ FEATURED ============ -->
-<section class="featured-section">
-  <h2 class="section-title">🔥 TAYANGAN PILIHAN</h2>
+<section class="featured-section" id="tayangan">
+  <h2 class="section-title"><span aria-hidden="true">🔥</span> TAYANGAN PILIHAN</h2>
   <p class="section-subtitle">Konten premium yang mesti anda tonton</p>
   
   <!-- Carousel -->
@@ -310,8 +330,8 @@
         <p class="carousel-desc">Masterpiece Charlie Chaplin yang penuh tawa dan emosi. Kisah prospector emas di Yukon yang mencari cinta dan harta.</p>
         <span class="carousel-tag">✅ PERCUMA</span>
         <div class="carousel-buttons">
-          <button class="btn btn-primary">▶ Tonton Sekarang</button>
-          <button class="btn btn-secondary">ℹ Info Lanjut</button>
+          <button type="button" class="btn btn-primary">▶ Tonton Sekarang</button>
+          <button type="button" class="btn btn-secondary">ℹ Info Lanjut</button>
         </div>
       </div>
     </div>
@@ -325,8 +345,8 @@
         <p class="carousel-desc">Jelajahi warisan budaya Melayu yang kaya dengan kisah-kisah bersejarah dan nilai-nilai tradisional yang masih relevan hari ini.</p>
         <span class="carousel-tag">📖 BLOG</span>
         <div class="carousel-buttons">
-          <button class="btn btn-primary">📖 Baca Artikel</button>
-          <button class="btn btn-secondary">💬 Bincang</button>
+          <button type="button" class="btn btn-primary">📖 Baca Artikel</button>
+          <button type="button" class="btn btn-secondary">💬 Bincang</button>
         </div>
       </div>
     </div>
@@ -340,24 +360,24 @@
         <p class="carousel-desc">Akses unlimited ke semua filem, series TV, dan artikel eksklusif. Streaming tanpa ads, kualiti HD, dan lebih banyak lagi.</p>
         <span class="carousel-tag">💎 PREMIUM</span>
         <div class="carousel-buttons">
-          <button class="btn btn-primary">💳 Berlangganan Sekarang</button>
-          <button class="btn btn-secondary">🎁 Uji Coba Percuma</button>
+          <button type="button" class="btn btn-primary">💳 Berlangganan Sekarang</button>
+          <button type="button" class="btn btn-secondary">🎁 Uji Coba Percuma</button>
         </div>
       </div>
     </div>
     
     <!-- Carousel Controls -->
     <div class="carousel-controls">
-      <div class="carousel-dot active" onclick="changeSlide(0)"></div>
-      <div class="carousel-dot" onclick="changeSlide(1)"></div>
-      <div class="carousel-dot" onclick="changeSlide(2)"></div>
+      <button type="button" class="carousel-dot active" onclick="changeSlide(0)" aria-label="Tunjuk slaid 1"></button>
+      <button type="button" class="carousel-dot" onclick="changeSlide(1)" aria-label="Tunjuk slaid 2"></button>
+      <button type="button" class="carousel-dot" onclick="changeSlide(2)" aria-label="Tunjuk slaid 3"></button>
     </div>
   </div>
 </section>
 
 <!-- ============ FILEM POPULER ============ -->
-<section class="featured-section">
-  <h2 class="section-title">🎬 FILEM POPULER</h2>
+<section class="featured-section" id="filem">
+  <h2 class="section-title"><span aria-hidden="true">🎬</span> FILEM POPULER</h2>
   <p class="section-subtitle">Pilihan terbaik dari koleksi kami</p>
   
   <div class="grid">
@@ -366,20 +386,20 @@
       <div class="card-thumb">
         <span class="card-badge badge-free">PERCUMA</span>
         <div class="card-lock">
-          <div class="card-lock-icon">▶</div>
+          <div class="card-lock-icon" aria-hidden="true">▶</div>
         </div>
         <div class="card-thumb-content">
-          <span class="card-thumb-emoji">🎪</span>
+          <span class="card-thumb-emoji" aria-hidden="true">🎪</span>
           <p class="card-thumb-title">The Gold Rush</p>
         </div>
       </div>
       <div class="card-body">
-        <h4 class="card-title">The Gold Rush</h4>
+        <h3 class="card-title">The Gold Rush</h3>
         <p class="card-meta">1925 · Charlie Chaplin</p>
         <div class="card-rating">
-          <span class="star">★★★★★</span>
+          <span class="star" aria-hidden="true">★★★★★</span><span class="sr-only">penilaian 5 bintang</span>
         </div>
-        <a href="#" class="card-cta">TONTON →</a>
+        <a href="#" class="card-cta" aria-label="Tonton The Gold Rush">TONTON <span aria-hidden="true">→</span></a>
       </div>
     </div>
     
@@ -388,20 +408,20 @@
       <div class="card-thumb">
         <span class="card-badge badge-free">PERCUMA</span>
         <div class="card-lock">
-          <div class="card-lock-icon">▶</div>
+          <div class="card-lock-icon" aria-hidden="true">▶</div>
         </div>
         <div class="card-thumb-content">
-          <span class="card-thumb-emoji">🚂</span>
+          <span class="card-thumb-emoji" aria-hidden="true">🚂</span>
           <p class="card-thumb-title">The General</p>
         </div>
       </div>
       <div class="card-body">
-        <h4 class="card-title">The General</h4>
+        <h3 class="card-title">The General</h3>
         <p class="card-meta">1926 · Buster Keaton</p>
         <div class="card-rating">
-          <span class="star">★★★★★</span>
+          <span class="star" aria-hidden="true">★★★★★</span><span class="sr-only">penilaian 5 bintang</span>
         </div>
-        <a href="#" class="card-cta">TONTON →</a>
+        <a href="#" class="card-cta" aria-label="Tonton The General">TONTON <span aria-hidden="true">→</span></a>
       </div>
     </div>
     
@@ -410,20 +430,20 @@
       <div class="card-thumb">
         <span class="card-badge badge-premium">PREMIUM</span>
         <div class="card-lock">
-          <div class="card-lock-icon">🔒</div>
+          <div class="card-lock-icon" aria-hidden="true">🔒</div>
         </div>
         <div class="card-thumb-content">
-          <span class="card-thumb-emoji">🧛</span>
+          <span class="card-thumb-emoji" aria-hidden="true">🧛</span>
           <p class="card-thumb-title">Nosferatu</p>
         </div>
       </div>
       <div class="card-body">
-        <h4 class="card-title">Nosferatu</h4>
+        <h3 class="card-title">Nosferatu</h3>
         <p class="card-meta">1922 · F.W. Murnau</p>
         <div class="card-rating">
-          <span class="star">★★★★★</span>
+          <span class="star" aria-hidden="true">★★★★★</span><span class="sr-only">penilaian 5 bintang</span>
         </div>
-        <a href="#" class="card-cta">LANGGANAN →</a>
+        <a href="#" class="card-cta" aria-label="Langgani untuk tonton Nosferatu">LANGGANAN <span aria-hidden="true">→</span></a>
       </div>
     </div>
     
@@ -432,20 +452,20 @@
       <div class="card-thumb">
         <span class="card-badge badge-free">PERCUMA</span>
         <div class="card-lock">
-          <div class="card-lock-icon">▶</div>
+          <div class="card-lock-icon" aria-hidden="true">▶</div>
         </div>
         <div class="card-thumb-content">
-          <span class="card-thumb-emoji">🏙️</span>
+          <span class="card-thumb-emoji" aria-hidden="true">🏙️</span>
           <p class="card-thumb-title">City Lights</p>
         </div>
       </div>
       <div class="card-body">
-        <h4 class="card-title">City Lights</h4>
+        <h3 class="card-title">City Lights</h3>
         <p class="card-meta">1931 · Charlie Chaplin</p>
         <div class="card-rating">
-          <span class="star">★★★★★</span>
+          <span class="star" aria-hidden="true">★★★★★</span><span class="sr-only">penilaian 5 bintang</span>
         </div>
-        <a href="#" class="card-cta">TONTON →</a>
+        <a href="#" class="card-cta" aria-label="Tonton City Lights">TONTON <span aria-hidden="true">→</span></a>
       </div>
     </div>
     
@@ -454,20 +474,20 @@
       <div class="card-thumb">
         <span class="card-badge badge-free">PERCUMA</span>
         <div class="card-lock">
-          <div class="card-lock-icon">▶</div>
+          <div class="card-lock-icon" aria-hidden="true">▶</div>
         </div>
         <div class="card-thumb-content">
-          <span class="card-thumb-emoji">🚢</span>
+          <span class="card-thumb-emoji" aria-hidden="true">🚢</span>
           <p class="card-thumb-title">Steamboat Bill Jr.</p>
         </div>
       </div>
       <div class="card-body">
-        <h4 class="card-title">Steamboat Bill Jr.</h4>
+        <h3 class="card-title">Steamboat Bill Jr.</h3>
         <p class="card-meta">1928 · Buster Keaton</p>
         <div class="card-rating">
-          <span class="star">★★★★★</span>
+          <span class="star" aria-hidden="true">★★★★★</span><span class="sr-only">penilaian 5 bintang</span>
         </div>
-        <a href="#" class="card-cta">TONTON →</a>
+        <a href="#" class="card-cta" aria-label="Tonton Steamboat Bill Jr.">TONTON <span aria-hidden="true">→</span></a>
       </div>
     </div>
     
@@ -476,28 +496,28 @@
       <div class="card-thumb">
         <span class="card-badge badge-premium">PREMIUM</span>
         <div class="card-lock">
-          <div class="card-lock-icon">🔒</div>
+          <div class="card-lock-icon" aria-hidden="true">🔒</div>
         </div>
         <div class="card-thumb-content">
-          <span class="card-thumb-emoji">🚢⚓</span>
+          <span class="card-thumb-emoji" aria-hidden="true">🚢⚓</span>
           <p class="card-thumb-title">Battleship Potemkin</p>
         </div>
       </div>
       <div class="card-body">
-        <h4 class="card-title">Battleship Potemkin</h4>
+        <h3 class="card-title">Battleship Potemkin</h3>
         <p class="card-meta">1925 · Sergei Eisenstein</p>
         <div class="card-rating">
-          <span class="star">★★★★★</span>
+          <span class="star" aria-hidden="true">★★★★★</span><span class="sr-only">penilaian 5 bintang</span>
         </div>
-        <a href="#" class="card-cta">LANGGANAN →</a>
+        <a href="#" class="card-cta" aria-label="Langgani untuk tonton Battleship Potemkin">LANGGANAN <span aria-hidden="true">→</span></a>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ============ TV SERIES ============ -->
-<section class="featured-section">
-  <h2 class="section-title">📺 SERIAL TV TERBAIK</h2>
+<section class="featured-section" id="tv">
+  <h2 class="section-title"><span aria-hidden="true">📺</span> SERIAL TV TERBAIK</h2>
   <p class="section-subtitle">Binge-watch series yang paling seru</p>
   
   <div class="grid">
@@ -505,20 +525,20 @@
       <div class="card-thumb">
         <span class="card-badge badge-premium">PREMIUM</span>
         <div class="card-lock">
-          <div class="card-lock-icon">🔒</div>
+          <div class="card-lock-icon" aria-hidden="true">🔒</div>
         </div>
         <div class="card-thumb-content">
-          <span class="card-thumb-emoji">👑</span>
+          <span class="card-thumb-emoji" aria-hidden="true">👑</span>
           <p class="card-thumb-title">The Crown</p>
         </div>
       </div>
       <div class="card-body">
-        <h4 class="card-title">The Crown</h4>
+        <h3 class="card-title">The Crown</h3>
         <p class="card-meta">Drama Biografi · 5 Musim</p>
         <div class="card-rating">
-          <span class="star">★★★★★</span>
+          <span class="star" aria-hidden="true">★★★★★</span><span class="sr-only">penilaian 5 bintang</span>
         </div>
-        <a href="#" class="card-cta">LANGGANAN →</a>
+        <a href="#" class="card-cta" aria-label="Langgani untuk tonton The Crown">LANGGANAN <span aria-hidden="true">→</span></a>
       </div>
     </div>
     
@@ -526,20 +546,20 @@
       <div class="card-thumb">
         <span class="card-badge badge-premium">PREMIUM</span>
         <div class="card-lock">
-          <div class="card-lock-icon">🔒</div>
+          <div class="card-lock-icon" aria-hidden="true">🔒</div>
         </div>
         <div class="card-thumb-content">
-          <span class="card-thumb-emoji">🧠</span>
+          <span class="card-thumb-emoji" aria-hidden="true">🧠</span>
           <p class="card-thumb-title">Breaking Bad</p>
         </div>
       </div>
       <div class="card-body">
-        <h4 class="card-title">Breaking Bad</h4>
+        <h3 class="card-title">Breaking Bad</h3>
         <p class="card-meta">Drama Thriller · 5 Musim</p>
         <div class="card-rating">
-          <span class="star">★★★★★</span>
+          <span class="star" aria-hidden="true">★★★★★</span><span class="sr-only">penilaian 5 bintang</span>
         </div>
-        <a href="#" class="card-cta">LANGGANAN →</a>
+        <a href="#" class="card-cta" aria-label="Langgani untuk tonton Breaking Bad">LANGGANAN <span aria-hidden="true">→</span></a>
       </div>
     </div>
     
@@ -547,20 +567,20 @@
       <div class="card-thumb">
         <span class="card-badge badge-premium">PREMIUM</span>
         <div class="card-lock">
-          <div class="card-lock-icon">🔒</div>
+          <div class="card-lock-icon" aria-hidden="true">🔒</div>
         </div>
         <div class="card-thumb-content">
-          <span class="card-thumb-emoji">🐉</span>
+          <span class="card-thumb-emoji" aria-hidden="true">🐉</span>
           <p class="card-thumb-title">Game of Thrones</p>
         </div>
       </div>
       <div class="card-body">
-        <h4 class="card-title">Game of Thrones</h4>
+        <h3 class="card-title">Game of Thrones</h3>
         <p class="card-meta">Fantasy Drama · 8 Musim</p>
         <div class="card-rating">
-          <span class="star">★★★★★</span>
+          <span class="star" aria-hidden="true">★★★★★</span><span class="sr-only">penilaian 5 bintang</span>
         </div>
-        <a href="#" class="card-cta">LANGGANAN →</a>
+        <a href="#" class="card-cta" aria-label="Langgani untuk tonton Game of Thrones">LANGGANAN <span aria-hidden="true">→</span></a>
       </div>
     </div>
     
@@ -568,20 +588,20 @@
       <div class="card-thumb">
         <span class="card-badge badge-premium">PREMIUM</span>
         <div class="card-lock">
-          <div class="card-lock-icon">🔒</div>
+          <div class="card-lock-icon" aria-hidden="true">🔒</div>
         </div>
         <div class="card-thumb-content">
-          <span class="card-thumb-emoji">💼</span>
+          <span class="card-thumb-emoji" aria-hidden="true">💼</span>
           <p class="card-thumb-title">Succession</p>
         </div>
       </div>
       <div class="card-body">
-        <h4 class="card-title">Succession</h4>
+        <h3 class="card-title">Succession</h3>
         <p class="card-meta">Drama Korporat · 4 Musim</p>
         <div class="card-rating">
-          <span class="star">★★★★★</span>
+          <span class="star" aria-hidden="true">★★★★★</span><span class="sr-only">penilaian 5 bintang</span>
         </div>
-        <a href="#" class="card-cta">LANGGANAN →</a>
+        <a href="#" class="card-cta" aria-label="Langgani untuk tonton Succession">LANGGANAN <span aria-hidden="true">→</span></a>
       </div>
     </div>
     
@@ -589,20 +609,20 @@
       <div class="card-thumb">
         <span class="card-badge badge-premium">PREMIUM</span>
         <div class="card-lock">
-          <div class="card-lock-icon">🔒</div>
+          <div class="card-lock-icon" aria-hidden="true">🔒</div>
         </div>
         <div class="card-thumb-content">
-          <span class="card-thumb-emoji">🎭</span>
+          <span class="card-thumb-emoji" aria-hidden="true">🎭</span>
           <p class="card-thumb-title">The Office</p>
         </div>
       </div>
       <div class="card-body">
-        <h4 class="card-title">The Office</h4>
+        <h3 class="card-title">The Office</h3>
         <p class="card-meta">Komedi · 9 Musim</p>
         <div class="card-rating">
-          <span class="star">★★★★★</span>
+          <span class="star" aria-hidden="true">★★★★★</span><span class="sr-only">penilaian 5 bintang</span>
         </div>
-        <a href="#" class="card-cta">LANGGANAN →</a>
+        <a href="#" class="card-cta" aria-label="Langgani untuk tonton The Office">LANGGANAN <span aria-hidden="true">→</span></a>
       </div>
     </div>
     
@@ -610,29 +630,29 @@
       <div class="card-thumb">
         <span class="card-badge badge-coming">SEGERA HADIR</span>
         <div class="card-lock">
-          <div class="card-lock-icon">⏰</div>
+          <div class="card-lock-icon" aria-hidden="true">⏰</div>
         </div>
         <div class="card-thumb-content">
-          <span class="card-thumb-emoji">🔮</span>
+          <span class="card-thumb-emoji" aria-hidden="true">🔮</span>
           <p class="card-thumb-title">Series Eksklusif</p>
         </div>
       </div>
       <div class="card-body">
-        <h4 class="card-title">Series Terbaru</h4>
+        <h3 class="card-title">Series Terbaru</h3>
         <p class="card-meta">Coming Soon 2024</p>
         <div class="card-rating">
-          <span class="star">★★★★★</span>
+          <span class="star" aria-hidden="true">★★★★★</span><span class="sr-only">penilaian 5 bintang</span>
         </div>
-        <a href="#" class="card-cta">NOTIS →</a>
+        <a href="#" class="card-cta" aria-label="Notis untuk Series Terbaru">NOTIS <span aria-hidden="true">→</span></a>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ============ PRICING ============ -->
-<section class="pricing-section">
+<section class="pricing-section" id="pricing">
   <div style="max-width:800px; margin:0 auto; text-align:center; margin-bottom:40px;">
-    <h2 class="section-title">💎 PILIH PELAN ANDA</h2>
+    <h2 class="section-title"><span aria-hidden="true">💎</span> PILIH PELAN ANDA</h2>
     <p class="section-subtitle">Streaming tanpa batas untuk semua</p>
     <p style="color:#a0b2c8; font-size:15px;">Nikmati akses unlimited ke semua konten kami dengan harga yang terjangkau</p>
   </div>
@@ -652,7 +672,7 @@
         <li>1 perangkat</li>
       </ul>
       
-      <button class="pricing-button secondary">Mulai Percuma</button>
+      <button type="button" class="pricing-button secondary">Mulai Percuma</button>
     </div>
     
     <!-- Premium Plan -->
@@ -670,7 +690,7 @@
         <li>✓ Konten eksklusif</li>
       </ul>
       
-      <button class="pricing-button primary">Berlangganan Sekarang</button>
+      <button type="button" class="pricing-button primary">Berlangganan Sekarang</button>
     </div>
     
     <!-- Family Plan -->
@@ -687,21 +707,23 @@
         <li>Dukungan prioritas</li>
       </ul>
       
-      <button class="pricing-button primary">Berlangganan Keluarga</button>
+      <button type="button" class="pricing-button primary">Berlangganan Keluarga</button>
     </div>
   </div>
 </section>
 
 <!-- ============ FOOTER ============ -->
+</main>
+
 <footer>
   <div class="footer-content">
     <div class="footer-section">
       <h4>Platform</h4>
       <p>CinemaKlasik adalah platform streaming premium yang menyediakan filem klasik dunia dan cerita menarik dari Malaysia dengan kualiti terbaik.</p>
       <div class="footer-social">
-        <a href="https://www.youtube.com/@yunuschannel86" target="_blank">📺</a>
-        <a href="https://cerita-malaysiaku.blogspot.com" target="_blank">📖</a>
-        <a href="https://www.facebook.com/share/1EK9tkYq2s/" target="_blank">👍</a>
+        <a href="https://www.youtube.com/@yunuschannel86" target="_blank" rel="noopener noreferrer" aria-label="Channel YouTube (dibuka dalam tab baharu)"><span aria-hidden="true">📺</span></a>
+        <a href="https://cerita-malaysiaku.blogspot.com" target="_blank" rel="noopener noreferrer" aria-label="Blog Cerita Malaysiaku (dibuka dalam tab baharu)"><span aria-hidden="true">📖</span></a>
+        <a href="https://www.facebook.com/share/1EK9tkYq2s/" target="_blank" rel="noopener noreferrer" aria-label="Facebook CinemaKlasik (dibuka dalam tab baharu)"><span aria-hidden="true">👍</span></a>
       </div>
     </div>
     
@@ -723,15 +745,16 @@
     
     <div class="footer-section">
       <h4>Komuniti</h4>
-      <a href="https://cerita-malaysiaku.blogspot.com" target="_blank">Blog Cerita</a>
-      <a href="https://www.youtube.com/@yunuschannel86" target="_blank">Channel YouTube</a>
-      <a href="https://www.facebook.com/share/1EK9tkYq2s/" target="_blank">Media Sosial</a>
+      <a href="https://cerita-malaysiaku.blogspot.com" target="_blank" rel="noopener noreferrer">Blog Cerita</a>
+      <a href="https://www.youtube.com/@yunuschannel86" target="_blank" rel="noopener noreferrer">Channel YouTube</a>
+      <a href="https://www.facebook.com/share/1EK9tkYq2s/" target="_blank" rel="noopener noreferrer">Media Sosial</a>
     </div>
   </div>
   
   <div class="footer-bottom">
-    <p>© 2024 CinemaKlasik Premium. Semua hak terpelihara. | Platform Streaming Berkualiti untuk Rakyat Malaysia 🇲🇾</p>
-    <p style="margin-top:12px; font-size:11px;">Dibina dengan ❤️ untuk pengalaman menonton yang terbaik.</p>
+    <p>© 2024 CinemaKlasik Premium. Semua hak terpelihara. | Platform Streaming Berkualiti untuk Rakyat Malaysia <span aria-hidden="true">🇲🇾</span></p>
+    <p style="margin-top:12px; font-size:11px;">Dibina dengan <span aria-hidden="true">❤️</span><span class="sr-only">cinta</span> untuk pengalaman menonton yang terbaik.</p>
+    <p style="margin-top:14px;"><a class="apk-link" href="CinemaKlasik-v1.1.apk" download><span aria-hidden="true">📱</span> Muat Turun Aplikasi Android (APK)</a></p>
   </div>
 </footer>
 
