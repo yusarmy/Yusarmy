@@ -993,3 +993,113 @@
 </script>
 <script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a39582c62dad40fe',t:'MTc4OTExNzUyOA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
  </html>
+<!-- ===== AUTH v2 (CinemaKlasik 2.5 UI) ===== -->
+<style>
+.ck25-account{display:flex;align-items:center;gap:8px;margin-left:8px}
+.ck25-user-btn{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#e8edf3;border-radius:10px;padding:9px 14px;font-size:14px;font-weight:600;cursor:pointer}
+.ck25-avatar{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#ff6b35,#ff5722);color:#0a0e27;font-weight:900}
+.ck25-overlay{position:fixed;inset:0;z-index:10020;display:none;place-items:center;padding:18px;background:rgba(2,6,12,.78);backdrop-filter:blur(6px)}
+.ck25-overlay.show{display:grid}
+.ck25-box{width:min(430px,100%);background:#0d131d;border:1px solid rgba(255,255,255,.1);border-radius:24px;padding:26px 22px;position:relative}
+.ck25-tabs{display:flex;gap:6px;margin:18px 0}
+.ck25-tab{flex:1;padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);color:#e8edf3;font-weight:700;cursor:pointer}
+.ck25-tab.active{background:#fff;color:#080b10}
+.ck25-form{display:grid;gap:11px}
+.ck25-input{width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:#101828;color:#e8edf3;font-size:15px}
+.ck25-submit{border:0;border-radius:12px;padding:12px;background:#fff;color:#080b10;font-weight:900;cursor:pointer}
+.ck25-submit:disabled{opacity:.6}
+.ck25-x{float:right;border:0;background:none;color:#e8edf3;font-size:1.4rem;cursor:pointer}
+.ck25-error{color:#ffb0b0;font-size:.84rem;display:none}
+.ck25-note{font-size:.78rem;opacity:.55;margin-top:12px}
+#ck25-heading{color:#fff;margin:4px 0 6px;font-size:1.3rem}
+#ck25-sub{color:#9fb2c5;font-size:.9rem;margin:0 0 4px}
+</style>
+<script>
+(function () {
+  var SUPABASE_URL = "https://fcstezpekgajyezoyeil.supabase.co";
+  var SUPABASE_KEY = "sb_publishable_RqMwY1LOCw9tzroSw4Ei_A_c8yZDLCp";
+  var sb = null, mode = 'login', account, overlay;
+  function $(id) { return document.getElementById(id); }
+  window.addEventListener('load', async function () {
+    ['#btnAuth','#userChip','#btnLogout','#authBackdrop'].forEach(function (s) {
+      var el = document.querySelector(s); if (el) el.parentNode.removeChild(el);
+    });
+    account = $('ck25-account');
+    if (!account) { account = document.createElement('span'); account.id = 'ck25-account'; account.className = 'ck25-account';
+      var nav = document.querySelector('header nav'); if (nav) nav.appendChild(account); }
+    overlay = document.createElement('div');
+    overlay.className = 'ck25-overlay';
+    overlay.innerHTML = '<div class="ck25-box"><button class="ck25-x" id="ck25-x" aria-label="Tutup">\u00d7</button>' +
+      '<h2 id="ck25-heading">Selamat datang</h2>' +
+      '<p id="ck25-sub">Log masuk untuk pengalaman CinemaKlasik yang lebih peribadi.</p>' +
+      '<div class="ck25-tabs"><button type="button" class="ck25-tab active" data-mode="login">Log Masuk</button>' +
+      '<button type="button" class="ck25-tab" data-mode="register">Daftar</button></div>' +
+      '<form class="ck25-form" id="ck25-form">' +
+      '<input id="ck25-name" class="ck25-input" placeholder="Nama" autocomplete="name" style="display:none">' +
+      '<input id="ck25-email" class="ck25-input" type="email" placeholder="Emel" autocomplete="email" required>' +
+      '<input id="ck25-pass" class="ck25-input" type="password" placeholder="Kata laluan" autocomplete="current-password" minlength="6" required>' +
+      '<div class="ck25-error" id="ck25-error" role="status" aria-live="polite"></div>' +
+      '<button class="ck25-submit" id="ck25-submit">Log Masuk</button></form>' +
+      '<div class="ck25-note" id="ck25-note">Akaun anda disimpan selamat melalui Supabase Auth.</div></div>';
+    document.body.appendChild(overlay);
+    try { sb = (window.supabase && window.supabase.createClient) ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null; }
+    catch (e) { sb = null; }
+    $('ck25-x').onclick = tutup;
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) tutup(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && overlay.classList.contains('show')) tutup(); });
+    document.querySelectorAll('.ck25-tab').forEach(function (t) { t.onclick = function () { setMode(t.dataset.mode); }; });
+    $('ck25-form').onsubmit = hantar;
+    if (!sb) { render(null); return; }
+    try {
+      var r = await sb.auth.getSession();
+      render(r.data.session ? r.data.session.user : null);
+      sb.auth.onAuthStateChange(function (_e, s) { render(s ? s.user : null); });
+    } catch (e) { render(null); }
+  });
+  function setMode(m) {
+    mode = m;
+    document.querySelectorAll('.ck25-tab').forEach(function (t) { t.classList.toggle('active', t.dataset.mode === m); });
+    $('ck25-name').style.display = (m === 'register') ? 'block' : 'none';
+    $('ck25-submit').textContent = (m === 'register') ? 'Daftar Akaun' : 'Log Masuk';
+    $('ck25-heading').textContent = (m === 'register') ? 'Cipta akaun' : 'Selamat datang';
+    $('ck25-sub').textContent = (m === 'register') ? 'Bina profil CinemaKlasik anda.' : 'Log masuk untuk pengalaman yang lebih peribadi.';
+    $('ck25-pass').setAttribute('autocomplete', (m === 'register') ? 'new-password' : 'current-password');
+    $('ck25-error').style.display = 'none';
+  }
+  function buka(m) { setMode(m || 'login'); overlay.classList.add('show'); $('ck25-email').focus(); }
+  function tutup() { overlay.classList.remove('show'); }
+  function err(m) { var e = $('ck25-error'); e.textContent = m; e.style.display = 'block'; }
+  async function hantar(ev) {
+    ev.preventDefault();
+    $('ck25-error').style.display = 'none';
+    if (!sb) return err('Sistem akaun tidak tersedia (tiada sambungan internet).');
+    var email = $('ck25-email').value.trim(), password = $('ck25-pass').value, name = $('ck25-name').value.trim();
+    if (password.length < 6) return err('Kata laluan mesti sekurang-kurangnya 6 aksara.');
+    $('ck25-submit').disabled = true;
+    try {
+      var r = (mode === 'register')
+        ? await sb.auth.signUp({ email: email, password: password, options: { data: { full_name: name || email.split('@')[0] } } })
+        : await sb.auth.signInWithPassword({ email: email, password: password });
+      if (r.error) throw r.error;
+      tutup();
+      if (mode === 'register') alert(r.data.session ? 'Akaun berjaya dibuat dan anda sudah log masuk.' : 'Akaun berjaya dibuat. Semak emel anda untuk pengesahan jika diminta.');
+    } catch (x) { err(x && x.message ? x.message : 'Operasi akaun gagal.'); }
+    finally { $('ck25-submit').disabled = false; $('ck25-submit').textContent = (mode === 'register') ? 'Daftar Akaun' : 'Log Masuk'; }
+  }
+  function render(u) {
+    if (u) {
+      var e = u.email || '';
+      var n = (u.user_metadata && u.user_metadata.full_name) || e.split('@')[0] || 'U';
+      account.innerHTML = '<span class="ck25-avatar" aria-hidden="true">' + n.charAt(0).toUpperCase() + '</span>' +
+        '<button type="button" class="ck25-user-btn" id="ck25-account-btn">' + n + '</button>';
+      $('ck25-account-btn').onclick = async function () {
+        if (confirm('Akaun: ' + e + '\n\nTekan OK untuk log keluar.') && sb) await sb.auth.signOut();
+      };
+    } else {
+      account.innerHTML = '<button type="button" class="ck25-user-btn" id="ck25-open">\ud83d\udc64 Log Masuk</button>';
+      var b = $('ck25-open'); if (b) b.onclick = function () { buka('login'); };
+    }
+  }
+})();
+</script>
+<!-- ===== TAMAT AUTH v2 ===== -->
