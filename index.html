@@ -30,6 +30,140 @@ footer{margin-top:55px;border-top:1px solid var(--line);background:#060912;paddi
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
 :focus-visible{outline:3px solid var(--cyan);outline-offset:2px}
 </style>
+
+<style id="cinemaklasik-2-1-polish">
+/* CINEMAKLASIK 2.1 — VISUAL POLISH */
+:root{
+  --ck-glow:0 0 0 1px rgba(255,255,255,.07),0 18px 55px rgba(0,0,0,.32);
+  --ck-radius:18px;
+}
+html{scroll-behavior:smooth}
+body{
+  background:
+    radial-gradient(circle at 12% 0%,rgba(0,200,255,.08),transparent 28%),
+    radial-gradient(circle at 88% 8%,rgba(255,170,0,.07),transparent 25%),
+    #070b12;
+}
+header{
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  background:rgba(7,11,18,.82)!important;
+  border-bottom:1px solid rgba(255,255,255,.07)!important;
+}
+.brand{
+  letter-spacing:.08em!important;
+  text-shadow:0 0 24px rgba(0,200,255,.2);
+}
+.hero{
+  min-height:clamp(520px,72vh,760px)!important;
+  position:relative;
+  overflow:hidden;
+}
+.hero:after{
+  content:"";
+  position:absolute;inset:auto 0 0;height:35%;
+  background:linear-gradient(transparent,#070b12);
+  pointer-events:none;
+}
+.hero-content{position:relative;z-index:2}
+.hero h1{
+  letter-spacing:-.04em!important;
+  text-wrap:balance;
+  text-shadow:0 8px 40px rgba(0,0,0,.55);
+}
+.hero p{max-width:650px;line-height:1.75!important}
+.btn{
+  border-radius:999px!important;
+  padding:.82rem 1.25rem!important;
+  font-weight:800!important;
+  transition:transform .2s ease,box-shadow .2s ease,filter .2s ease!important;
+}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.btn-primary{box-shadow:0 10px 30px rgba(0,200,255,.15)}
+section{scroll-margin-top:90px}
+.section-title{
+  letter-spacing:-.025em;
+  font-weight:900!important;
+}
+.card{
+  border-radius:var(--ck-radius)!important;
+  overflow:hidden!important;
+  box-shadow:var(--ck-glow)!important;
+  border:1px solid rgba(255,255,255,.07)!important;
+  background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.018))!important;
+  transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease!important;
+}
+.card:hover{
+  transform:translateY(-7px);
+  border-color:rgba(0,200,255,.22)!important;
+  box-shadow:0 22px 65px rgba(0,0,0,.42),0 0 30px rgba(0,200,255,.06)!important;
+}
+.card img{
+  transition:transform .45s cubic-bezier(.2,.7,.2,1),filter .35s ease!important;
+}
+.card:hover img{transform:scale(1.045);filter:saturate(1.08)}
+.badge,.tag{
+  border-radius:999px!important;
+  font-size:.72rem!important;
+  font-weight:900!important;
+  letter-spacing:.04em;
+}
+.search-wrap input,.search-box input{
+  border-radius:999px!important;
+  min-height:48px;
+  border:1px solid rgba(255,255,255,.1)!important;
+  background:rgba(255,255,255,.055)!important;
+  transition:border-color .2s,box-shadow .2s,background .2s;
+}
+.search-wrap input:focus,.search-box input:focus{
+  border-color:rgba(0,200,255,.55)!important;
+  box-shadow:0 0 0 4px rgba(0,200,255,.08)!important;
+  background:rgba(255,255,255,.075)!important;
+  outline:none;
+}
+select{
+  border-radius:999px!important;
+  border:1px solid rgba(255,255,255,.1)!important;
+  background:rgba(255,255,255,.055)!important;
+}
+.pricing-card{
+  border-radius:22px!important;
+  box-shadow:var(--ck-glow)!important;
+  border:1px solid rgba(255,255,255,.08)!important;
+  transition:transform .25s ease,box-shadow .25s ease!important;
+}
+.pricing-card:hover{transform:translateY(-5px)}
+.pricing-card.featured{
+  border-color:rgba(255,180,0,.42)!important;
+  box-shadow:0 20px 65px rgba(0,0,0,.42),0 0 35px rgba(255,180,0,.08)!important;
+}
+.modal{
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+}
+.modal-content{
+  border-radius:22px!important;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.1)!important;
+  box-shadow:0 30px 100px rgba(0,0,0,.65)!important;
+}
+footer{
+  border-top:1px solid rgba(255,255,255,.07)!important;
+}
+@media(max-width:700px){
+  body{padding-bottom:72px}
+  .hero{min-height:600px!important}
+  .hero h1{font-size:clamp(2.1rem,10vw,3.4rem)!important}
+  .hero p{font-size:.95rem!important}
+  .card{border-radius:15px!important}
+  .section-title{font-size:1.35rem!important}
+  .btn{padding:.72rem 1rem!important}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}
+}
+</style>
+
 </head>
 <body>
 <a class="skip" href="#utama">Langkau ke kandungan utama</a>
@@ -175,4 +309,4 @@ function comingSoon(name){alert(name+' akan tersedia selepas sistem akaun dan pe
 if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').then(r=>console.log('CinemaKlasik SW aktif',r.scope)).catch(e=>console.warn('SW gagal',e)))}
 </script>
 </body>
-</html>
+  </html>
