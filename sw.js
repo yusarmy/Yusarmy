@@ -1,5 +1,5 @@
 /* CinemaKlasik - Service Worker (cache luar talian) */
-const CACHE = 'cinemaklasik-v1';
+const CACHE = 'cinemaklasik-v3';
 const ASSETS = [
   './',
   './index.html',

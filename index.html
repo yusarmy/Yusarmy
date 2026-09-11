@@ -185,43 +185,26 @@
   .card-cta:hover { color:#00ffff; }
   
   /* ============ PRICING ============ */
-  .pricing-section {
     max-width:1200px; margin:0 auto; padding:60px 24px; background:linear-gradient(135deg,rgba(0,212,255,.05),rgba(255,107,53,.05)); border-radius:16px; margin-bottom:60px;
   }
   
-  .pricing-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:24px; margin-top:40px; }
   
-  .pricing-card {
     background:linear-gradient(135deg,#1a2635,#0d141d); border:2px solid rgba(0,212,255,.1); border-radius:14px;
     padding:32px 24px; text-align:center; position:relative; transition:.3s;
   }
   
-  .pricing-card:hover {
     border-color:rgba(0,212,255,.3);
     box-shadow:0 20px 60px rgba(0,212,255,.15);
     transform:translateY(-8px);
   }
   
-  .pricing-card.featured {
     border-color:#ff6b35; box-shadow:0 0 0 1px #ff6b35 inset, 0 20px 60px rgba(255,107,53,.2);
     transform:scale(1.05);
   }
   
-  .pricing-badge { display:inline-block; background:#ff6b35; color:#0a0e27; padding:6px 12px; border-radius:6px; font-size:11px; font-weight:700; margin-bottom:16px; }
   
-  .pricing-title { font-size:22px; font-weight:900; margin-bottom:12px; }
-  .pricing-price { font-size:42px; font-weight:900; margin-bottom:8px; background:linear-gradient(135deg,#00d4ff,#00ffff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-  .pricing-period { font-size:13px; color:#7a8ba0; margin-bottom:24px; }
   
-  .pricing-features { list-style:none; margin:24px 0; text-align:left; }
-  .pricing-features li { padding:10px 0; font-size:14px; color:#b0c2d8; border-bottom:1px solid rgba(255,255,255,.05); }
-  .pricing-features li::before { content:'✓'; color:#00d4ff; margin-right:10px; font-weight:900; }
   
-  .pricing-button { width:100%; padding:14px; border-radius:10px; border:none; font-size:14px; font-weight:700; cursor:pointer; margin-top:24px; text-transform:uppercase; letter-spacing:.5px; transition:.3s; }
-  .pricing-button.primary { background:linear-gradient(135deg,#ff6b35,#ff5722); color:#0a0e27; }
-  .pricing-button.primary:hover { box-shadow:0 12px 30px rgba(255,107,53,.4); transform:translateY(-2px); }
-  .pricing-button.secondary { background:rgba(0,212,255,.1); color:#00d4ff; border:2px solid #00d4ff; }
-  .pricing-button.secondary:hover { background:rgba(0,212,255,.2); }
   
   /* ============ FOOTER ============ */
   footer {
@@ -251,7 +234,6 @@
     .carousel-title { font-size:32px; }
     .carousel-slide { padding:40px 20px; }
     .grid { grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px; }
-    .pricing-card.featured { transform:scale(1); }
     .nav { gap:8px; }
     .nav-btn { padding:8px 12px; font-size:12px; }
   }
@@ -279,6 +261,13 @@
   .apk-link:hover { text-decoration:underline; }
   /* [A11Y] Hormati prefers-reduced-motion */
   @media (prefers-reduced-motion: reduce) { * { transition:none !important; animation:none !important; } }
+  /* [OTT] Pemain video dalam laman */
+  .player-backdrop { position:fixed; inset:0; background:rgba(5,8,16,.93); z-index:60; display:flex; align-items:center; justify-content:center; padding:16px; }
+  .player-box { width:100%; max-width:920px; background:#0d141d; border:1px solid #1e2a38; border-radius:14px; padding:14px; }
+  .player-head { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+  .player-title { font-weight:800; font-size:15px; color:#fff; flex:1; }
+  .player-close { background:#1a2847; border:1px solid #2a3f5f; color:#e8edf3; width:38px; height:38px; border-radius:10px; font-size:18px; cursor:pointer; }
+  .player-frame { width:100%; aspect-ratio:16/9; border:0; border-radius:10px; background:#000; }
 </style>
 </head>
 <body>
@@ -295,7 +284,6 @@
     <a class="nav-btn" href="#beranda"><span aria-hidden="true">🏠</span> Beranda</a>
     <a class="nav-btn" href="#filem"><span aria-hidden="true">🎬</span> Filem</a>
     <a class="nav-btn" href="#tv"><span aria-hidden="true">📺</span> TV Series</a>
-    <a class="nav-btn premium" href="#pricing"><span aria-hidden="true">💎</span> Berlangganan</a>
   </nav>
 </header>
 
@@ -308,8 +296,8 @@
     <h2>Hiburan Tanpa Batas</h2>
     <p>Tonton filem klasik dunia, serial TV terbaik, dan cerita menarik dari Malaysia. Streaming berkualiti tinggi tanpa gangguan iklan.</p>
     <div class="hero-buttons">
-      <button type="button" class="btn btn-primary">▶ Mulai Menonton Percuma</button>
-      <button type="button" class="btn btn-secondary">📖 Ketahui Lebih Lanjut</button>
+      <a class="btn btn-primary" href="#filem">▶ Mulai Menonton Percuma</a>
+      <a class="btn btn-secondary" href="#tayangan">📖 Ketahui Lebih Lanjut</a>
     </div>
   </div>
 </section>
@@ -330,8 +318,8 @@
         <p class="carousel-desc">Masterpiece Charlie Chaplin yang penuh tawa dan emosi. Kisah prospector emas di Yukon yang mencari cinta dan harta.</p>
         <span class="carousel-tag">✅ PERCUMA</span>
         <div class="carousel-buttons">
-          <button type="button" class="btn btn-primary">▶ Tonton Sekarang</button>
-          <button type="button" class="btn btn-secondary">ℹ Info Lanjut</button>
+          <a class="btn btn-primary" href="#filem">▶ Tonton Sekarang</a>
+          <a class="btn btn-secondary" href="https://archive.org/details/the-gold-rush-film-1925">ℹ Info Lanjut</a>
         </div>
       </div>
     </div>
@@ -345,8 +333,8 @@
         <p class="carousel-desc">Jelajahi warisan budaya Melayu yang kaya dengan kisah-kisah bersejarah dan nilai-nilai tradisional yang masih relevan hari ini.</p>
         <span class="carousel-tag">📖 BLOG</span>
         <div class="carousel-buttons">
-          <button type="button" class="btn btn-primary">📖 Baca Artikel</button>
-          <button type="button" class="btn btn-secondary">💬 Bincang</button>
+          <a class="btn btn-primary" href="https://cerita-malaysiaku.blogspot.com">📖 Baca Artikel</a>
+          <a class="btn btn-secondary" href="https://www.facebook.com/share/1EK9tkYq2s/">💬 Bincang</a>
         </div>
       </div>
     </div>
@@ -354,14 +342,14 @@
     <!-- Slide 3 -->
     <div class="carousel-slide">
       <div class="carousel-content">
-        <span class="carousel-badge">EKSKLUSIF PREMIUM</span>
+        <span class="carousel-badge">100% PERCUMA &amp; SAH</span>
         <h3 class="carousel-title">Koleksi Lengkap</h3>
-        <p class="carousel-meta">Dengan Langganan Premium · Dari RM4.90/Bulan</p>
-        <p class="carousel-desc">Akses unlimited ke semua filem, series TV, dan artikel eksklusif. Streaming tanpa ads, kualiti HD, dan lebih banyak lagi.</p>
-        <span class="carousel-tag">💎 PREMIUM</span>
+        <p class="carousel-meta">Public Domain · Perpustakaan Digital Internet Archive</p>
+        <p class="carousel-desc">Koleksi lengkap filem klasik dan siri TV golden-age. Tonton tanpa iklan mengganggu, terus dari pelayar atau aplikasi Android anda.</p>
+        <span class="carousel-tag">🎬 KLASIK</span>
         <div class="carousel-buttons">
-          <button type="button" class="btn btn-primary">💳 Berlangganan Sekarang</button>
-          <button type="button" class="btn btn-secondary">🎁 Uji Coba Percuma</button>
+          <a class="btn btn-primary" href="#filem">▶ Tonton Sekarang</a>
+          <a class="btn btn-secondary" href="#tayangan">📖 Ketahui Lebih Lanjut</a>
         </div>
       </div>
     </div>
@@ -381,6 +369,107 @@
   <p class="section-subtitle">Pilihan terbaik dari koleksi kami</p>
   
   <div class="grid">
+    <!-- Filem baharu: contoh cara tambah kad (lihat panduan) -->
+    <div class="card">
+      <div class="card-thumb">
+        <span class="card-badge badge-free">BARU</span>
+        <div class="card-lock">
+          <div class="card-lock-icon" aria-hidden="true">▶</div>
+        </div>
+        <div class="card-thumb-content">
+          <span class="card-thumb-emoji" aria-hidden="true">🎭</span>
+          <p class="card-thumb-title">Phantom of the Opera</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">The Phantom of the Opera</h3>
+        <p class="card-meta">1925 · Lon Chaney</p>
+        <a href="https://archive.org/details/ThePhantomoftheOpera" class="card-cta" aria-label="Tonton The Phantom of the Opera (1925) di archive.org">TONTON <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-thumb">
+        <span class="card-badge badge-free">BARU</span>
+        <div class="card-lock">
+          <div class="card-lock-icon" aria-hidden="true">▶</div>
+        </div>
+        <div class="card-thumb-content">
+          <span class="card-thumb-emoji" aria-hidden="true">🧟</span>
+          <p class="card-thumb-title">Dr. Caligari</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">The Cabinet of Dr. Caligari</h3>
+        <p class="card-meta">1920 · Robert Wiene</p>
+        <a href="https://archive.org/details/the-cabinet-of-dr-caligari-1920" class="card-cta" aria-label="Tonton The Cabinet of Dr. Caligari (1920) di archive.org">TONTON <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-thumb">
+        <span class="card-badge badge-free">BARU</span>
+        <div class="card-lock"><div class="card-lock-icon" aria-hidden="true">▶</div></div>
+        <div class="card-thumb-content">
+          <span class="card-thumb-emoji" aria-hidden="true">💛</span>
+          <p class="card-thumb-title">Charade</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Charade</h3>
+        <p class="card-meta">1963 · Cary Grant &amp; Audrey Hepburn</p>
+        <a href="https://archive.org/details/charade-1963-cary-grant-audrey-hepburn-comedy-mystery-romance-thriller-full-movie" class="card-cta" aria-label="Tonton Charade di archive.org">TONTON <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-thumb">
+        <span class="card-badge badge-free">PERCUMA</span>
+        <div class="card-lock"><div class="card-lock-icon" aria-hidden="true">▶</div></div>
+        <div class="card-thumb-content">
+          <span class="card-thumb-emoji" aria-hidden="true">⚙️</span>
+          <p class="card-thumb-title">Metropolis</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Metropolis</h3>
+        <p class="card-meta">1927 · Fritz Lang</p>
+        <a href="https://archive.org/details/metropolis-lang" class="card-cta" aria-label="Tonton Metropolis di archive.org">TONTON <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-thumb">
+        <span class="card-badge badge-free">PERCUMA</span>
+        <div class="card-lock"><div class="card-lock-icon" aria-hidden="true">▶</div></div>
+        <div class="card-thumb-content">
+          <span class="card-thumb-emoji" aria-hidden="true">🎩</span>
+          <p class="card-thumb-title">Sherlock Jr</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Sherlock Jr.</h3>
+        <p class="card-meta">1924 · Buster Keaton</p>
+        <a href="https://archive.org/details/sherlock-jr-1924-restored-720p-hd" class="card-cta" aria-label="Tonton Sherlock Jr. di archive.org">TONTON <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-thumb">
+        <span class="card-badge badge-free">PERCUMA</span>
+        <div class="card-lock"><div class="card-lock-icon" aria-hidden="true">▶</div></div>
+        <div class="card-thumb-content">
+          <span class="card-thumb-emoji" aria-hidden="true">👶</span>
+          <p class="card-thumb-title">The Kid</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">The Kid</h3>
+        <p class="card-meta">1921 · Charlie Chaplin</p>
+        <a href="https://archive.org/details/Brzdac1921" class="card-cta" aria-label="Tonton The Kid di archive.org">TONTON <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+
     <!-- Filem 1 -->
     <div class="card">
       <div class="card-thumb">
@@ -399,7 +488,7 @@
         <div class="card-rating">
           <span class="star" aria-hidden="true">★★★★★</span><span class="sr-only">penilaian 5 bintang</span>
         </div>
-        <a href="#" class="card-cta" aria-label="Tonton The Gold Rush">TONTON <span aria-hidden="true">→</span></a>
+        <a href="https://archive.org/details/the-gold-rush-film-1925" class="card-cta" aria-label="Tonton The Gold Rush (1925) di archive.org">TONTON <span aria-hidden="true">→</span></a>
       </div>
     </div>
     
@@ -421,14 +510,14 @@
         <div class="card-rating">
           <span class="star" aria-hidden="true">★★★★★</span><span class="sr-only">penilaian 5 bintang</span>
         </div>
-        <a href="#" class="card-cta" aria-label="Tonton The General">TONTON <span aria-hidden="true">→</span></a>
+        <a href="https://archive.org/details/TheGeneral" class="card-cta" aria-label="Tonton The General (1926) di archive.org">TONTON <span aria-hidden="true">→</span></a>
       </div>
     </div>
     
     <!-- Filem 3 -->
     <div class="card">
       <div class="card-thumb">
-        <span class="card-badge badge-premium">PREMIUM</span>
+        <span class="card-badge badge-free">PERCUMA</span>
         <div class="card-lock">
           <div class="card-lock-icon" aria-hidden="true">🔒</div>
         </div>
@@ -443,7 +532,7 @@
         <div class="card-rating">
           <span class="star" aria-hidden="true">★★★★★</span><span class="sr-only">penilaian 5 bintang</span>
         </div>
-        <a href="#" class="card-cta" aria-label="Langgani untuk tonton Nosferatu">LANGGANAN <span aria-hidden="true">→</span></a>
+        <a href="https://archive.org/details/Nosferatu1922" class="card-cta" aria-label="Tonton Nosferatu (1922) di archive.org">TONTON <span aria-hidden="true">→</span></a>
       </div>
     </div>
     
@@ -465,7 +554,7 @@
         <div class="card-rating">
           <span class="star" aria-hidden="true">★★★★★</span><span class="sr-only">penilaian 5 bintang</span>
         </div>
-        <a href="#" class="card-cta" aria-label="Tonton City Lights">TONTON <span aria-hidden="true">→</span></a>
+        <a href="https://archive.org/details/charlie-chaplin-city-lights-1931" class="card-cta" aria-label="Tonton City Lights (1931) di archive.org">TONTON <span aria-hidden="true">→</span></a>
       </div>
     </div>
     
@@ -487,14 +576,14 @@
         <div class="card-rating">
           <span class="star" aria-hidden="true">★★★★★</span><span class="sr-only">penilaian 5 bintang</span>
         </div>
-        <a href="#" class="card-cta" aria-label="Tonton Steamboat Bill Jr.">TONTON <span aria-hidden="true">→</span></a>
+        <a href="https://archive.org/details/SteamboatBillJr.19281080p_451" class="card-cta" aria-label="Tonton Steamboat Bill Jr. (1928) di archive.org">TONTON <span aria-hidden="true">→</span></a>
       </div>
     </div>
     
     <!-- Filem 6 -->
     <div class="card">
       <div class="card-thumb">
-        <span class="card-badge badge-premium">PREMIUM</span>
+        <span class="card-badge badge-free">PERCUMA</span>
         <div class="card-lock">
           <div class="card-lock-icon" aria-hidden="true">🔒</div>
         </div>
@@ -509,7 +598,7 @@
         <div class="card-rating">
           <span class="star" aria-hidden="true">★★★★★</span><span class="sr-only">penilaian 5 bintang</span>
         </div>
-        <a href="#" class="card-cta" aria-label="Langgani untuk tonton Battleship Potemkin">LANGGANAN <span aria-hidden="true">→</span></a>
+        <a href="https://archive.org/details/BattleshipPotemkin1925" class="card-cta" aria-label="Tonton Battleship Potemkin (1925) di archive.org">TONTON <span aria-hidden="true">→</span></a>
       </div>
     </div>
   </div>
@@ -517,200 +606,140 @@
 
 <!-- ============ TV SERIES ============ -->
 <section class="featured-section" id="tv">
-  <h2 class="section-title"><span aria-hidden="true">📺</span> SERIAL TV TERBAIK</h2>
+  <h2 class="section-title"><span aria-hidden="true">📺</span> SIRI TV KLASIK PERCUMA</h2>
   <p class="section-subtitle">Binge-watch series yang paling seru</p>
   
   <div class="grid">
     <div class="card">
       <div class="card-thumb">
-        <span class="card-badge badge-premium">PREMIUM</span>
+        <span class="card-badge badge-free">PERCUMA</span>
         <div class="card-lock">
           <div class="card-lock-icon" aria-hidden="true">🔒</div>
         </div>
         <div class="card-thumb-content">
-          <span class="card-thumb-emoji" aria-hidden="true">👑</span>
-          <p class="card-thumb-title">The Crown</p>
+          <span class="card-thumb-emoji" aria-hidden="true">🔎</span>
+          <p class="card-thumb-title">Sherlock Holmes</p>
         </div>
       </div>
       <div class="card-body">
-        <h3 class="card-title">The Crown</h3>
-        <p class="card-meta">Drama Biografi · 5 Musim</p>
+        <h3 class="card-title">Sherlock Holmes</h3>
+        <p class="card-meta">Siri TV Klasik PD · 1954</p>
         <div class="card-rating">
           <span class="star" aria-hidden="true">★★★★★</span><span class="sr-only">penilaian 5 bintang</span>
         </div>
-        <a href="#" class="card-cta" aria-label="Langgani untuk tonton The Crown">LANGGANAN <span aria-hidden="true">→</span></a>
+        <a href="https://archive.org/details/SherlockHolmes-TheCaseoftheCunninghamHeritage" class="card-cta" aria-label="Tonton Sherlock Holmes (1954) di archive.org">TONTON <span aria-hidden="true">→</span></a>
       </div>
     </div>
     
     <div class="card">
       <div class="card-thumb">
-        <span class="card-badge badge-premium">PREMIUM</span>
+        <span class="card-badge badge-free">PERCUMA</span>
         <div class="card-lock">
           <div class="card-lock-icon" aria-hidden="true">🔒</div>
         </div>
         <div class="card-thumb-content">
-          <span class="card-thumb-emoji" aria-hidden="true">🧠</span>
-          <p class="card-thumb-title">Breaking Bad</p>
+          <span class="card-thumb-emoji" aria-hidden="true">🌙</span>
+          <p class="card-thumb-title">One Step Beyond</p>
         </div>
       </div>
       <div class="card-body">
-        <h3 class="card-title">Breaking Bad</h3>
-        <p class="card-meta">Drama Thriller · 5 Musim</p>
+        <h3 class="card-title">One Step Beyond</h3>
+        <p class="card-meta">Siri TV Klasik PD · 1959</p>
         <div class="card-rating">
           <span class="star" aria-hidden="true">★★★★★</span><span class="sr-only">penilaian 5 bintang</span>
         </div>
-        <a href="#" class="card-cta" aria-label="Langgani untuk tonton Breaking Bad">LANGGANAN <span aria-hidden="true">→</span></a>
+        <a href="https://archive.org/details/one-step-beyond-season-1-1959" class="card-cta" aria-label="Tonton One Step Beyond (1959) di archive.org">TONTON <span aria-hidden="true">→</span></a>
       </div>
     </div>
     
     <div class="card">
       <div class="card-thumb">
-        <span class="card-badge badge-premium">PREMIUM</span>
+        <span class="card-badge badge-free">PERCUMA</span>
         <div class="card-lock">
           <div class="card-lock-icon" aria-hidden="true">🔒</div>
         </div>
         <div class="card-thumb-content">
-          <span class="card-thumb-emoji" aria-hidden="true">🐉</span>
-          <p class="card-thumb-title">Game of Thrones</p>
+          <span class="card-thumb-emoji" aria-hidden="true">🚀</span>
+          <p class="card-thumb-title">Flash Gordon</p>
         </div>
       </div>
       <div class="card-body">
-        <h3 class="card-title">Game of Thrones</h3>
-        <p class="card-meta">Fantasy Drama · 8 Musim</p>
+        <h3 class="card-title">Flash Gordon</h3>
+        <p class="card-meta">Filem Bersiri PD · 1936</p>
         <div class="card-rating">
           <span class="star" aria-hidden="true">★★★★★</span><span class="sr-only">penilaian 5 bintang</span>
         </div>
-        <a href="#" class="card-cta" aria-label="Langgani untuk tonton Game of Thrones">LANGGANAN <span aria-hidden="true">→</span></a>
+        <a href="https://archive.org/details/flashgordone03capturedbysharkmen" class="card-cta" aria-label="Tonton Flash Gordon (1936) di archive.org">TONTON <span aria-hidden="true">→</span></a>
       </div>
     </div>
     
     <div class="card">
       <div class="card-thumb">
-        <span class="card-badge badge-premium">PREMIUM</span>
+        <span class="card-badge badge-free">PERCUMA</span>
         <div class="card-lock">
           <div class="card-lock-icon" aria-hidden="true">🔒</div>
         </div>
         <div class="card-thumb-content">
-          <span class="card-thumb-emoji" aria-hidden="true">💼</span>
-          <p class="card-thumb-title">Succession</p>
+          <span class="card-thumb-emoji" aria-hidden="true">🕵️</span>
+          <p class="card-thumb-title">Dick Tracy</p>
         </div>
       </div>
       <div class="card-body">
-        <h3 class="card-title">Succession</h3>
-        <p class="card-meta">Drama Korporat · 4 Musim</p>
+        <h3 class="card-title">Dick Tracy</h3>
+        <p class="card-meta">Filem Bersiri PD · 1937</p>
         <div class="card-rating">
           <span class="star" aria-hidden="true">★★★★★</span><span class="sr-only">penilaian 5 bintang</span>
         </div>
-        <a href="#" class="card-cta" aria-label="Langgani untuk tonton Succession">LANGGANAN <span aria-hidden="true">→</span></a>
+        <a href="https://archive.org/details/dicktracy_chapter4" class="card-cta" aria-label="Tonton Dick Tracy (1937) di archive.org">TONTON <span aria-hidden="true">→</span></a>
       </div>
     </div>
     
     <div class="card">
       <div class="card-thumb">
-        <span class="card-badge badge-premium">PREMIUM</span>
+        <span class="card-badge badge-free">PERCUMA</span>
         <div class="card-lock">
           <div class="card-lock-icon" aria-hidden="true">🔒</div>
         </div>
         <div class="card-thumb-content">
-          <span class="card-thumb-emoji" aria-hidden="true">🎭</span>
-          <p class="card-thumb-title">The Office</p>
+          <span class="card-thumb-emoji" aria-hidden="true">😄</span>
+          <p class="card-thumb-title">The Lucy Show</p>
         </div>
       </div>
       <div class="card-body">
-        <h3 class="card-title">The Office</h3>
-        <p class="card-meta">Komedi · 9 Musim</p>
+        <h3 class="card-title">The Lucy Show</h3>
+        <p class="card-meta">Siri TV Klasik PD · 1962</p>
         <div class="card-rating">
           <span class="star" aria-hidden="true">★★★★★</span><span class="sr-only">penilaian 5 bintang</span>
         </div>
-        <a href="#" class="card-cta" aria-label="Langgani untuk tonton The Office">LANGGANAN <span aria-hidden="true">→</span></a>
+        <a href="https://archive.org/details/the-lucy-show-lucy-buys-a-boat" class="card-cta" aria-label="Tonton The Lucy Show (1962) di archive.org">TONTON <span aria-hidden="true">→</span></a>
       </div>
     </div>
     
     <div class="card">
       <div class="card-thumb">
-        <span class="card-badge badge-coming">SEGERA HADIR</span>
+        <span class="card-badge badge-free">PERCUMA</span>
         <div class="card-lock">
           <div class="card-lock-icon" aria-hidden="true">⏰</div>
         </div>
         <div class="card-thumb-content">
-          <span class="card-thumb-emoji" aria-hidden="true">🔮</span>
-          <p class="card-thumb-title">Series Eksklusif</p>
+          <span class="card-thumb-emoji" aria-hidden="true">🛢️</span>
+          <p class="card-thumb-title">The Beverly Hillbillies</p>
         </div>
       </div>
       <div class="card-body">
-        <h3 class="card-title">Series Terbaru</h3>
-        <p class="card-meta">Coming Soon 2024</p>
+        <h3 class="card-title">The Beverly Hillbillies</h3>
+        <p class="card-meta">Siri TV Klasik PD · 1962</p>
         <div class="card-rating">
           <span class="star" aria-hidden="true">★★★★★</span><span class="sr-only">penilaian 5 bintang</span>
         </div>
-        <a href="#" class="card-cta" aria-label="Notis untuk Series Terbaru">NOTIS <span aria-hidden="true">→</span></a>
+        <a href="https://archive.org/details/thebeverlyhillbilliesgettingsettledhq" class="card-cta" aria-label="Tonton The Beverly Hillbillies (1962) di archive.org">TONTON <span aria-hidden="true">→</span></a>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ============ PRICING ============ -->
-<section class="pricing-section" id="pricing">
-  <div style="max-width:800px; margin:0 auto; text-align:center; margin-bottom:40px;">
-    <h2 class="section-title"><span aria-hidden="true">💎</span> PILIH PELAN ANDA</h2>
-    <p class="section-subtitle">Streaming tanpa batas untuk semua</p>
-    <p style="color:#a0b2c8; font-size:15px;">Nikmati akses unlimited ke semua konten kami dengan harga yang terjangkau</p>
-  </div>
-  
-  <div class="pricing-grid">
-    <!-- Free Plan -->
-    <div class="pricing-card">
-      <h3 class="pricing-title">Percuma</h3>
-      <div class="pricing-price">RM0<span style="font-size:18px; color:#7a8ba0;">/bulan</span></div>
-      <p class="pricing-period">Tanpa komitmen</p>
-      
-      <ul class="pricing-features">
-        <li>6 filem klasik</li>
-        <li>Tayangan preview</li>
-        <li>Dengan iklan</li>
-        <li>Standard quality</li>
-        <li>1 perangkat</li>
-      </ul>
-      
-      <button type="button" class="pricing-button secondary">Mulai Percuma</button>
-    </div>
-    
-    <!-- Premium Plan -->
-    <div class="pricing-card featured">
-      <span class="pricing-badge">PALING POPULAR</span>
-      <h3 class="pricing-title">Premium</h3>
-      <div class="pricing-price">RM4.90<span style="font-size:18px; color:#7a8ba0;">/bulan</span></div>
-      <p class="pricing-period">Batal kapan saja</p>
-      
-      <ul class="pricing-features">
-        <li>✓ Semua filem & TV series</li>
-        <li>✓ Tanpa iklan</li>
-        <li>✓ HD streaming</li>
-        <li>✓ Tonton di mana saja</li>
-        <li>✓ Konten eksklusif</li>
-      </ul>
-      
-      <button type="button" class="pricing-button primary">Berlangganan Sekarang</button>
-    </div>
-    
-    <!-- Family Plan -->
-    <div class="pricing-card">
-      <h3 class="pricing-title">Keluarga</h3>
-      <div class="pricing-price">RM7.90<span style="font-size:18px; color:#7a8ba0;">/bulan</span></div>
-      <p class="pricing-period">Untuk 4 orang</p>
-      
-      <ul class="pricing-features">
-        <li>Semua filem & TV series</li>
-        <li>Tanpa iklan</li>
-        <li>4 profil pengguna</li>
-        <li>Tonton secara bersamaan</li>
-        <li>Dukungan prioritas</li>
-      </ul>
-      
-      <button type="button" class="pricing-button primary">Berlangganan Keluarga</button>
-    </div>
-  </div>
-</section>
+
 
 <!-- ============ FOOTER ============ -->
 </main>
@@ -732,7 +761,6 @@
       <a href="#beranda">Beranda</a>
       <a href="#filem">Filem</a>
       <a href="#tv">Serial TV</a>
-      <a href="#pricing">Harga</a>
     </div>
     
     <div class="footer-section">
@@ -754,9 +782,19 @@
   <div class="footer-bottom">
     <p>© 2024 CinemaKlasik Premium. Semua hak terpelihara. | Platform Streaming Berkualiti untuk Rakyat Malaysia <span aria-hidden="true">🇲🇾</span></p>
     <p style="margin-top:12px; font-size:11px;">Dibina dengan <span aria-hidden="true">❤️</span><span class="sr-only">cinta</span> untuk pengalaman menonton yang terbaik.</p>
-    <p style="margin-top:14px;"><a class="apk-link" href="CinemaKlasik-v1.1.apk" download><span aria-hidden="true">📱</span> Muat Turun Aplikasi Android (APK)</a></p>
+    <p style="margin-top:14px;"><a class="apk-link" href="CinemaKlasik-v1.2.apk" download><span aria-hidden="true">📱</span> Muat Turun Aplikasi Android (APK)</a></p>
   </div>
 </footer>
+
+<div class="player-backdrop" id="playerBackdrop" role="dialog" aria-modal="true" aria-label="Pemain video CinemaKlasik" hidden>
+  <div class="player-box">
+    <div class="player-head">
+      <span class="player-title" id="playerTitle">Pemain video</span>
+      <button type="button" class="player-close" id="playerClose" aria-label="Tutup pemain"><span aria-hidden="true">✕</span></button>
+    </div>
+    <iframe class="player-frame" id="playerFrame" src="about:blank" title="Pemain video" allow="fullscreen; autoplay" allowfullscreen></iframe>
+  </div>
+</div>
 
 <script>
   // Carousel functionality
@@ -791,5 +829,41 @@
   });
 </script>
 
+<script>
+  // [OTT] Tekan TONTON -> filem main dalam laman (tak keluar)
+  (function () {
+    var backdrop = document.getElementById('playerBackdrop');
+    var frame = document.getElementById('playerFrame');
+    var tajuk = document.getElementById('playerTitle');
+    var closeBtn = document.getElementById('playerClose');
+    var fokusTerakhir = null;
+
+    function buka(id, t) {
+      fokusTerakhir = document.activeElement;
+      frame.src = 'https://archive.org/embed/' + id;
+      tajuk.textContent = t || 'Pemain video';
+      backdrop.hidden = false;
+      document.body.style.overflow = 'hidden';
+      closeBtn.focus();
+    }
+    function tutup() {
+      backdrop.hidden = true;
+      frame.src = 'about:blank';
+      document.body.style.overflow = '';
+      if (fokusTerakhir && fokusTerakhir.focus) fokusTerakhir.focus();
+    }
+    document.querySelectorAll('.card-cta').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        var m = (a.getAttribute('href') || '').match(/archive\.org\/details\/([^\/?#]+)/);
+        if (!m) return;
+        e.preventDefault();
+        buka(m[1], (a.getAttribute('aria-label') || '').replace(/^Tonton /, ''));
+      });
+    });
+    closeBtn.addEventListener('click', tutup);
+    backdrop.addEventListener('click', function (e) { if (e.target === backdrop) tutup(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !backdrop.hidden) tutup(); });
+  })();
+</script>
 </body>
 </html>
