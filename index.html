@@ -210,6 +210,56 @@ footer{
 }
 </style>
 
+
+<style id="cinemaklasik-2-3">
+/* CINEMAKLASIK 2.3 — MOVIE DETAIL + WATCHLIST + HISTORY */
+.ck23-detail{
+ position:fixed;inset:0;z-index:9999;display:none;overflow:auto;
+ background:rgba(4,7,12,.97);backdrop-filter:blur(18px);
+}
+.ck23-detail.show{display:block}
+.ck23-panel{max-width:1050px;margin:0 auto;padding:24px 18px 60px}
+.ck23-close{
+ border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);
+ color:inherit;border-radius:999px;padding:9px 15px;cursor:pointer;font-weight:800
+}
+.ck23-main{
+ display:grid;grid-template-columns:260px 1fr;gap:28px;margin-top:22px;align-items:start
+}
+.ck23-poster{width:100%;border-radius:18px;box-shadow:0 25px 70px rgba(0,0,0,.55)}
+.ck23-meta h2{font-size:clamp(2rem,5vw,3.4rem);margin:0 0 10px;letter-spacing:-.04em}
+.ck23-meta p{line-height:1.75;opacity:.82}
+.ck23-chips{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.ck23-chip{padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.07);font-size:.78rem}
+.ck23-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}
+.ck23-action{
+ border:0;border-radius:999px;padding:11px 17px;cursor:pointer;font-weight:900
+}
+.ck23-primary{background:#fff;color:#080b10}
+.ck23-secondary{background:rgba(255,255,255,.08);color:inherit;border:1px solid rgba(255,255,255,.12)}
+.ck23-toast{
+ position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);
+ opacity:0;pointer-events:none;background:#101721;border:1px solid rgba(255,255,255,.12);
+ padding:11px 16px;border-radius:999px;z-index:10001;transition:.25s
+}
+.ck23-toast.show{opacity:1;transform:translate(-50%,0)}
+.ck23-section{margin-top:32px}
+.ck23-section h3{margin-bottom:12px}
+.ck23-mini{
+ display:inline-flex;align-items:center;gap:6px;margin-left:8px;
+ padding:5px 9px;border-radius:999px;font-size:.72rem;
+ background:rgba(255,180,0,.13);border:1px solid rgba(255,180,0,.2)
+}
+.ck23-fav{font-size:1rem}
+@media(max-width:700px){
+ .ck23-main{grid-template-columns:1fr;gap:18px}
+ .ck23-poster{max-width:230px;margin:auto}
+ .ck23-meta{text-align:center}
+ .ck23-chips,.ck23-actions{justify-content:center}
+ .ck23-panel{padding-top:15px}
+}
+</style>
+
 </head>
 <body>
 <a class="skip" href="#utama">Langkau ke kandungan utama</a>
@@ -434,5 +484,118 @@ document.addEventListener('DOMContentLoaded',()=>{
 });
 </script>
 
+
+<script id="cinemaklasik-2-3-js">
+document.addEventListener('DOMContentLoaded',()=>{
+ const cards=[...document.querySelectorAll('.card')];
+ if(!cards.length) return;
+
+ const storeKey='cinemaklasik23';
+ const saved=JSON.parse(localStorage.getItem(storeKey)||'{"watchlist":[],"history":[]}');
+ const byId=id=>saved[id]||(saved[id]=[]);
+ function persist(){localStorage.setItem(storeKey,JSON.stringify(saved));}
+
+ const detail=document.createElement('div');
+ detail.className='ck23-detail';
+ detail.innerHTML=`
+  <div class="ck23-panel">
+   <button class="ck23-close" id="ck23-close">← Kembali</button>
+   <div class="ck23-main">
+    <div><img class="ck23-poster" id="ck23-poster" alt=""></div>
+    <div class="ck23-meta">
+     <div class="ck23-chips" id="ck23-chips"></div>
+     <h2 id="ck23-title"></h2>
+     <p id="ck23-desc"></p>
+     <div class="ck23-actions">
+      <button class="ck23-action ck23-primary" id="ck23-watch">▶ Tonton Sekarang</button>
+      <button class="ck23-action ck23-secondary" id="ck23-list">♡ Watchlist</button>
+      <button class="ck23-action ck23-secondary" id="ck23-share">↗ Kongsi</button>
+     </div>
+    </div>
+   </div>
+  </div>`;
+ document.body.appendChild(detail);
+
+ const toast=document.createElement('div');
+ toast.className='ck23-toast'; document.body.appendChild(toast);
+ const showToast=t=>{toast.textContent=t;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),1800)};
+
+ let current=null;
+
+ function info(card){
+  const img=card.querySelector('img');
+  const title=card.querySelector('h3,h2,.title,.card-title')?.textContent?.trim() || 'Filem Klasik';
+  const text=(card.innerText||'').replace(/\s+/g,' ').trim();
+  const src=img?.src||'';
+  const match=src.match(/archive\.org\/services\/img\/([^/?#]+)/);
+  const id=match?match[1]:'';
+  return {title,text,src,id};
+ }
+ function openDetail(card){
+  current=info(card);
+  const key=current.id||current.title;
+  detail.dataset.key=key;
+  document.getElementById('ck23-title').textContent=current.title;
+  document.getElementById('ck23-poster').src=current.src;
+  document.getElementById('ck23-poster').alt=current.title;
+  document.getElementById('ck23-desc').textContent=
+    'Filem klasik pilihan CinemaKlasik. Nikmati tontonan dan nostalgia dalam koleksi kami.';
+  document.getElementById('ck23-chips').innerHTML=
+    `<span class="ck23-chip">🎬 Klasik</span><span class="ck23-chip">CinemaKlasik</span>`;
+  updateListButton();
+  detail.classList.add('show');
+  document.body.style.overflow='hidden';
+ }
+ function closeDetail(){detail.classList.remove('show');document.body.style.overflow='';}
+ function updateListButton(){
+  const key=detail.dataset.key;
+  const exists=(saved.watchlist||[]).includes(key);
+  const b=document.getElementById('ck23-list');
+  b.textContent=exists?'♥ Dalam Watchlist':'♡ Tambah ke Watchlist';
+ }
+ cards.forEach(card=>{
+  // Add a non-destructive detail button to each card.
+  if(card.querySelector('.ck23-open')) return;
+  const b=document.createElement('button');
+  b.className='ck23-action ck23-secondary ck23-open';
+  b.type='button';b.textContent='ℹ Detail';
+  b.style.margin='10px';
+  b.addEventListener('click',e=>{e.stopPropagation();openDetail(card)});
+  card.appendChild(b);
+ });
+
+ document.getElementById('ck23-close').onclick=closeDetail;
+ detail.addEventListener('click',e=>{if(e.target===detail)closeDetail()});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDetail()});
+
+ document.getElementById('ck23-list').onclick=()=>{
+  const key=detail.dataset.key;
+  const arr=saved.watchlist||[];
+  const i=arr.indexOf(key);
+  if(i>=0){arr.splice(i,1);showToast('Dibuang daripada Watchlist')}
+  else{arr.push(key);showToast('Ditambah ke Watchlist ❤️')}
+  saved.watchlist=arr;persist();updateListButton();
+ };
+ document.getElementById('ck23-share').onclick=async()=>{
+  const data={title:current.title,url:location.href};
+  try{
+   if(navigator.share) await navigator.share(data);
+   else{await navigator.clipboard.writeText(location.href);showToast('Pautan disalin')}
+  }catch(e){}
+ };
+ document.getElementById('ck23-watch').onclick=()=>{
+  const key=detail.dataset.key;
+  saved.history=saved.history||[];
+  saved.history=[key,...saved.history.filter(x=>x!==key)].slice(0,20);
+  persist(); closeDetail();
+  const play=cards.find(c=>info(c).id===current.id || info(c).title===current.title)
+    ?.querySelector('button[onclick*="play"],.watch-btn');
+  if(play) play.click();
+ };
+
+ // If existing cards already have a Tonton button, clicking Detail won't interfere.
+});
+</script>
+
 </body>
-</html>
+  </html>
