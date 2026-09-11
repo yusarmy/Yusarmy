@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>CinemaKlasik Premium — Streaming Platform Malaysia</title>
-<meta name="description" content="CinemaKlasik Premium — platform streaming filem klasik dunia dan serial TV. Tonton di web atau muat turun aplikasi Android." />
+<title>CinemaKlasik — Streaming Filem Klasik Percuma</title>
+<meta name="description" content="CinemaKlasik — platform streaming filem klasik dunia dan siri TV klasik. 100% percuma & sah (public domain). Tonton di web atau muat turun aplikasi Android." />
 <meta name="theme-color" content="#0a0e27" />
 <link rel="manifest" href="manifest.webmanifest" />
 <link rel="icon" type="image/png" href="favicon-32.png" />
@@ -271,16 +271,20 @@
   .player-loading { position:absolute; color:#7fd0ff; font-size:13px; text-align:center; width:100%; padding-top:80px; pointer-events:none; }
   .player-fallback { display:inline-block; margin-top:10px; font-size:13px; color:#4da3ff; font-weight:700; text-decoration:none; }
   .player-fallback:hover { text-decoration:underline; }
-  /* [AUTH] Log masuk / daftar */
-  .auth-tabs { display:flex; gap:8px; margin-bottom:6px; }
-  .auth-tab { flex:1; padding:10px; border-radius:8px; border:1px solid #2a3f5f; background:#1a2847; color:#e8edf3; font-weight:700; cursor:pointer; }
-  .auth-tab.active { background:linear-gradient(135deg,#ff6b35,#ff5722); color:#0a0e27; border-color:#ff6b35; }
-  .auth-label { display:block; font-size:13px; color:#a0b2c8; margin:10px 0 6px; }
-  .auth-input { width:100%; padding:12px; border-radius:8px; border:1px solid #2a3f5f; background:#10161f; color:#e8edf3; font-size:15px; }
-  .auth-btn { width:100%; margin-top:16px; padding:13px; border-radius:10px; border:none; background:linear-gradient(135deg,#ff6b35,#ff5722); color:#0a0e27; font-weight:800; font-size:15px; cursor:pointer; }
-  .auth-btn:disabled { opacity:.6; }
-  .auth-msg { min-height:20px; margin-top:12px; font-size:13px; color:#ff8a80; text-align:center; }
-  #userChip { cursor:default; color:#00d4ff; }
+  /* [AUTH v2] Reka bentuk login dari CinemaKlasik 2.5 */
+  .ck25-account{display:flex;align-items:center;gap:8px;margin-left:8px}
+.ck25-user-btn{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:inherit;border-radius:999px;padding:9px 13px;cursor:pointer;font-weight:800}
+.ck25-avatar{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#fff,rgba(0,200,255,.7));color:#071018;font-weight:900}
+.ck25-overlay{position:fixed;inset:0;z-index:10020;display:none;place-items:center;padding:18px;background:rgba(2,5,10,.84);backdrop-filter:blur(16px)}
+.ck25-box{width:min(430px,100%);background:#0d131d;border:1px solid rgba(255,255,255,.1);border-radius:24px;padding:24px;box-shadow:0 30px 100px rgba(0,0,0,.65)}
+.ck25-tabs{display:flex;gap:6px;margin:18px 0}
+.ck25-tab{flex:1;padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);color:inherit;font-weight:800;cursor:pointer}
+.ck25-form{display:grid;gap:11px}
+.ck25-submit{border:0;border-radius:12px;padding:12px;background:#fff;color:#080b10;font-weight:900;cursor:pointer}
+.ck25-x{float:right;border:0;background:none;color:inherit;font-size:1.4rem;cursor:pointer}
+.ck25-error{color:#ffb0b0;font-size:.84rem;display:none}
+.ck25-note{font-size:.78rem;opacity:.55;margin-top:12px}
+  #userChip { cursor:default; }
 </style>
 </head>
 <body>
@@ -291,15 +295,13 @@
   <div class="logo" aria-hidden="true">🎬</div>
   <div class="brand">
     <h1>CINEMAKLASIK</h1>
-    <p>Premium Streaming Platform</p>
+    <p>Streaming Percuma</p>
   </div>
   <nav class="nav" aria-label="Navigasi utama">
     <a class="nav-btn" href="#beranda"><span aria-hidden="true">🏠</span> Beranda</a>
     <a class="nav-btn" href="#filem"><span aria-hidden="true">🎬</span> Filem</a>
     <a class="nav-btn" href="#tv"><span aria-hidden="true">📺</span> TV Series</a>
-    <button type="button" class="nav-btn" id="btnAuth"><span aria-hidden="true">👤</span> <span id="btnAuthText">Log Masuk</span></button>
-    <span class="nav-btn" id="userChip" hidden></span>
-    <button type="button" class="nav-btn" id="btnLogout" hidden>Log Keluar</button>
+    <span id="ck25-account" class="ck25-account"></span>
   </nav>
 </header>
 
@@ -308,7 +310,7 @@
 <!-- ============ HERO ============ -->
 <section class="hero" id="beranda">
   <div class="hero-content">
-    <span class="badge"><span aria-hidden="true">✨</span> Premium Streaming Dimulai Dari Sini</span>
+    <span class="badge"><span aria-hidden="true">✨</span> Percuma & Sah — Public Domain</span>
     <h2>Hiburan Tanpa Batas</h2>
     <p>Tonton filem klasik dunia, serial TV terbaik, dan cerita menarik dari Malaysia. Streaming berkualiti tinggi tanpa gangguan iklan.</p>
     <div class="hero-buttons">
@@ -321,7 +323,7 @@
 <!-- ============ FEATURED ============ -->
 <section class="featured-section" id="tayangan">
   <h2 class="section-title"><span aria-hidden="true">🔥</span> TAYANGAN PILIHAN</h2>
-  <p class="section-subtitle">Konten premium yang mesti anda tonton</p>
+  <p class="section-subtitle">Filem klasik pilihan penonton</p>
   
   <!-- Carousel -->
   <div class="carousel">
@@ -802,27 +804,6 @@
   </div>
 </footer>
 
-<div class="player-backdrop" id="authBackdrop" role="dialog" aria-modal="true" aria-label="Log masuk atau daftar akaun CinemaKlasik" hidden>
-  <div class="player-box">
-    <div class="player-head">
-      <span class="player-title">Akaun CinemaKlasik</span>
-      <button type="button" class="player-close" id="authClose" aria-label="Tutup"><span aria-hidden="true">✕</span></button>
-    </div>
-    <div class="auth-tabs">
-      <button type="button" class="auth-tab active" id="tabMasuk" aria-selected="true">Log Masuk</button>
-      <button type="button" class="auth-tab" id="tabDaftar" aria-selected="false">Daftar</button>
-    </div>
-    <form id="authForm">
-      <label class="auth-label" for="authEmail">Email</label>
-      <input class="auth-input" id="authEmail" type="email" required autocomplete="email" placeholder="anda@gmail.com">
-      <label class="auth-label" for="authPass">Kata laluan</label>
-      <input class="auth-input" id="authPass" type="password" required minlength="6" autocomplete="current-password" placeholder="Sekurang-kurangnya 6 aksara">
-      <div class="auth-msg" id="authMsg" role="status" aria-live="polite"></div>
-      <button type="submit" class="auth-btn" id="authSubmit">Log Masuk</button>
-    </form>
-  </div>
-</div>
-
 <div class="player-backdrop" id="playerBackdrop" role="dialog" aria-modal="true" aria-label="Pemain video CinemaKlasik" hidden>
   <div class="player-box">
     <div class="player-head">
@@ -911,73 +892,104 @@
   })();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
 <script>
+/* [AUTH v2] Logik akaun CinemaKlasik 2.5 - diadaptasi ke OTT */
 (function () {
   var SUPABASE_URL = "https://fcstezpekgajyezoyeil.supabase.co";
   var SUPABASE_KEY = "sb_publishable_RqMwY1LOCw9tzroSw4Ei_A_c8yZDLCp";
-  var sb = null, mode = 'masuk';
+  var sb = null, mode = 'login', account, overlay;
 
-  window.addEventListener('load', init);
-  function init() {
+  function $(id) { return document.getElementById(id); }
+
+  window.addEventListener('load', async function () {
+    account = $('ck25-account');
+    var configured = SUPABASE_URL.indexOf('https://') === 0 && SUPABASE_KEY && SUPABASE_KEY.indexOf('PASTE_') !== 0;
+    // Bina modal login (reka bentuk 2.5)
+    overlay = document.createElement('div');
+    overlay.className = 'ck25-overlay';
+    overlay.innerHTML = '<div class="ck25-box"><button class="ck25-x" id="ck25-x" aria-label="Tutup">×</button>' +
+      '<h2 id="ck25-heading">Selamat datang</h2>' +
+      '<p id="ck25-sub">Log masuk untuk pengalaman CinemaKlasik yang lebih peribadi.</p>' +
+      '<div class="ck25-tabs"><button type="button" class="ck25-tab active" data-mode="login">Log Masuk</button>' +
+      '<button type="button" class="ck25-tab" data-mode="register">Daftar</button></div>' +
+      '<form class="ck25-form" id="ck25-form">' +
+      '<input id="ck25-name" class="ck25-input" placeholder="Nama" autocomplete="name" style="display:none">' +
+      '<input id="ck25-email" class="ck25-input" type="email" placeholder="Emel" autocomplete="email" required>' +
+      '<input id="ck25-pass" class="ck25-input" type="password" placeholder="Kata laluan" autocomplete="current-password" minlength="6" required>' +
+      '<div class="ck25-error" id="ck25-error" role="status" aria-live="polite"></div>' +
+      '<button class="ck25-submit" id="ck25-submit">Log Masuk</button></form>' +
+      '<div class="ck25-note" id="ck25-note"></div></div>';
+    document.body.appendChild(overlay);
+
     try {
       sb = (window.supabase && window.supabase.createClient)
         ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
     } catch (e) { sb = null; }
-    var b = document.getElementById('btnAuth');
-    if (!sb) { b.hidden = true; return; }   // offline/CDN gagal - sembunyi elak error
-    b.addEventListener('click', buka);
-    document.getElementById('authClose').addEventListener('click', tutup);
-    document.getElementById('authBackdrop').addEventListener('click', function (e) { if (e.target === this) tutup(); });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !document.getElementById('authBackdrop').hidden) tutup(); });
-    document.getElementById('tabMasuk').addEventListener('click', function () { setMode('masuk'); });
-    document.getElementById('tabDaftar').addEventListener('click', function () { setMode('daftar'); });
-    document.getElementById('authForm').addEventListener('submit', hantar);
-    document.getElementById('btnLogout').addEventListener('click', function () { if (sb) sb.auth.signOut(); });
-    sb.auth.getSession().then(function (r) { updateUI(r.data.session); });
-    sb.auth.onAuthStateChange(function (_e, s) { updateUI(s); });
-  }
+    if (!sb) { render(null); return; }
+    if ($('ck25-note')) $('ck25-note').textContent = 'Akaun anda disimpan selamat melalui Supabase Auth.';
+
+    $('ck25-x').onclick = tutup;
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) tutup(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && overlay.classList.contains('show')) tutup(); });
+    document.querySelectorAll('.ck25-tab').forEach(function (t) { t.onclick = function () { setMode(t.dataset.mode); }; });
+    $('ck25-form').onsubmit = hantar;
+    try {
+      var r = await sb.auth.getSession();
+      render(r.data.session ? r.data.session.user : null);
+      sb.auth.onAuthStateChange(function (_e, s) { render(s ? s.user : null); });
+    } catch (e) { render(null); }
+  });
+
   function setMode(m) {
     mode = m;
-    var tM = document.getElementById('tabMasuk'), tD = document.getElementById('tabDaftar');
-    tM.classList.toggle('active', m === 'masuk'); tD.classList.toggle('active', m === 'daftar');
-    tM.setAttribute('aria-selected', m === 'masuk'); tD.setAttribute('aria-selected', m === 'daftar');
-    document.getElementById('authSubmit').textContent = (m === 'masuk') ? 'Log Masuk' : 'Daftar Akaun';
-    document.getElementById('authPass').setAttribute('autocomplete', (m === 'masuk') ? 'current-password' : 'new-password');
-    msg('');
+    document.querySelectorAll('.ck25-tab').forEach(function (t) { t.classList.toggle('active', t.dataset.mode === m); });
+    $('ck25-name').style.display = (m === 'register') ? 'block' : 'none';
+    $('ck25-submit').textContent = (m === 'register') ? 'Daftar Akaun' : 'Log Masuk';
+    $('ck25-heading').textContent = (m === 'register') ? 'Cipta akaun' : 'Selamat datang';
+    $('ck25-sub').textContent = (m === 'register') ? 'Bina profil CinemaKlasik anda.' : 'Log masuk untuk pengalaman yang lebih peribadi.';
+    $('ck25-pass').setAttribute('autocomplete', (m === 'register') ? 'new-password' : 'current-password');
+    $('ck25-error').style.display = 'none';
   }
-  function buka() { setMode('masuk'); document.getElementById('authBackdrop').hidden = false; document.getElementById('authEmail').focus(); }
-  function tutup() { document.getElementById('authBackdrop').hidden = true; }
-  function msg(t, ok) { var el = document.getElementById('authMsg'); el.textContent = t; el.style.color = ok ? '#2bd97a' : '#ff8a80'; }
-  function hantar(e) {
-    e.preventDefault();
-    if (!sb) { msg('Sistem akaun tidak tersedia (tiada sambungan internet).'); return; }
-    var em = document.getElementById('authEmail').value.trim();
-    var pw = document.getElementById('authPass').value;
-    var btn = document.getElementById('authSubmit');
-    btn.disabled = true; btn.textContent = 'Sila tunggu...';
-    var req = (mode === 'masuk')
-      ? sb.auth.signInWithPassword({ email: em, password: pw })
-      : sb.auth.signUp({ email: em, password: pw });
-    req.then(function (r) {
-      btn.disabled = false; btn.textContent = (mode === 'masuk') ? 'Log Masuk' : 'Daftar Akaun';
-      if (r.error) { msg(r.error.message); return; }
-      if (mode === 'daftar' && r.data && r.data.user && !r.data.session) {
-        msg('✅ Akaun dicipta! Semak email anda untuk pengesahan, kemudian Log Masuk.', true);
-      } else { tutup(); }
-    }).catch(function (err) {
-      btn.disabled = false; btn.textContent = (mode === 'masuk') ? 'Log Masuk' : 'Daftar Akaun';
-      msg('Ralat: ' + (err.message || err));
-    });
+  function buka(m) { setMode(m || 'login'); overlay.classList.add('show'); $('ck25-email').focus(); }
+  function tutup() { overlay.classList.remove('show'); }
+  function err(m) { var e = $('ck25-error'); e.textContent = m; e.style.display = 'block'; }
+
+  async function hantar(ev) {
+    ev.preventDefault();
+    $('ck25-error').style.display = 'none';
+    if (!sb) return err('Sistem akaun tidak tersedia (tiada sambungan internet).');
+    var email = $('ck25-email').value.trim();
+    var password = $('ck25-pass').value;
+    var name = $('ck25-name').value.trim();
+    if (password.length < 6) return err('Kata laluan mesti sekurang-kurangnya 6 aksara.');
+    $('ck25-submit').disabled = true;
+    try {
+      var r = (mode === 'register')
+        ? await sb.auth.signUp({ email: email, password: password, options: { data: { full_name: name || email.split('@')[0] } } })
+        : await sb.auth.signInWithPassword({ email: email, password: password });
+      if (r.error) throw r.error;
+      tutup();
+      if (mode === 'register') alert(r.data.session ? 'Akaun berjaya dibuat dan anda sudah log masuk.' : 'Akaun berjaya dibuat. Semak emel anda untuk pengesahan jika diminta.');
+    } catch (x) { err(x && x.message ? x.message : 'Operasi akaun gagal.'); }
+    finally { $('ck25-submit').disabled = false; $('ck25-submit').textContent = (mode === 'register') ? 'Daftar Akaun' : 'Log Masuk'; }
   }
-  function updateUI(session) {
-    var b = document.getElementById('btnAuth'), u = document.getElementById('userChip'), l = document.getElementById('btnLogout');
-    if (session && session.user) {
-      var em = session.user.email || 'pengguna';
-      u.textContent = '👤 ' + em.split('@')[0];
-      u.hidden = false; l.hidden = false; b.hidden = true;
-    } else { u.hidden = true; l.hidden = true; b.hidden = false; }
+
+  function render(u) {
+    if (u) {
+      var e = u.email || '';
+      var n = (u.user_metadata && u.user_metadata.full_name) || e.split('@')[0] || 'U';
+      account.innerHTML = '<span class="ck25-avatar" aria-hidden="true">' + n.charAt(0).toUpperCase() + '</span>' +
+        '<button type="button" class="ck25-user-btn" id="ck25-account-btn">' + n + '</button>';
+      $('ck25-account-btn').onclick = async function () {
+        if (confirm('Akaun: ' + e + '\n\nTekan OK untuk log keluar.') && sb) await sb.auth.signOut();
+      };
+    } else {
+      account.innerHTML = '<button type="button" class="ck25-user-btn" id="ck25-open"><span aria-hidden="true">👤</span> Log Masuk</button>';
+      var b = $('ck25-open'); if (b) b.onclick = function () { buka('login'); };
+    }
   }
 })();
 </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3956cacbb8efdec',t:'MTc4OTExNjYyMg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
-  </html>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a39582c62dad40fe',t:'MTc4OTExNzUyOA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ </html>
