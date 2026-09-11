@@ -6,9 +6,6 @@
 <title>CinemaKlasik — Streaming Filem Klasik Percuma</title>
 <meta name="description" content="CinemaKlasik — platform streaming filem klasik dunia dan siri TV klasik. 100% percuma & sah (public domain). Tonton di web atau muat turun aplikasi Android." />
 <meta name="theme-color" content="#0a0e27" />
-<link rel="manifest" href="manifest.webmanifest" />
-<link rel="icon" type="image/png" href="favicon-32.png" />
-<link rel="apple-touch-icon" href="apple-touch-icon.png" />
 
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -35,260 +32,144 @@
   .nav { margin-left:auto; display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
   .nav-btn { padding:10px 16px; border-radius:8px; font-size:13px; font-weight:600; border:1px solid #1a2847; color:#e8edf3; background:rgba(26,40,71,.6); transition:.2s; cursor:pointer; backdrop-filter:blur(10px); }
   .nav-btn:hover { background:rgba(26,40,71,.9); border-color:#2a5a8a; }
-  .nav-btn.premium { background:linear-gradient(135deg,#ff6b35,#004e89); border:none; color:#0a0e27; box-shadow:0 8px 20px rgba(255,107,53,.3); }
-  .nav-btn.premium:hover { box-shadow:0 12px 30px rgba(255,107,53,.5); transform:translateY(-2px); }
   
   /* ============ HERO ============ */
   .hero {
-    background:linear-gradient(135deg,rgba(0,212,255,.1) 0%,rgba(0,78,137,.1) 100%),url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(0,212,255,.05)" stroke-width=".5"/></pattern></defs><rect width="1200" height="400" fill="url(%23grid)"/></svg>');
-    background-size:cover; background-position:center; padding:80px 24px; text-align:center; position:relative; overflow:hidden;
+    background:linear-gradient(135deg,rgba(0,212,255,.1) 0%,rgba(0,78,137,.1) 100%);
+    background-size:cover; background-position:center; padding:70px 24px 50px; text-align:center; position:relative; overflow:hidden;
   }
-  
   .hero::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at 50% 0%, rgba(0,212,255,.15), transparent 70%); pointer-events:none; }
-  
   .hero-content { position:relative; z-index:2; max-width:800px; margin:0 auto; }
   .hero .badge { display:inline-block; background:rgba(0,212,255,.1); border:1px solid rgba(0,212,255,.3); border-radius:30px; padding:8px 18px; font-size:12px; color:#00d4ff; margin-bottom:20px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; }
+  .hero h2 { font-size:52px; font-weight:900; margin-bottom:16px; background:linear-gradient(180deg,#00ffff 0%,#00d4ff 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; line-height:1.2; }
+  .hero p { font-size:17px; color:#a0b2c8; margin-bottom:28px; line-height:1.8; max-width:600px; margin-left:auto; margin-right:auto; }
   
-  .hero h2 { font-size:56px; font-weight:900; margin-bottom:16px; background:linear-gradient(180deg,#00ffff 0%,#00d4ff 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; line-height:1.2; }
-  
-  .hero p { font-size:18px; color:#a0b2c8; margin-bottom:32px; line-height:1.8; max-width:600px; margin-left:auto; margin-right:auto; }
-  
+  .search-box { max-width: 500px; margin: 0 auto 28px; position: relative; }
+  .search-box input { width: 100%; padding: 14px 20px; border-radius: 30px; border: 2px solid rgba(0,212,255,.3); background: rgba(13,20,35,.8); color: #fff; font-size: 15px; outline: none; backdrop-filter: blur(8px); }
+  .search-box input:focus { border-color: #00d4ff; box-shadow: 0 0 15px rgba(0,212,255,.3); }
+
   .hero-buttons { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
-  .btn { padding:14px 32px; border-radius:10px; font-size:15px; font-weight:700; border:none; cursor:pointer; transition:.3s; text-transform:uppercase; letter-spacing:.5px; }
+  .btn { padding:14px 32px; border-radius:10px; font-size:14px; font-weight:700; border:none; cursor:pointer; transition:.3s; text-transform:uppercase; letter-spacing:.5px; display:inline-block; }
   .btn-primary { background:linear-gradient(135deg,#ff6b35 0%,#ff5722 100%); color:#0a0e27; box-shadow:0 12px 30px rgba(255,107,53,.4); }
   .btn-primary:hover { transform:translateY(-3px); box-shadow:0 16px 40px rgba(255,107,53,.6); }
   .btn-secondary { background:rgba(255,255,255,.1); color:#00d4ff; border:2px solid #00d4ff; }
   .btn-secondary:hover { background:rgba(0,212,255,.1); }
   
   /* ============ FEATURED SECTION ============ */
-  .featured-section {
-    max-width:1200px; margin:0 auto; padding:60px 24px;
-  }
-  
-  .section-title {
-    font-size:28px; font-weight:900; margin-bottom:8px; color:#fff;
-    text-transform:uppercase; letter-spacing:1px;
-  }
-  
-  .section-subtitle {
-    font-size:14px; color:#7a8ba0; margin-bottom:30px; text-transform:uppercase; letter-spacing:.5px;
-  }
+  .featured-section { max-width:1200px; margin:0 auto; padding:50px 24px; }
+  .section-title { font-size:26px; font-weight:900; margin-bottom:6px; color:#fff; text-transform:uppercase; letter-spacing:1px; }
+  .section-subtitle { font-size:14px; color:#7a8ba0; margin-bottom:25px; text-transform:uppercase; letter-spacing:.5px; }
   
   /* ============ CAROUSEL ============ */
   .carousel {
-    position:relative; height:500px; border-radius:16px; overflow:hidden; margin-bottom:60px;
+    position:relative; height:460px; border-radius:16px; overflow:hidden; margin-bottom:50px;
     background:linear-gradient(135deg,#1a2635 0%,#0d141d 100%);
     box-shadow:0 20px 60px rgba(0,0,0,.5);
   }
-  
   .carousel-slide {
     position:absolute; inset:0; opacity:0; transition:opacity .8s ease-in-out;
-    background:linear-gradient(to right, rgba(10,14,39,.9), transparent), 
-              linear-gradient(180deg, transparent, rgba(10,14,39,.9));
-    display:flex; align-items:center; padding:60px 40px;
+    background:linear-gradient(to right, rgba(10,14,39,.95), rgba(10,14,39,.6));
+    display:flex; align-items:center; padding:50px 40px;
   }
-  
   .carousel-slide.active { opacity:1; }
-  
-  .carousel-content { max-width:500px; }
-  .carousel-badge { display:inline-block; background:rgba(255,107,53,.2); border:1px solid #ff6b35; color:#ff6b35; padding:6px 12px; border-radius:6px; font-size:12px; font-weight:700; margin-bottom:16px; }
-  .carousel-title { font-size:48px; font-weight:900; margin-bottom:12px; color:#fff; line-height:1.2; }
-  .carousel-meta { font-size:14px; color:#a0b2c8; margin-bottom:20px; }
-  .carousel-desc { font-size:16px; color:#b0c2d8; margin-bottom:24px; line-height:1.6; }
-  .carousel-tag { display:inline-block; background:linear-gradient(135deg,#ff6b35,#ff5722); color:#0a0e27; padding:8px 16px; border-radius:6px; font-size:12px; font-weight:700; margin-right:12px; }
-  
-  .carousel-buttons { display:flex; gap:12px; margin-top:28px; }
-  .carousel-buttons .btn { padding:12px 28px; font-size:14px; }
-  
-  .carousel-controls {
-    position:absolute; bottom:20px; left:50%; transform:translateX(-50%); display:flex; gap:12px; z-index:10;
-  }
-  
-  .carousel-dot {
-    width:12px; height:12px; border-radius:50%; background:rgba(255,255,255,.3); cursor:pointer; transition:.3s;
-    border:2px solid transparent;
-  }
-  
-  .carousel-dot.active {
-    background:linear-gradient(135deg,#ff6b35,#004e89); border-color:#fff; width:28px; border-radius:6px;
-  }
+  .carousel-content { max-width:520px; }
+  .carousel-badge { display:inline-block; background:rgba(255,107,53,.2); border:1px solid #ff6b35; color:#ff6b35; padding:6px 12px; border-radius:6px; font-size:11px; font-weight:700; margin-bottom:14px; }
+  .carousel-title { font-size:42px; font-weight:900; margin-bottom:10px; color:#fff; line-height:1.2; }
+  .carousel-meta { font-size:13px; color:#a0b2c8; margin-bottom:16px; }
+  .carousel-desc { font-size:15px; color:#b0c2d8; margin-bottom:22px; line-height:1.6; }
+  .carousel-tag { display:inline-block; background:linear-gradient(135deg,#ff6b35,#ff5722); color:#0a0e27; padding:6px 14px; border-radius:6px; font-size:12px; font-weight:700; }
+  .carousel-buttons { display:flex; gap:12px; margin-top:24px; }
+  .carousel-buttons .btn { padding:12px 24px; font-size:13px; }
+  .carousel-controls { position:absolute; bottom:20px; left:50%; transform:translateX(-50%); display:flex; gap:10px; z-index:10; }
+  .carousel-dot { width:12px; height:12px; border-radius:50%; background:rgba(255,255,255,.3); cursor:pointer; transition:.3s; border:none; padding:0; }
+  .carousel-dot.active { background:linear-gradient(135deg,#ff6b35,#004e89); width:28px; border-radius:6px; }
   
   /* ============ GRID ============ */
   .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:20px; }
-  
   .card {
     background:linear-gradient(135deg,#1a2635 0%,#0d141d 100%);
     border:1px solid rgba(0,212,255,.1); border-radius:12px; overflow:hidden;
-    transition:.3s; cursor:pointer; position:relative; group;
+    transition:.3s; cursor:pointer; position:relative; display:flex; flex-direction:column;
   }
-  
-  .card:hover {
-    transform:translateY(-8px) scale(1.05);
-    border-color:rgba(0,212,255,.3);
-    box-shadow:0 20px 40px rgba(0,212,255,.2);
-  }
-  
+  .card:hover { transform:translateY(-8px) scale(1.02); border-color:rgba(0,212,255,.3); box-shadow:0 20px 40px rgba(0,212,255,.2); }
   .card-thumb {
     aspect-ratio:9/13; background:linear-gradient(135deg,#2a3f5f,#1a2f4f);
-    position:relative; display:flex; align-items:center; justify-content:center;
-    overflow:hidden;
+    position:relative; display:flex; align-items:center; justify-content:center; overflow:hidden;
   }
-  
-  .card-thumb::before {
-    content:''; position:absolute; inset:0;
-    background:linear-gradient(135deg,rgba(0,212,255,.1),rgba(255,107,53,.1));
-    opacity:0; transition:.3s;
-  }
-  
-  .card:hover .card-thumb::before { opacity:1; }
-  
-  .card-thumb-content {
-    text-align:center; z-index:2; color:#fff;
-  }
-  
-  .card-thumb-emoji { font-size:60px; margin-bottom:12px; display:block; }
-  .card-thumb-title { font-size:14px; font-weight:700; }
-  
-  .card-badge {
-    position:absolute; top:12px; left:12px; z-index:5;
-    padding:6px 12px; border-radius:6px; font-size:11px; font-weight:700;
-    text-transform:uppercase; letter-spacing:.5px;
-  }
-  
+  .card-thumb-content { text-align:center; z-index:2; color:#fff; }
+  .card-thumb-emoji { font-size:56px; margin-bottom:8px; display:block; }
+  .card-thumb-title { font-size:13px; font-weight:700; }
+  .card-badge { position:absolute; top:10px; left:10px; z-index:5; padding:4px 10px; border-radius:6px; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; }
   .badge-free { background:#0e7d38; color:#fff; }
-  .badge-premium { background:linear-gradient(135deg,#ff6b35,#ff5722); color:#0a0e27; }
-  .badge-coming { background:rgba(122,139,160,.3); color:#b0c2d8; }
-  
   .card-lock {
-    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-    background:rgba(10,14,39,.8); backdrop-filter:blur(10px);
-    width:100%; height:100%; display:flex; align-items:center; justify-content:center;
-    z-index:3; opacity:0; transition:.3s;
+    position:absolute; inset:0; background:rgba(10,14,39,.8); backdrop-filter:blur(6px);
+    display:flex; align-items:center; justify-content:center; z-index:3; opacity:0; transition:.3s;
   }
-  
   .card:hover .card-lock { opacity:1; }
-  .card-lock-icon { font-size:48px; }
-  
-  .card-body {
-    padding:16px;
-  }
-  
-  .card-title { font-size:15px; font-weight:800; margin-bottom:6px; color:#fff; }
-  .card-meta { font-size:12px; color:#93a5ba; margin-bottom:12px; }
-  .card-rating {
-    display:flex; gap:4px; margin-bottom:12px;
-  }
-  
-  .star { color:#ffc107; font-size:12px; }
-  
-  .card-cta { display:inline-block; color:#00d4ff; font-size:12px; font-weight:700; }
+  .card-lock-icon { font-size:40px; color:#00d4ff; }
+  .card-body { padding:14px; flex:1; display:flex; flex-direction:column; }
+  .card-title { font-size:15px; font-weight:800; margin-bottom:4px; color:#fff; }
+  .card-meta { font-size:12px; color:#93a5ba; margin-bottom:8px; }
+  .card-rating { display:flex; gap:3px; margin-bottom:10px; font-size:11px; color:#ffc107; }
+  .card-cta { margin-top:auto; display:inline-block; color:#00d4ff; font-size:12px; font-weight:700; }
   .card-cta:hover { color:#00ffff; }
   
-  /* ============ PRICING ============ */
-    max-width:1200px; margin:0 auto; padding:60px 24px; background:linear-gradient(135deg,rgba(0,212,255,.05),rgba(255,107,53,.05)); border-radius:16px; margin-bottom:60px;
-  }
-  
-  
-    background:linear-gradient(135deg,#1a2635,#0d141d); border:2px solid rgba(0,212,255,.1); border-radius:14px;
-    padding:32px 24px; text-align:center; position:relative; transition:.3s;
-  }
-  
-    border-color:rgba(0,212,255,.3);
-    box-shadow:0 20px 60px rgba(0,212,255,.15);
-    transform:translateY(-8px);
-  }
-  
-    border-color:#ff6b35; box-shadow:0 0 0 1px #ff6b35 inset, 0 20px 60px rgba(255,107,53,.2);
-    transform:scale(1.05);
-  }
-  
-  
-  
-  
-  
   /* ============ FOOTER ============ */
-  footer {
-    background:linear-gradient(180deg,#0a0e27,#050810); border-top:1px solid #1a2847; padding:40px 24px; margin-top:80px;
-  }
-  
-  .footer-content { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:40px; margin-bottom:40px; }
-  
-  .footer-section h4 { font-size:14px; font-weight:900; text-transform:uppercase; margin-bottom:16px; color:#00d4ff; }
-  .footer-section p { font-size:13px; color:#7a8ba0; line-height:1.8; }
-  .footer-section a { display:block; margin-bottom:8px; font-size:13px; }
-  
-  .footer-social { display:flex; gap:12px; margin-top:16px; }
-  .footer-social a {
-    width:40px; height:40px; display:flex; align-items:center; justify-content:center;
-    background:rgba(0,212,255,.1); border:1px solid rgba(0,212,255,.2); border-radius:8px;
-    font-size:18px;
-  }
-  
-  .footer-bottom {
-    border-top:1px solid #1a2847; padding-top:24px; text-align:center; font-size:12px; color:#5a6b80;
-  }
-  
-  /* ============ RESPONSIVE ============ */
-  @media (max-width:768px) {
-    .hero h2 { font-size:36px; }
-    .carousel-title { font-size:32px; }
-    .carousel-slide { padding:40px 20px; }
-    .grid { grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px; }
-    .nav { gap:8px; }
-    .nav-btn { padding:8px 12px; font-size:12px; }
-  }
-  
-  @media (max-width:480px) {
-    header { padding:12px 16px; }
-    .hero { padding:40px 16px; }
-    .hero h2 { font-size:28px; }
-    .hero-buttons { flex-direction:column; }
-    .btn { width:100%; }
-    .featured-section { padding:40px 16px; }
-    .carousel { height:350px; }
-    .carousel-content { max-width:100%; }
-    .carousel-title { font-size:24px; }
-  }
-  /* [A11Y] Fokus papan kekunci yang jelas */
-  a:focus-visible, button:focus-visible { outline:3px solid #00d4ff; outline-offset:2px; border-radius:4px; }
-  .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0; }
-  /* [A11Y] Pautan langkau ke kandungan */
-  .skip-link { position:absolute; left:-9999px; top:0; background:#ff6b35; color:#0a0e27; padding:10px 16px; border-radius:0 0 8px 0; z-index:100; font-weight:700; }
-  .skip-link:focus { left:0; }
-  /* [A11Y] Butang titik karusel - buang gaya lalai pelayar */
-  .carousel-dot { border:none; padding:0; cursor:pointer; }
+  footer { background:linear-gradient(180deg,#0a0e27,#050810); border-top:1px solid #1a2847; padding:40px 24px; margin-top:70px; }
+  .footer-content { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:30px; margin-bottom:30px; }
+  .footer-section h4 { font-size:14px; font-weight:900; text-transform:uppercase; margin-bottom:14px; color:#00d4ff; }
+  .footer-section p { font-size:13px; color:#7a8ba0; line-height:1.7; }
+  .footer-section a { display:block; margin-bottom:8px; font-size:13px; cursor:pointer; color:#a0b2c8; }
+  .footer-section a:hover { color:#00d4ff; }
+  .footer-social { display:flex; gap:10px; margin-top:14px; }
+  .footer-social a { width:38px; height:38px; display:flex; align-items:center; justify-content:center; background:rgba(0,212,255,.1); border:1px solid rgba(0,212,255,.2); border-radius:8px; font-size:16px; }
+  .footer-bottom { border-top:1px solid #1a2847; padding-top:20px; text-align:center; font-size:12px; color:#5a6b80; }
   .apk-link { color:#00d4ff; font-weight:700; text-decoration:none; }
   .apk-link:hover { text-decoration:underline; }
-  /* [A11Y] Hormati prefers-reduced-motion */
-  @media (prefers-reduced-motion: reduce) { * { transition:none !important; animation:none !important; } }
-  /* [OTT] Pemain video dalam laman */
-  .player-backdrop { position:fixed; inset:0; background:rgba(5,8,16,.93); z-index:60; display:flex; align-items:center; justify-content:center; padding:16px; }
-  .player-box { width:100%; max-width:920px; background:#0d141d; border:1px solid #1e2a38; border-radius:14px; padding:14px; }
-  .player-head { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
-  .player-title { font-weight:800; font-size:15px; color:#fff; flex:1; }
-  .player-close { background:#1a2847; border:1px solid #2a3f5f; color:#e8edf3; width:38px; height:38px; border-radius:10px; font-size:18px; cursor:pointer; }
+
+  /* ============ MODAL PLAYER & INFO ============ */
+  .player-backdrop, .info-backdrop { position:fixed; inset:0; background:rgba(5,8,16,.93); z-index:1000; display:none; align-items:center; justify-content:center; padding:16px; }
+  .player-backdrop.show, .info-backdrop.show { display:flex; }
+  .player-box, .info-box { width:100%; max-width:850px; background:#0d141d; border:1px solid #1e2a38; border-radius:14px; padding:18px; position:relative; }
+  .info-box { max-width: 600px; max-height: 80vh; overflow-y: auto; color: #cbd5e1; }
+  .modal-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; border-bottom: 1px solid #1e2a38; padding-bottom: 10px; }
+  .modal-title { font-weight:800; font-size:16px; color:#00d4ff; }
+  .modal-close { background:#1a2847; border:1px solid #2a3f5f; color:#e8edf3; width:34px; height:34px; border-radius:8px; font-size:16px; cursor:pointer; }
   .player-frame { width:100%; aspect-ratio:16/9; border:0; border-radius:10px; background:#000; }
-  .player-loading { position:absolute; color:#7fd0ff; font-size:13px; text-align:center; width:100%; padding-top:80px; pointer-events:none; }
+  .player-loading { position:absolute; inset:50px 0 0; color:#7fd0ff; font-size:13px; text-align:center; pointer-events:none; }
   .player-fallback { display:inline-block; margin-top:10px; font-size:13px; color:#4da3ff; font-weight:700; text-decoration:none; }
-  .player-fallback:hover { text-decoration:underline; }
-  /* [AUTH v2] Reka bentuk login dari CinemaKlasik 2.5 */
+
+  /* ============ AUTH MODAL ============ */
   .ck25-account{display:flex;align-items:center;gap:8px;margin-left:8px}
-.ck25-user-btn{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:inherit;border-radius:999px;padding:9px 13px;cursor:pointer;font-weight:800}
-.ck25-avatar{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#fff,rgba(0,200,255,.7));color:#071018;font-weight:900}
-.ck25-overlay{position:fixed;inset:0;z-index:10020;display:none;place-items:center;padding:18px;background:rgba(2,5,10,.84);backdrop-filter:blur(16px)}
-.ck25-box{width:min(430px,100%);background:#0d131d;border:1px solid rgba(255,255,255,.1);border-radius:24px;padding:24px;box-shadow:0 30px 100px rgba(0,0,0,.65)}
-.ck25-tabs{display:flex;gap:6px;margin:18px 0}
-.ck25-tab{flex:1;padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);color:inherit;font-weight:800;cursor:pointer}
-.ck25-form{display:grid;gap:11px}
-.ck25-submit{border:0;border-radius:12px;padding:12px;background:#fff;color:#080b10;font-weight:900;cursor:pointer}
-.ck25-x{float:right;border:0;background:none;color:inherit;font-size:1.4rem;cursor:pointer}
-.ck25-error{color:#ffb0b0;font-size:.84rem;display:none}
-.ck25-note{font-size:.78rem;opacity:.55;margin-top:12px}
-  #userChip { cursor:default; }
+  .ck25-user-btn{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#e8edf3;border-radius:8px;padding:8px 12px;font-size:13px;font-weight:600;cursor:pointer}
+  .ck25-avatar{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#ff6b35,#ff5722);color:#0a0e27;font-weight:900;font-size:12px}
+  .ck25-overlay{position:fixed;inset:0;z-index:10020;display:none;place-items:center;padding:18px;background:rgba(2,6,12,.8);backdrop-filter:blur(6px)}
+  .ck25-overlay.show{display:grid}
+  .ck25-box{width:min(400px,100%);background:#0d131d;border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:24px;position:relative}
+  .ck25-tabs{display:flex;gap:6px;margin:16px 0}
+  .ck25-tab{flex:1;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);color:#e8edf3;font-weight:700;cursor:pointer}
+  .ck25-tab.active{background:#fff;color:#080b10}
+  .ck25-form{display:grid;gap:10px}
+  .ck25-input{width:100%;padding:11px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:#101828;color:#e8edf3;font-size:14px}
+  .ck25-submit{border:0;border-radius:10px;padding:12px;background:#fff;color:#080b10;font-weight:900;cursor:pointer}
+  .ck25-x{float:right;border:0;background:none;color:#e8edf3;font-size:1.3rem;cursor:pointer}
+  .ck25-error{color:#ffb0b0;font-size:.84rem;display:none}
+  .ck25-note{font-size:.78rem;opacity:.55;margin-top:12px}
+  #ck25-heading{color:#fff;margin:4px 0;font-size:1.2rem}
+  #ck25-sub{color:#9fb2c5;font-size:.85rem;margin-bottom:6px}
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width:768px) {
+    .hero h2 { font-size:34px; }
+    .carousel-title { font-size:28px; }
+    .carousel-slide { padding:30px 20px; }
+    .grid { grid-template-columns:repeat(auto-fill,minmax(145px,1fr)); gap:12px; }
+    .nav { gap:6px; }
+    .nav-btn { padding:7px 10px; font-size:12px; }
+  }
 </style>
 </head>
 <body>
-<a class="skip-link" href="#utama">Langkau ke kandungan utama</a>
 
 <!-- ============ HEADER ============ -->
 <header>
@@ -297,10 +178,10 @@
     <h1>CINEMAKLASIK</h1>
     <p>Streaming Percuma</p>
   </div>
-  <nav class="nav" aria-label="Navigasi utama">
-    <a class="nav-btn" href="#beranda"><span aria-hidden="true">🏠</span> Beranda</a>
-    <a class="nav-btn" href="#filem"><span aria-hidden="true">🎬</span> Filem</a>
-    <a class="nav-btn" href="#tv"><span aria-hidden="true">📺</span> TV Series</a>
+  <nav class="nav">
+    <a class="nav-btn" href="#beranda">🏠 Beranda</a>
+    <a class="nav-btn" href="#filem">🎬 Filem</a>
+    <a class="nav-btn" href="#tv">📺 Siri TV</a>
     <span id="ck25-account" class="ck25-account"></span>
   </nav>
 </header>
@@ -310,313 +191,209 @@
 <!-- ============ HERO ============ -->
 <section class="hero" id="beranda">
   <div class="hero-content">
-    <span class="badge"><span aria-hidden="true">✨</span> Percuma & Sah — Public Domain</span>
-    <h2>Hiburan Tanpa Batas</h2>
-    <p>Tonton filem klasik dunia, serial TV terbaik, dan cerita menarik dari Malaysia. Streaming berkualiti tinggi tanpa gangguan iklan.</p>
+    <span class="badge">✨ Percuma & Sah — Public Domain</span>
+    <h2>Hiburan Klasik Tanpa Had</h2>
+    <p>Tonton koleksi filem klasik legenda, serial TV retro, dan cerita warisan secara percuma tanpa langganan.</p>
+    
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="🔍 Cari tajuk filem atau siri TV..." onkeyup="filterContent()">
+    </div>
+
     <div class="hero-buttons">
-      <a class="btn btn-primary" href="#filem">▶ Mulai Menonton Percuma</a>
-      <a class="btn btn-secondary" href="#tayangan">📖 Ketahui Lebih Lanjut</a>
+      <a class="btn btn-primary" href="#filem">▶ Mula Menonton</a>
+      <a class="btn btn-secondary" href="#tayangan">ℹ Tayangan Pilihan</a>
     </div>
   </div>
 </section>
 
 <!-- ============ FEATURED ============ -->
 <section class="featured-section" id="tayangan">
-  <h2 class="section-title"><span aria-hidden="true">🔥</span> TAYANGAN PILIHAN</h2>
-  <p class="section-subtitle">Filem klasik pilihan penonton</p>
+  <h2 class="section-title">🔥 TAYANGAN PILIHAN</h2>
+  <p class="section-subtitle">Koleksi terpilih untuk tontonan hari ini</p>
   
-  <!-- Carousel -->
   <div class="carousel">
-    <!-- Slide 1 -->
     <div class="carousel-slide active">
       <div class="carousel-content">
         <span class="carousel-badge">FILEM KLASIK</span>
         <h3 class="carousel-title">The Gold Rush</h3>
         <p class="carousel-meta">1925 · Komedi Klasik · 95 Minit</p>
-        <p class="carousel-desc">Masterpiece Charlie Chaplin yang penuh tawa dan emosi. Kisah prospector emas di Yukon yang mencari cinta dan harta.</p>
-        <span class="carousel-tag">✅ PERCUMA</span>
+        <p class="carousel-desc">Karya agung Charlie Chaplin yang penuh tawa. Kisah pencari emas di Yukon mencari cinta dan rezeki.</p>
+        <span class="carousel-tag">PERCUMA</span>
         <div class="carousel-buttons">
-          <a class="btn btn-primary" href="#filem">▶ Tonton Sekarang</a>
-          <a class="btn btn-secondary" href="https://archive.org/details/the-gold-rush-film-1925">ℹ Info Lanjut</a>
+          <a class="btn btn-primary card-cta" href="https://archive.org/details/the-gold-rush-film-1925" aria-label="Tonton The Gold Rush">▶ Tonton Sekarang</a>
+          <a class="btn btn-secondary" href="https://archive.org/details/the-gold-rush-film-1925" target="_blank" rel="noopener">ℹ Info Lanjut</a>
         </div>
       </div>
     </div>
     
-    <!-- Slide 2 -->
     <div class="carousel-slide">
       <div class="carousel-content">
         <span class="carousel-badge">CERITA MALAYSIA</span>
         <h3 class="carousel-title">Cerita Hikayat Melayu</h3>
         <p class="carousel-meta">Sejarah & Budaya · Artikel Mendalam</p>
-        <p class="carousel-desc">Jelajahi warisan budaya Melayu yang kaya dengan kisah-kisah bersejarah dan nilai-nilai tradisional yang masih relevan hari ini.</p>
-        <span class="carousel-tag">📖 BLOG</span>
+        <p class="carousel-desc">Jelajahi kisah hikayat dan warisan budaya Melayu tradisional yang penuh pengajaran.</p>
+        <span class="carousel-tag">BLOG</span>
         <div class="carousel-buttons">
-          <a class="btn btn-primary" href="https://cerita-malaysiaku.blogspot.com">📖 Baca Artikel</a>
-          <a class="btn btn-secondary" href="https://www.facebook.com/share/1EK9tkYq2s/">💬 Bincang</a>
+          <a class="btn btn-primary" href="https://cerita-malaysiaku.blogspot.com" target="_blank" rel="noopener">📖 Baca Artikel</a>
+          <a class="btn btn-secondary" href="https://www.facebook.com/share/1EK9tkYq2s/" target="_blank" rel="noopener">💬 Bincang</a>
         </div>
       </div>
     </div>
-    
-    <!-- Slide 3 -->
-    <div class="carousel-slide">
-      <div class="carousel-content">
-        <span class="carousel-badge">100% PERCUMA &amp; SAH</span>
-        <h3 class="carousel-title">Koleksi Lengkap</h3>
-        <p class="carousel-meta">Public Domain · Perpustakaan Digital Internet Archive</p>
-        <p class="carousel-desc">Koleksi lengkap filem klasik dan siri TV golden-age. Tonton tanpa iklan mengganggu, terus dari pelayar atau aplikasi Android anda.</p>
-        <span class="carousel-tag">🎬 KLASIK</span>
-        <div class="carousel-buttons">
-          <a class="btn btn-primary" href="#filem">▶ Tonton Sekarang</a>
-          <a class="btn btn-secondary" href="#tayangan">📖 Ketahui Lebih Lanjut</a>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Carousel Controls -->
+
     <div class="carousel-controls">
-      <button type="button" class="carousel-dot active" onclick="changeSlide(0)" aria-label="Tunjuk slaid 1"></button>
-      <button type="button" class="carousel-dot" onclick="changeSlide(1)" aria-label="Tunjuk slaid 2"></button>
-      <button type="button" class="carousel-dot" onclick="changeSlide(2)" aria-label="Tunjuk slaid 3"></button>
+      <button type="button" class="carousel-dot active" onclick="changeSlide(0)"></button>
+      <button type="button" class="carousel-dot" onclick="changeSlide(1)"></button>
     </div>
   </div>
 </section>
 
 <!-- ============ FILEM POPULER ============ -->
 <section class="featured-section" id="filem">
-  <h2 class="section-title"><span aria-hidden="true">🎬</span> FILEM POPULER</h2>
-  <p class="section-subtitle">Pilihan terbaik dari koleksi kami</p>
+  <h2 class="section-title">🎬 FILEM POPULAR</h2>
+  <p class="section-subtitle">Filem-filem klasik berstatus Domain Awam</p>
   
-  <div class="grid">
-    <!-- Filem baharu: contoh cara tambah kad (lihat panduan) -->
-    <div class="card">
+  <div class="grid" id="movieGrid">
+    <!-- Filem 1 -->
+    <div class="card" data-title="The Phantom of the Opera">
       <div class="card-thumb">
-        <span class="card-badge badge-free">BARU</span>
-        <div class="card-lock">
-          <div class="card-lock-icon" aria-hidden="true">▶</div>
-        </div>
+        <span class="card-badge badge-free">PERCUMA</span>
+        <div class="card-lock"><div class="card-lock-icon">▶</div></div>
         <div class="card-thumb-content">
-          <span class="card-thumb-emoji" aria-hidden="true">🎭</span>
+          <span class="card-thumb-emoji">🎭</span>
           <p class="card-thumb-title">Phantom of the Opera</p>
         </div>
       </div>
       <div class="card-body">
         <h3 class="card-title">The Phantom of the Opera</h3>
         <p class="card-meta">1925 · Lon Chaney</p>
-        <a href="https://archive.org/details/ThePhantomoftheOpera" class="card-cta" aria-label="Tonton The Phantom of the Opera (1925) di archive.org">TONTON <span aria-hidden="true">→</span></a>
+        <div class="card-rating">★★★★★</div>
+        <a href="https://archive.org/details/ThePhantomoftheOpera" class="card-cta" aria-label="Tonton The Phantom of the Opera">TONTON →</a>
       </div>
     </div>
 
-    <div class="card">
+    <!-- Filem 2 -->
+    <div class="card" data-title="The Cabinet of Dr. Caligari">
       <div class="card-thumb">
-        <span class="card-badge badge-free">BARU</span>
-        <div class="card-lock">
-          <div class="card-lock-icon" aria-hidden="true">▶</div>
-        </div>
+        <span class="card-badge badge-free">PERCUMA</span>
+        <div class="card-lock"><div class="card-lock-icon">▶</div></div>
         <div class="card-thumb-content">
-          <span class="card-thumb-emoji" aria-hidden="true">🧟</span>
+          <span class="card-thumb-emoji">🧟</span>
           <p class="card-thumb-title">Dr. Caligari</p>
         </div>
       </div>
       <div class="card-body">
         <h3 class="card-title">The Cabinet of Dr. Caligari</h3>
         <p class="card-meta">1920 · Robert Wiene</p>
-        <a href="https://archive.org/details/the-cabinet-of-dr-caligari-1920" class="card-cta" aria-label="Tonton The Cabinet of Dr. Caligari (1920) di archive.org">TONTON <span aria-hidden="true">→</span></a>
+        <div class="card-rating">★★★★★</div>
+        <a href="https://archive.org/details/the-cabinet-of-dr-caligari-1920" class="card-cta" aria-label="Tonton The Cabinet of Dr. Caligari">TONTON →</a>
       </div>
     </div>
 
-    <div class="card">
+    <!-- Filem 3 -->
+    <div class="card" data-title="Charade">
       <div class="card-thumb">
-        <span class="card-badge badge-free">BARU</span>
-        <div class="card-lock"><div class="card-lock-icon" aria-hidden="true">▶</div></div>
+        <span class="card-badge badge-free">PERCUMA</span>
+        <div class="card-lock"><div class="card-lock-icon">▶</div></div>
         <div class="card-thumb-content">
-          <span class="card-thumb-emoji" aria-hidden="true">💛</span>
+          <span class="card-thumb-emoji">💛</span>
           <p class="card-thumb-title">Charade</p>
         </div>
       </div>
       <div class="card-body">
         <h3 class="card-title">Charade</h3>
-        <p class="card-meta">1963 · Cary Grant &amp; Audrey Hepburn</p>
-        <a href="https://archive.org/details/charade-1963-cary-grant-audrey-hepburn-comedy-mystery-romance-thriller-full-movie" class="card-cta" aria-label="Tonton Charade di archive.org">TONTON <span aria-hidden="true">→</span></a>
+        <p class="card-meta">1963 · Audrey Hepburn</p>
+        <div class="card-rating">★★★★★</div>
+        <a href="https://archive.org/details/charade-1963-cary-grant-audrey-hepburn-comedy-mystery-romance-thriller-full-movie" class="card-cta" aria-label="Tonton Charade">TONTON →</a>
       </div>
     </div>
 
-    <div class="card">
+    <!-- Filem 4 -->
+    <div class="card" data-title="Metropolis">
       <div class="card-thumb">
         <span class="card-badge badge-free">PERCUMA</span>
-        <div class="card-lock"><div class="card-lock-icon" aria-hidden="true">▶</div></div>
+        <div class="card-lock"><div class="card-lock-icon">▶</div></div>
         <div class="card-thumb-content">
-          <span class="card-thumb-emoji" aria-hidden="true">⚙️</span>
+          <span class="card-thumb-emoji">⚙️</span>
           <p class="card-thumb-title">Metropolis</p>
         </div>
       </div>
       <div class="card-body">
         <h3 class="card-title">Metropolis</h3>
         <p class="card-meta">1927 · Fritz Lang</p>
-        <a href="https://archive.org/details/metropolis-lang" class="card-cta" aria-label="Tonton Metropolis di archive.org">TONTON <span aria-hidden="true">→</span></a>
+        <div class="card-rating">★★★★★</div>
+        <a href="https://archive.org/details/metropolis-lang" class="card-cta" aria-label="Tonton Metropolis">TONTON →</a>
       </div>
     </div>
 
-    <div class="card">
+    <!-- Filem 5 -->
+    <div class="card" data-title="Sherlock Jr.">
       <div class="card-thumb">
         <span class="card-badge badge-free">PERCUMA</span>
-        <div class="card-lock"><div class="card-lock-icon" aria-hidden="true">▶</div></div>
+        <div class="card-lock"><div class="card-lock-icon">▶</div></div>
         <div class="card-thumb-content">
-          <span class="card-thumb-emoji" aria-hidden="true">🎩</span>
+          <span class="card-thumb-emoji">🎩</span>
           <p class="card-thumb-title">Sherlock Jr</p>
         </div>
       </div>
       <div class="card-body">
         <h3 class="card-title">Sherlock Jr.</h3>
         <p class="card-meta">1924 · Buster Keaton</p>
-        <a href="https://archive.org/details/sherlock-jr-1924-restored-720p-hd" class="card-cta" aria-label="Tonton Sherlock Jr. di archive.org">TONTON <span aria-hidden="true">→</span></a>
+        <div class="card-rating">★★★★★</div>
+        <a href="https://archive.org/details/sherlock-jr-1924-restored-720p-hd" class="card-cta" aria-label="Tonton Sherlock Jr.">TONTON →</a>
       </div>
     </div>
 
-    <div class="card">
+    <!-- Filem 6 -->
+    <div class="card" data-title="The Kid">
       <div class="card-thumb">
         <span class="card-badge badge-free">PERCUMA</span>
-        <div class="card-lock"><div class="card-lock-icon" aria-hidden="true">▶</div></div>
+        <div class="card-lock"><div class="card-lock-icon">▶</div></div>
         <div class="card-thumb-content">
-          <span class="card-thumb-emoji" aria-hidden="true">👶</span>
+          <span class="card-thumb-emoji">👶</span>
           <p class="card-thumb-title">The Kid</p>
         </div>
       </div>
       <div class="card-body">
         <h3 class="card-title">The Kid</h3>
         <p class="card-meta">1921 · Charlie Chaplin</p>
-        <a href="https://archive.org/details/Brzdac1921" class="card-cta" aria-label="Tonton The Kid di archive.org">TONTON <span aria-hidden="true">→</span></a>
+        <div class="card-rating">★★★★★</div>
+        <a href="https://archive.org/details/Brzdac1921" class="card-cta" aria-label="Tonton The Kid">TONTON →</a>
       </div>
     </div>
 
-    <!-- Filem 1 -->
-    <div class="card">
+    <!-- Filem 7 -->
+    <div class="card" data-title="The Gold Rush">
       <div class="card-thumb">
         <span class="card-badge badge-free">PERCUMA</span>
-        <div class="card-lock">
-          <div class="card-lock-icon" aria-hidden="true">▶</div>
-        </div>
+        <div class="card-lock"><div class="card-lock-icon">▶</div></div>
         <div class="card-thumb-content">
-          <span class="card-thumb-emoji" aria-hidden="true">🎪</span>
+          <span class="card-thumb-emoji">🎪</span>
           <p class="card-thumb-title">The Gold Rush</p>
         </div>
       </div>
       <div class="card-body">
         <h3 class="card-title">The Gold Rush</h3>
         <p class="card-meta">1925 · Charlie Chaplin</p>
-        <div class="card-rating">
-          <span class="star" aria-hidden="true">★★★★★</span><span class="sr-only">penilaian 5 bintang</span>
-        </div>
-        <a href="https://archive.org/details/the-gold-rush-film-1925" class="card-cta" aria-label="Tonton The Gold Rush (1925) di archive.org">TONTON <span aria-hidden="true">→</span></a>
+        <div class="card-rating">★★★★★</div>
+        <a href="https://archive.org/details/the-gold-rush-film-1925" class="card-cta" aria-label="Tonton The Gold Rush">TONTON →</a>
       </div>
     </div>
-    
-    <!-- Filem 2 -->
-    <div class="card">
+
+    <!-- Filem 8 -->
+    <div class="card" data-title="Nosferatu">
       <div class="card-thumb">
         <span class="card-badge badge-free">PERCUMA</span>
-        <div class="card-lock">
-          <div class="card-lock-icon" aria-hidden="true">▶</div>
-        </div>
+        <div class="card-lock"><div class="card-lock-icon">▶</div></div>
         <div class="card-thumb-content">
-          <span class="card-thumb-emoji" aria-hidden="true">🚂</span>
-          <p class="card-thumb-title">The General</p>
-        </div>
-      </div>
-      <div class="card-body">
-        <h3 class="card-title">The General</h3>
-        <p class="card-meta">1926 · Buster Keaton</p>
-        <div class="card-rating">
-          <span class="star" aria-hidden="true">★★★★★</span><span class="sr-only">penilaian 5 bintang</span>
-        </div>
-        <a href="https://archive.org/details/TheGeneral" class="card-cta" aria-label="Tonton The General (1926) di archive.org">TONTON <span aria-hidden="true">→</span></a>
-      </div>
-    </div>
-    
-    <!-- Filem 3 -->
-    <div class="card">
-      <div class="card-thumb">
-        <span class="card-badge badge-free">PERCUMA</span>
-        <div class="card-lock">
-          <div class="card-lock-icon" aria-hidden="true">🔒</div>
-        </div>
-        <div class="card-thumb-content">
-          <span class="card-thumb-emoji" aria-hidden="true">🧛</span>
+          <span class="card-thumb-emoji">🧛</span>
           <p class="card-thumb-title">Nosferatu</p>
         </div>
       </div>
       <div class="card-body">
         <h3 class="card-title">Nosferatu</h3>
         <p class="card-meta">1922 · F.W. Murnau</p>
-        <div class="card-rating">
-          <span class="star" aria-hidden="true">★★★★★</span><span class="sr-only">penilaian 5 bintang</span>
-        </div>
-        <a href="https://archive.org/details/Nosferatu1922" class="card-cta" aria-label="Tonton Nosferatu (1922) di archive.org">TONTON <span aria-hidden="true">→</span></a>
-      </div>
-    </div>
-    
-    <!-- Filem 4 -->
-    <div class="card">
-      <div class="card-thumb">
-        <span class="card-badge badge-free">PERCUMA</span>
-        <div class="card-lock">
-          <div class="card-lock-icon" aria-hidden="true">▶</div>
-        </div>
-        <div class="card-thumb-content">
-          <span class="card-thumb-emoji" aria-hidden="true">🏙️</span>
-          <p class="card-thumb-title">City Lights</p>
-        </div>
-      </div>
-      <div class="card-body">
-        <h3 class="card-title">City Lights</h3>
-        <p class="card-meta">1931 · Charlie Chaplin</p>
-        <div class="card-rating">
-          <span class="star" aria-hidden="true">★★★★★</span><span class="sr-only">penilaian 5 bintang</span>
-        </div>
-        <a href="https://archive.org/details/charlie-chaplin-city-lights-1931" class="card-cta" aria-label="Tonton City Lights (1931) di archive.org">TONTON <span aria-hidden="true">→</span></a>
-      </div>
-    </div>
-    
-    <!-- Filem 5 -->
-    <div class="card">
-      <div class="card-thumb">
-        <span class="card-badge badge-free">PERCUMA</span>
-        <div class="card-lock">
-          <div class="card-lock-icon" aria-hidden="true">▶</div>
-        </div>
-        <div class="card-thumb-content">
-          <span class="card-thumb-emoji" aria-hidden="true">🚢</span>
-          <p class="card-thumb-title">Steamboat Bill Jr.</p>
-        </div>
-      </div>
-      <div class="card-body">
-        <h3 class="card-title">Steamboat Bill Jr.</h3>
-        <p class="card-meta">1928 · Buster Keaton</p>
-        <div class="card-rating">
-          <span class="star" aria-hidden="true">★★★★★</span><span class="sr-only">penilaian 5 bintang</span>
-        </div>
-        <a href="https://archive.org/details/SteamboatBillJr.19281080p_451" class="card-cta" aria-label="Tonton Steamboat Bill Jr. (1928) di archive.org">TONTON <span aria-hidden="true">→</span></a>
-      </div>
-    </div>
-    
-    <!-- Filem 6 -->
-    <div class="card">
-      <div class="card-thumb">
-        <span class="card-badge badge-free">PERCUMA</span>
-        <div class="card-lock">
-          <div class="card-lock-icon" aria-hidden="true">🔒</div>
-        </div>
-        <div class="card-thumb-content">
-          <span class="card-thumb-emoji" aria-hidden="true">🚢⚓</span>
-          <p class="card-thumb-title">Battleship Potemkin</p>
-        </div>
-      </div>
-      <div class="card-body">
-        <h3 class="card-title">Battleship Potemkin</h3>
-        <p class="card-meta">1925 · Sergei Eisenstein</p>
-        <div class="card-rating">
-          <span class="star" aria-hidden="true">★★★★★</span><span class="sr-only">penilaian 5 bintang</span>
-        </div>
-        <a href="https://archive.org/details/BattleshipPotemkin1925" class="card-cta" aria-label="Tonton Battleship Potemkin (1925) di archive.org">TONTON <span aria-hidden="true">→</span></a>
+        <div class="card-rating">★★★★★</div>
+        <a href="https://archive.org/details/Nosferatu1922" class="card-cta" aria-label="Tonton Nosferatu">TONTON →</a>
       </div>
     </div>
   </div>
@@ -624,153 +401,92 @@
 
 <!-- ============ TV SERIES ============ -->
 <section class="featured-section" id="tv">
-  <h2 class="section-title"><span aria-hidden="true">📺</span> SIRI TV KLASIK PERCUMA</h2>
-  <p class="section-subtitle">Binge-watch series yang paling seru</p>
+  <h2 class="section-title">📺 SIRI TV KLASIK</h2>
+  <p class="section-subtitle">Siri televisyen nostalgia retro</p>
   
-  <div class="grid">
-    <div class="card">
+  <div class="grid" id="tvGrid">
+    <div class="card" data-title="Sherlock Holmes">
       <div class="card-thumb">
         <span class="card-badge badge-free">PERCUMA</span>
-        <div class="card-lock">
-          <div class="card-lock-icon" aria-hidden="true">🔒</div>
-        </div>
+        <div class="card-lock"><div class="card-lock-icon">▶</div></div>
         <div class="card-thumb-content">
-          <span class="card-thumb-emoji" aria-hidden="true">🔎</span>
+          <span class="card-thumb-emoji">🔎</span>
           <p class="card-thumb-title">Sherlock Holmes</p>
         </div>
       </div>
       <div class="card-body">
         <h3 class="card-title">Sherlock Holmes</h3>
-        <p class="card-meta">Siri TV Klasik PD · 1954</p>
-        <div class="card-rating">
-          <span class="star" aria-hidden="true">★★★★★</span><span class="sr-only">penilaian 5 bintang</span>
-        </div>
-        <a href="https://archive.org/details/SherlockHolmes-TheCaseoftheCunninghamHeritage" class="card-cta" aria-label="Tonton Sherlock Holmes (1954) di archive.org">TONTON <span aria-hidden="true">→</span></a>
+        <p class="card-meta">Siri TV · 1954</p>
+        <div class="card-rating">★★★★★</div>
+        <a href="https://archive.org/details/SherlockHolmes-TheCaseoftheCunninghamHeritage" class="card-cta" aria-label="Tonton Sherlock Holmes">TONTON →</a>
       </div>
     </div>
     
-    <div class="card">
+    <div class="card" data-title="One Step Beyond">
       <div class="card-thumb">
         <span class="card-badge badge-free">PERCUMA</span>
-        <div class="card-lock">
-          <div class="card-lock-icon" aria-hidden="true">🔒</div>
-        </div>
+        <div class="card-lock"><div class="card-lock-icon">▶</div></div>
         <div class="card-thumb-content">
-          <span class="card-thumb-emoji" aria-hidden="true">🌙</span>
+          <span class="card-thumb-emoji">🌙</span>
           <p class="card-thumb-title">One Step Beyond</p>
         </div>
       </div>
       <div class="card-body">
         <h3 class="card-title">One Step Beyond</h3>
-        <p class="card-meta">Siri TV Klasik PD · 1959</p>
-        <div class="card-rating">
-          <span class="star" aria-hidden="true">★★★★★</span><span class="sr-only">penilaian 5 bintang</span>
-        </div>
-        <a href="https://archive.org/details/one-step-beyond-season-1-1959" class="card-cta" aria-label="Tonton One Step Beyond (1959) di archive.org">TONTON <span aria-hidden="true">→</span></a>
+        <p class="card-meta">Siri TV · 1959</p>
+        <div class="card-rating">★★★★★</div>
+        <a href="https://archive.org/details/one-step-beyond-season-1-1959" class="card-cta" aria-label="Tonton One Step Beyond">TONTON →</a>
       </div>
     </div>
     
-    <div class="card">
+    <div class="card" data-title="Flash Gordon">
       <div class="card-thumb">
         <span class="card-badge badge-free">PERCUMA</span>
-        <div class="card-lock">
-          <div class="card-lock-icon" aria-hidden="true">🔒</div>
-        </div>
+        <div class="card-lock"><div class="card-lock-icon">▶</div></div>
         <div class="card-thumb-content">
-          <span class="card-thumb-emoji" aria-hidden="true">🚀</span>
+          <span class="card-thumb-emoji">🚀</span>
           <p class="card-thumb-title">Flash Gordon</p>
         </div>
       </div>
       <div class="card-body">
         <h3 class="card-title">Flash Gordon</h3>
-        <p class="card-meta">Filem Bersiri PD · 1936</p>
-        <div class="card-rating">
-          <span class="star" aria-hidden="true">★★★★★</span><span class="sr-only">penilaian 5 bintang</span>
-        </div>
-        <a href="https://archive.org/details/flashgordone03capturedbysharkmen" class="card-cta" aria-label="Tonton Flash Gordon (1936) di archive.org">TONTON <span aria-hidden="true">→</span></a>
+        <p class="card-meta">Siri TV · 1936</p>
+        <div class="card-rating">★★★★★</div>
+        <a href="https://archive.org/details/flashgordone03capturedbysharkmen" class="card-cta" aria-label="Tonton Flash Gordon">TONTON →</a>
       </div>
     </div>
     
-    <div class="card">
+    <div class="card" data-title="The Lucy Show">
       <div class="card-thumb">
         <span class="card-badge badge-free">PERCUMA</span>
-        <div class="card-lock">
-          <div class="card-lock-icon" aria-hidden="true">🔒</div>
-        </div>
+        <div class="card-lock"><div class="card-lock-icon">▶</div></div>
         <div class="card-thumb-content">
-          <span class="card-thumb-emoji" aria-hidden="true">🕵️</span>
-          <p class="card-thumb-title">Dick Tracy</p>
-        </div>
-      </div>
-      <div class="card-body">
-        <h3 class="card-title">Dick Tracy</h3>
-        <p class="card-meta">Filem Bersiri PD · 1937</p>
-        <div class="card-rating">
-          <span class="star" aria-hidden="true">★★★★★</span><span class="sr-only">penilaian 5 bintang</span>
-        </div>
-        <a href="https://archive.org/details/dicktracy_chapter4" class="card-cta" aria-label="Tonton Dick Tracy (1937) di archive.org">TONTON <span aria-hidden="true">→</span></a>
-      </div>
-    </div>
-    
-    <div class="card">
-      <div class="card-thumb">
-        <span class="card-badge badge-free">PERCUMA</span>
-        <div class="card-lock">
-          <div class="card-lock-icon" aria-hidden="true">🔒</div>
-        </div>
-        <div class="card-thumb-content">
-          <span class="card-thumb-emoji" aria-hidden="true">😄</span>
+          <span class="card-thumb-emoji">😄</span>
           <p class="card-thumb-title">The Lucy Show</p>
         </div>
       </div>
       <div class="card-body">
         <h3 class="card-title">The Lucy Show</h3>
-        <p class="card-meta">Siri TV Klasik PD · 1962</p>
-        <div class="card-rating">
-          <span class="star" aria-hidden="true">★★★★★</span><span class="sr-only">penilaian 5 bintang</span>
-        </div>
-        <a href="https://archive.org/details/the-lucy-show-lucy-buys-a-boat" class="card-cta" aria-label="Tonton The Lucy Show (1962) di archive.org">TONTON <span aria-hidden="true">→</span></a>
-      </div>
-    </div>
-    
-    <div class="card">
-      <div class="card-thumb">
-        <span class="card-badge badge-free">PERCUMA</span>
-        <div class="card-lock">
-          <div class="card-lock-icon" aria-hidden="true">⏰</div>
-        </div>
-        <div class="card-thumb-content">
-          <span class="card-thumb-emoji" aria-hidden="true">🛢️</span>
-          <p class="card-thumb-title">The Beverly Hillbillies</p>
-        </div>
-      </div>
-      <div class="card-body">
-        <h3 class="card-title">The Beverly Hillbillies</h3>
-        <p class="card-meta">Siri TV Klasik PD · 1962</p>
-        <div class="card-rating">
-          <span class="star" aria-hidden="true">★★★★★</span><span class="sr-only">penilaian 5 bintang</span>
-        </div>
-        <a href="https://archive.org/details/thebeverlyhillbilliesgettingsettledhq" class="card-cta" aria-label="Tonton The Beverly Hillbillies (1962) di archive.org">TONTON <span aria-hidden="true">→</span></a>
+        <p class="card-meta">Siri TV · 1962</p>
+        <div class="card-rating">★★★★★</div>
+        <a href="https://archive.org/details/the-lucy-show-lucy-buys-a-boat" class="card-cta" aria-label="Tonton The Lucy Show">TONTON →</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ PRICING ============ -->
-
-
-<!-- ============ FOOTER ============ -->
 </main>
 
+<!-- ============ FOOTER ============ -->
 <footer>
   <div class="footer-content">
     <div class="footer-section">
       <h4>Platform</h4>
-      <p>CinemaKlasik adalah platform streaming premium yang menyediakan filem klasik dunia dan cerita menarik dari Malaysia dengan kualiti terbaik.</p>
+      <p>CinemaKlasik menyediakan filem klasik dunia dan cerita Malaysia dengan akses terus percuma.</p>
       <div class="footer-social">
-        <a href="https://www.youtube.com/@yunuschannel86" target="_blank" rel="noopener noreferrer" aria-label="Channel YouTube (dibuka dalam tab baharu)"><span aria-hidden="true">📺</span></a>
-        <a href="https://cerita-malaysiaku.blogspot.com" target="_blank" rel="noopener noreferrer" aria-label="Blog Cerita Malaysiaku (dibuka dalam tab baharu)"><span aria-hidden="true">📖</span></a>
-        <a href="https://www.facebook.com/share/1EK9tkYq2s/" target="_blank" rel="noopener noreferrer" aria-label="Facebook CinemaKlasik (dibuka dalam tab baharu)"><span aria-hidden="true">👍</span></a>
+        <a href="https://www.youtube.com/@yunuschannel86" target="_blank" rel="noopener">📺</a>
+        <a href="https://cerita-malaysiaku.blogspot.com" target="_blank" rel="noopener">📖</a>
+        <a href="https://www.facebook.com/share/1EK9tkYq2s/" target="_blank" rel="noopener">👍</a>
       </div>
     </div>
     
@@ -778,330 +494,223 @@
       <h4>Navigasi</h4>
       <a href="#beranda">Beranda</a>
       <a href="#filem">Filem</a>
-      <a href="#tv">Serial TV</a>
+      <a href="#tv">Siri TV</a>
     </div>
     
     <div class="footer-section">
-      <h4>Bantuan</h4>
-      <a href="#faq">Soalan Lazim</a>
-      <a href="#hubungi">Hubungi Kami</a>
-      <a href="#syarat">Syarat & Terma</a>
-      <a href="#privasi">Dasar Privasi</a>
-    </div>
-    
-    <div class="footer-section">
-      <h4>Komuniti</h4>
-      <a href="https://cerita-malaysiaku.blogspot.com" target="_blank" rel="noopener noreferrer">Blog Cerita</a>
-      <a href="https://www.youtube.com/@yunuschannel86" target="_blank" rel="noopener noreferrer">Channel YouTube</a>
-      <a href="https://www.facebook.com/share/1EK9tkYq2s/" target="_blank" rel="noopener noreferrer">Media Sosial</a>
+      <h4>Bantuan & Info</h4>
+      <a onclick="bukaModalInfo('faq')">Soalan Lazim (FAQ)</a>
+      <a onclick="bukaModalInfo('contact')">Hubungi Kami</a>
+      <a onclick="bukaModalInfo('terms')">Syarat & Terma</a>
+      <a onclick="bukaModalInfo('privacy')">Dasar Privasi</a>
     </div>
   </div>
   
   <div class="footer-bottom">
-    <p>© 2024 CinemaKlasik Premium. Semua hak terpelihara. | Platform Streaming Berkualiti untuk Rakyat Malaysia <span aria-hidden="true">🇲🇾</span></p>
-    <p style="margin-top:12px; font-size:11px;">Dibina dengan <span aria-hidden="true">❤️</span><span class="sr-only">cinta</span> untuk pengalaman menonton yang terbaik.</p>
-    <p style="margin-top:14px;"><a class="apk-link" href="CinemaKlasik-v1.3.apk" download><span aria-hidden="true">📱</span> Muat Turun Aplikasi Android (APK)</a></p>
+    <p>© 2024 CinemaKlasik. Hak Cipta Terpelihara. | Platform Streaming Percuma Malaysia 🇲🇾</p>
   </div>
 </footer>
 
-<div class="player-backdrop" id="playerBackdrop" role="dialog" aria-modal="true" aria-label="Pemain video CinemaKlasik" hidden>
+<!-- ============ MODAL PLAYER ============ -->
+<div class="player-backdrop" id="playerBackdrop">
   <div class="player-box">
-    <div class="player-head">
-      <span class="player-title" id="playerTitle">Pemain video</span>
-      <button type="button" class="player-close" id="playerClose" aria-label="Tutup pemain"><span aria-hidden="true">✕</span></button>
+    <div class="modal-head">
+      <span class="modal-title" id="playerTitle">Pemain Video</span>
+      <button type="button" class="modal-close" id="playerClose">✕</button>
     </div>
     <div style="position:relative">
-      <div class="player-loading" id="playerLoading">⏳ Memuatkan pemain...<br><span style="font-size:11px;color:#8fa3b8">Internet perlahan? Video mungkin ambil masa.</span></div>
-      <iframe class="player-frame" id="playerFrame" src="about:blank" title="Pemain video" allow="fullscreen; autoplay" allowfullscreen></iframe>
+      <div class="player-loading" id="playerLoading">⏳ Memuatkan video dari Archive.org...</div>
+      <iframe class="player-frame" id="playerFrame" src="about:blank" allow="fullscreen; autoplay" allowfullscreen></iframe>
     </div>
-    <div style="text-align:center"><a class="player-fallback" id="playerFallback" href="#" target="_blank" rel="noopener">📺 Tak keluar juga? Buka terus di archive.org →</a></div>
+    <div style="text-align:center"><a class="player-fallback" id="playerFallback" href="#" target="_blank" rel="noopener">📺 Jika tidak boleh dimainkan di sini, tonton terus di Archive.org →</a></div>
   </div>
 </div>
 
+<!-- ============ MODAL INFO (FAQ / Syarat / Privasi) ============ -->
+<div class="info-backdrop" id="infoBackdrop">
+  <div class="info-box">
+    <div class="modal-head">
+      <span class="modal-title" id="infoModalTitle">Maklumat</span>
+      <button type="button" class="modal-close" onclick="tutupModalInfo()">✕</button>
+    </div>
+    <div id="infoModalBody" style="line-height:1.7; font-size:14px;"></div>
+  </div>
+</div>
+
+<!-- ============ SCRIPT ============ -->
 <script>
-  // Carousel functionality
+  // 1. CAROUSEL
   let currentSlide = 0;
   const slides = document.querySelectorAll('.carousel-slide');
   const dots = document.querySelectorAll('.carousel-dot');
-  
   function changeSlide(n) {
-    slides.forEach(slide => slide.classList.remove('active'));
-    dots.forEach(dot => dot.classList.remove('active'));
-    
-    slides[n].classList.add('active');
-    dots[n].classList.add('active');
+    slides.forEach(s => s.classList.remove('active'));
+    dots.forEach(d => d.classList.remove('active'));
+    if (slides[n]) slides[n].classList.add('active');
+    if (dots[n]) dots[n].classList.add('active');
     currentSlide = n;
   }
-  
-  // Auto-rotate carousel
   setInterval(() => {
     currentSlide = (currentSlide + 1) % slides.length;
     changeSlide(currentSlide);
   }, 6000);
-  
-  // Smooth scroll for navigation
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth' });
+
+  // 2. SEARCH FILTER
+  function filterContent() {
+    let input = document.getElementById('searchInput').value.toLowerCase();
+    let cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+      let title = card.getAttribute('data-title') ? card.getAttribute('data-title').toLowerCase() : '';
+      if (title.includes(input)) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
       }
     });
-  });
-</script>
+  }
 
-<script>
-  // [OTT] Tekan TONTON -> filem main dalam laman (tak keluar)
+  // 3. OTT VIDEO PLAYER
   (function () {
-    var backdrop = document.getElementById('playerBackdrop');
-    var frame = document.getElementById('playerFrame');
-    var tajuk = document.getElementById('playerTitle');
-    var closeBtn = document.getElementById('playerClose');
-    var fokusTerakhir = null;
+    const backdrop = document.getElementById('playerBackdrop');
+    const frame = document.getElementById('playerFrame');
+    const tajuk = document.getElementById('playerTitle');
+    const closeBtn = document.getElementById('playerClose');
 
     function buka(id, t) {
-      fokusTerakhir = document.activeElement;
       frame.src = 'https://archive.org/embed/' + id;
-      tajuk.textContent = t || 'Pemain video';
+      tajuk.textContent = t || 'Pemain Video';
       document.getElementById('playerLoading').style.display = 'block';
       document.getElementById('playerFallback').href = 'https://archive.org/details/' + id;
-      backdrop.hidden = false;
+      backdrop.classList.add('show');
       document.body.style.overflow = 'hidden';
-      closeBtn.focus();
     }
     function tutup() {
-      backdrop.hidden = true;
+      backdrop.classList.remove('show');
       frame.src = 'about:blank';
-      document.getElementById('playerLoading').style.display = 'none';
       document.body.style.overflow = '';
-      if (fokusTerakhir && fokusTerakhir.focus) fokusTerakhir.focus();
     }
-    document.querySelectorAll('.card-cta').forEach(function (a) {
+    document.querySelectorAll('.card-cta').forEach(a => {
       a.addEventListener('click', function (e) {
-        var m = (a.getAttribute('href') || '').match(/archive\.org\/details\/([^\/?#]+)/);
+        let m = (a.getAttribute('href') || '').match(/archive\.org\/details\/([^\/?#]+)/);
         if (!m) return;
         e.preventDefault();
-        buka(m[1], (a.getAttribute('aria-label') || '').replace(/^Tonton /, ''));
+        buka(m[1], a.getAttribute('aria-label') || 'Pemain Video');
       });
     });
-    frame.addEventListener('load', function () { document.getElementById('playerLoading').style.display = 'none'; });
+    frame.addEventListener('load', () => { document.getElementById('playerLoading').style.display = 'none'; });
     closeBtn.addEventListener('click', tutup);
-    backdrop.addEventListener('click', function (e) { if (e.target === backdrop) tutup(); });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !backdrop.hidden) tutup(); });
+    backdrop.addEventListener('click', (e) => { if (e.target === backdrop) tutup(); });
   })();
+
+  // 4. INFO MODALS
+  const infoData = {
+    faq: {
+      title: "Soalan Lazim (FAQ)",
+      content: "<p><strong>Adakah streaming ini percuma?</strong><br>Ya! 100% percuma tanpa sebarang bayaran langganan.</p><br><p><strong>Dari mana sumber filem ini?</strong><br>Semua filem dan siri TV adalah daripada status Domain Awam (Public Domain) yang dihoskan secara sah di Internet Archive.</p>"
+    },
+    contact: {
+      title: "Hubungi Kami",
+      content: "<p>Sebarang cadangan atau maklum balas, sila hubungi kami melalui saluran rasmi:</p><br><p>• Blog: <strong>cerita-malaysiaku.blogspot.com</strong><br>• YouTube: <strong>@yunuschannel86</strong></p>"
+    },
+    terms: {
+      title: "Syarat & Terma",
+      content: "<p>Laman web ini hanya menyediakan pautan dan paparan terbenam (embedded player) bagi karya-karya domain awam untuk tujuan hiburan dan pendidikan semata-mata.</p>"
+    },
+    privacy: {
+      title: "Dasar Privasi",
+      content: "<p>Kami menghormati privasi anda. Kami tidak menjual sebarang maklumat peribadi. Data pengesahan akaun diuruskan secara selamat melalui teknologi Supabase Auth.</p>"
+    }
+  };
+
+  function bukaModalInfo(type) {
+    const d = infoData[type];
+    if (!d) return;
+    document.getElementById('infoModalTitle').textContent = d.title;
+    document.getElementById('infoModalBody').innerHTML = d.content;
+    document.getElementById('infoBackdrop').classList.add('show');
+  }
+  function tutupModalInfo() {
+    document.getElementById('infoBackdrop').classList.remove('show');
+  }
 </script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+
+<!-- Supabase SDK & Auth -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-/* [AUTH v2] Logik akaun CinemaKlasik 2.5 - diadaptasi ke OTT */
 (function () {
   var SUPABASE_URL = "https://fcstezpekgajyezoyeil.supabase.co";
   var SUPABASE_KEY = "sb_publishable_RqMwY1LOCw9tzroSw4Ei_A_c8yZDLCp";
   var sb = null, mode = 'login', account, overlay;
-
   function $(id) { return document.getElementById(id); }
 
-  window.addEventListener('load', async function () {
+  window.addEventListener('DOMContentLoaded', async function () {
     account = $('ck25-account');
-    var configured = SUPABASE_URL.indexOf('https://') === 0 && SUPABASE_KEY && SUPABASE_KEY.indexOf('PASTE_') !== 0;
-    // Bina modal login (reka bentuk 2.5)
     overlay = document.createElement('div');
     overlay.className = 'ck25-overlay';
-    overlay.innerHTML = '<div class="ck25-box"><button class="ck25-x" id="ck25-x" aria-label="Tutup">×</button>' +
+    overlay.innerHTML = '<div class="ck25-box"><button class="ck25-x" id="ck25-x">&times;</button>' +
       '<h2 id="ck25-heading">Selamat datang</h2>' +
-      '<p id="ck25-sub">Log masuk untuk pengalaman CinemaKlasik yang lebih peribadi.</p>' +
+      '<p id="ck25-sub">Log masuk untuk akses lebih peribadi.</p>' +
       '<div class="ck25-tabs"><button type="button" class="ck25-tab active" data-mode="login">Log Masuk</button>' +
       '<button type="button" class="ck25-tab" data-mode="register">Daftar</button></div>' +
       '<form class="ck25-form" id="ck25-form">' +
-      '<input id="ck25-name" class="ck25-input" placeholder="Nama" autocomplete="name" style="display:none">' +
-      '<input id="ck25-email" class="ck25-input" type="email" placeholder="Emel" autocomplete="email" required>' +
-      '<input id="ck25-pass" class="ck25-input" type="password" placeholder="Kata laluan" autocomplete="current-password" minlength="6" required>' +
-      '<div class="ck25-error" id="ck25-error" role="status" aria-live="polite"></div>' +
+      '<input id="ck25-name" class="ck25-input" placeholder="Nama" style="display:none">' +
+      '<input id="ck25-email" class="ck25-input" type="email" placeholder="Emel" required>' +
+      '<input id="ck25-pass" class="ck25-input" type="password" placeholder="Kata laluan (min 6 aksara)" minlength="6" required>' +
+      '<div class="ck25-error" id="ck25-error"></div>' +
       '<button class="ck25-submit" id="ck25-submit">Log Masuk</button></form>' +
-      '<div class="ck25-note" id="ck25-note"></div></div>';
+      '<div class="ck25-note">Dilindungi oleh Supabase Auth.</div></div>';
     document.body.appendChild(overlay);
 
-    try {
-      sb = (window.supabase && window.supabase.createClient)
-        ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
-    } catch (e) { sb = null; }
-    if (!sb) { render(null); return; }
-    if ($('ck25-note')) $('ck25-note').textContent = 'Akaun anda disimpan selamat melalui Supabase Auth.';
+    try { sb = (window.supabase && window.supabase.createClient) ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null; } catch (e) {}
 
-    $('ck25-x').onclick = tutup;
-    overlay.addEventListener('click', function (e) { if (e.target === overlay) tutup(); });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && overlay.classList.contains('show')) tutup(); });
-    document.querySelectorAll('.ck25-tab').forEach(function (t) { t.onclick = function () { setMode(t.dataset.mode); }; });
-    $('ck25-form').onsubmit = hantar;
-    try {
-      var r = await sb.auth.getSession();
-      render(r.data.session ? r.data.session.user : null);
-      sb.auth.onAuthStateChange(function (_e, s) { render(s ? s.user : null); });
-    } catch (e) { render(null); }
-  });
-
-  function setMode(m) {
-    mode = m;
-    document.querySelectorAll('.ck25-tab').forEach(function (t) { t.classList.toggle('active', t.dataset.mode === m); });
-    $('ck25-name').style.display = (m === 'register') ? 'block' : 'none';
-    $('ck25-submit').textContent = (m === 'register') ? 'Daftar Akaun' : 'Log Masuk';
-    $('ck25-heading').textContent = (m === 'register') ? 'Cipta akaun' : 'Selamat datang';
-    $('ck25-sub').textContent = (m === 'register') ? 'Bina profil CinemaKlasik anda.' : 'Log masuk untuk pengalaman yang lebih peribadi.';
-    $('ck25-pass').setAttribute('autocomplete', (m === 'register') ? 'new-password' : 'current-password');
-    $('ck25-error').style.display = 'none';
-  }
-  function buka(m) { setMode(m || 'login'); overlay.classList.add('show'); $('ck25-email').focus(); }
-  function tutup() { overlay.classList.remove('show'); }
-  function err(m) { var e = $('ck25-error'); e.textContent = m; e.style.display = 'block'; }
-
-  async function hantar(ev) {
-    ev.preventDefault();
-    $('ck25-error').style.display = 'none';
-    if (!sb) return err('Sistem akaun tidak tersedia (tiada sambungan internet).');
-    var email = $('ck25-email').value.trim();
-    var password = $('ck25-pass').value;
-    var name = $('ck25-name').value.trim();
-    if (password.length < 6) return err('Kata laluan mesti sekurang-kurangnya 6 aksara.');
-    $('ck25-submit').disabled = true;
-    try {
-      var r = (mode === 'register')
-        ? await sb.auth.signUp({ email: email, password: password, options: { data: { full_name: name || email.split('@')[0] } } })
-        : await sb.auth.signInWithPassword({ email: email, password: password });
-      if (r.error) throw r.error;
-      tutup();
-      if (mode === 'register') alert(r.data.session ? 'Akaun berjaya dibuat dan anda sudah log masuk.' : 'Akaun berjaya dibuat. Semak emel anda untuk pengesahan jika diminta.');
-    } catch (x) { err(x && x.message ? x.message : 'Operasi akaun gagal.'); }
-    finally { $('ck25-submit').disabled = false; $('ck25-submit').textContent = (mode === 'register') ? 'Daftar Akaun' : 'Log Masuk'; }
-  }
-
-  function render(u) {
-    if (u) {
-      var e = u.email || '';
-      var n = (u.user_metadata && u.user_metadata.full_name) || e.split('@')[0] || 'U';
-      account.innerHTML = '<span class="ck25-avatar" aria-hidden="true">' + n.charAt(0).toUpperCase() + '</span>' +
-        '<button type="button" class="ck25-user-btn" id="ck25-account-btn">' + n + '</button>';
-      $('ck25-account-btn').onclick = async function () {
-        if (confirm('Akaun: ' + e + '\n\nTekan OK untuk log keluar.') && sb) await sb.auth.signOut();
-      };
-    } else {
-      account.innerHTML = '<button type="button" class="ck25-user-btn" id="ck25-open"><span aria-hidden="true">👤</span> Log Masuk</button>';
-      var b = $('ck25-open'); if (b) b.onclick = function () { buka('login'); };
-    }
-  }
-})();
-</script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a39582c62dad40fe',t:'MTc4OTExNzUyOA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
- </html>
-<!-- ===== AUTH v2 (CinemaKlasik 2.5 UI) ===== -->
-<style>
-.ck25-account{display:flex;align-items:center;gap:8px;margin-left:8px}
-.ck25-user-btn{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#e8edf3;border-radius:10px;padding:9px 14px;font-size:14px;font-weight:600;cursor:pointer}
-.ck25-avatar{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#ff6b35,#ff5722);color:#0a0e27;font-weight:900}
-.ck25-overlay{position:fixed;inset:0;z-index:10020;display:none;place-items:center;padding:18px;background:rgba(2,6,12,.78);backdrop-filter:blur(6px)}
-.ck25-overlay.show{display:grid}
-.ck25-box{width:min(430px,100%);background:#0d131d;border:1px solid rgba(255,255,255,.1);border-radius:24px;padding:26px 22px;position:relative}
-.ck25-tabs{display:flex;gap:6px;margin:18px 0}
-.ck25-tab{flex:1;padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);color:#e8edf3;font-weight:700;cursor:pointer}
-.ck25-tab.active{background:#fff;color:#080b10}
-.ck25-form{display:grid;gap:11px}
-.ck25-input{width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:#101828;color:#e8edf3;font-size:15px}
-.ck25-submit{border:0;border-radius:12px;padding:12px;background:#fff;color:#080b10;font-weight:900;cursor:pointer}
-.ck25-submit:disabled{opacity:.6}
-.ck25-x{float:right;border:0;background:none;color:#e8edf3;font-size:1.4rem;cursor:pointer}
-.ck25-error{color:#ffb0b0;font-size:.84rem;display:none}
-.ck25-note{font-size:.78rem;opacity:.55;margin-top:12px}
-#ck25-heading{color:#fff;margin:4px 0 6px;font-size:1.3rem}
-#ck25-sub{color:#9fb2c5;font-size:.9rem;margin:0 0 4px}
-</style>
-<script>
-(function () {
-  var SUPABASE_URL = "https://fcstezpekgajyezoyeil.supabase.co";
-  var SUPABASE_KEY = "sb_publishable_RqMwY1LOCw9tzroSw4Ei_A_c8yZDLCp";
-  var sb = null, mode = 'login', account, overlay;
-  function $(id) { return document.getElementById(id); }
-  window.addEventListener('load', async function () {
-    ['#btnAuth','#userChip','#btnLogout','#authBackdrop'].forEach(function (s) {
-      var el = document.querySelector(s); if (el) el.parentNode.removeChild(el);
+    $('ck25-x').onclick = () => overlay.classList.remove('show');
+    overlay.onclick = (e) => { if (e.target === overlay) overlay.classList.remove('show'); };
+    document.querySelectorAll('.ck25-tab').forEach(t => t.onclick = () => {
+      mode = t.dataset.mode;
+      document.querySelectorAll('.ck25-tab').forEach(tb => tb.classList.toggle('active', tb.dataset.mode === mode));
+      $('ck25-name').style.display = (mode === 'register') ? 'block' : 'none';
+      $('ck25-submit').textContent = (mode === 'register') ? 'Daftar Akaun' : 'Log Masuk';
+      $('ck25-heading').textContent = (mode === 'register') ? 'Cipta Akaun' : 'Selamat Datang';
     });
-    account = $('ck25-account');
-    if (!account) { account = document.createElement('span'); account.id = 'ck25-account'; account.className = 'ck25-account';
-      var nav = document.querySelector('header nav'); if (nav) nav.appendChild(account); }
-    overlay = document.createElement('div');
-    overlay.className = 'ck25-overlay';
-    overlay.innerHTML = '<div class="ck25-box"><button class="ck25-x" id="ck25-x" aria-label="Tutup">\u00d7</button>' +
-      '<h2 id="ck25-heading">Selamat datang</h2>' +
-      '<p id="ck25-sub">Log masuk untuk pengalaman CinemaKlasik yang lebih peribadi.</p>' +
-      '<div class="ck25-tabs"><button type="button" class="ck25-tab active" data-mode="login">Log Masuk</button>' +
-      '<button type="button" class="ck25-tab" data-mode="register">Daftar</button></div>' +
-      '<form class="ck25-form" id="ck25-form">' +
-      '<input id="ck25-name" class="ck25-input" placeholder="Nama" autocomplete="name" style="display:none">' +
-      '<input id="ck25-email" class="ck25-input" type="email" placeholder="Emel" autocomplete="email" required>' +
-      '<input id="ck25-pass" class="ck25-input" type="password" placeholder="Kata laluan" autocomplete="current-password" minlength="6" required>' +
-      '<div class="ck25-error" id="ck25-error" role="status" aria-live="polite"></div>' +
-      '<button class="ck25-submit" id="ck25-submit">Log Masuk</button></form>' +
-      '<div class="ck25-note" id="ck25-note">Akaun anda disimpan selamat melalui Supabase Auth.</div></div>';
-    document.body.appendChild(overlay);
-    try { sb = (window.supabase && window.supabase.createClient) ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null; }
-    catch (e) { sb = null; }
-    $('ck25-x').onclick = tutup;
-    overlay.addEventListener('click', function (e) { if (e.target === overlay) tutup(); });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && overlay.classList.contains('show')) tutup(); });
-    document.querySelectorAll('.ck25-tab').forEach(function (t) { t.onclick = function () { setMode(t.dataset.mode); }; });
-    $('ck25-form').onsubmit = hantar;
-    if (!sb) { render(null); return; }
-    try {
-      var r = await sb.auth.getSession();
-      render(r.data.session ? r.data.session.user : null);
-      sb.auth.onAuthStateChange(function (_e, s) { render(s ? s.user : null); });
-    } catch (e) { render(null); }
+
+    $('ck25-form').onsubmit = async (e) => {
+      e.preventDefault();
+      $('ck25-error').style.display = 'none';
+      if (!sb) return alert('Supabase Auth belum aktif.');
+      let email = $('ck25-email').value.trim(), pass = $('ck25-pass').value, name = $('ck25-name').value.trim();
+      try {
+        let r = (mode === 'register') 
+          ? await sb.auth.signUp({ email, password: pass, options: { data: { full_name: name || email.split('@')[0] } } })
+          : await sb.auth.signInWithPassword({ email, password: pass });
+        if (r.error) throw r.error;
+        overlay.classList.remove('show');
+        if (mode === 'register') alert('Akaun berjaya didaftarkan!');
+      } catch (err) {
+        let er = $('ck25-error'); er.textContent = err.message || 'Ralat berlaku.'; er.style.display = 'block';
+      }
+    };
+
+    if (sb) {
+      try {
+        let s = await sb.auth.getSession();
+        renderUser(s.data.session ? s.data.session.user : null);
+        sb.auth.onAuthStateChange((_, ses) => renderUser(ses ? ses.user : null));
+      } catch (e) { renderUser(null); }
+    } else { renderUser(null); }
   });
-  function setMode(m) {
-    mode = m;
-    document.querySelectorAll('.ck25-tab').forEach(function (t) { t.classList.toggle('active', t.dataset.mode === m); });
-    $('ck25-name').style.display = (m === 'register') ? 'block' : 'none';
-    $('ck25-submit').textContent = (m === 'register') ? 'Daftar Akaun' : 'Log Masuk';
-    $('ck25-heading').textContent = (m === 'register') ? 'Cipta akaun' : 'Selamat datang';
-    $('ck25-sub').textContent = (m === 'register') ? 'Bina profil CinemaKlasik anda.' : 'Log masuk untuk pengalaman yang lebih peribadi.';
-    $('ck25-pass').setAttribute('autocomplete', (m === 'register') ? 'new-password' : 'current-password');
-    $('ck25-error').style.display = 'none';
-  }
-  function buka(m) { setMode(m || 'login'); overlay.classList.add('show'); $('ck25-email').focus(); }
-  function tutup() { overlay.classList.remove('show'); }
-  function err(m) { var e = $('ck25-error'); e.textContent = m; e.style.display = 'block'; }
-  async function hantar(ev) {
-    ev.preventDefault();
-    $('ck25-error').style.display = 'none';
-    if (!sb) return err('Sistem akaun tidak tersedia (tiada sambungan internet).');
-    var email = $('ck25-email').value.trim(), password = $('ck25-pass').value, name = $('ck25-name').value.trim();
-    if (password.length < 6) return err('Kata laluan mesti sekurang-kurangnya 6 aksara.');
-    $('ck25-submit').disabled = true;
-    try {
-      var r = (mode === 'register')
-        ? await sb.auth.signUp({ email: email, password: password, options: { data: { full_name: name || email.split('@')[0] } } })
-        : await sb.auth.signInWithPassword({ email: email, password: password });
-      if (r.error) throw r.error;
-      tutup();
-      if (mode === 'register') alert(r.data.session ? 'Akaun berjaya dibuat dan anda sudah log masuk.' : 'Akaun berjaya dibuat. Semak emel anda untuk pengesahan jika diminta.');
-    } catch (x) { err(x && x.message ? x.message : 'Operasi akaun gagal.'); }
-    finally { $('ck25-submit').disabled = false; $('ck25-submit').textContent = (mode === 'register') ? 'Daftar Akaun' : 'Log Masuk'; }
-  }
-  function render(u) {
+
+  function renderUser(u) {
     if (u) {
-      var e = u.email || '';
-      var n = (u.user_metadata && u.user_metadata.full_name) || e.split('@')[0] || 'U';
-      account.innerHTML = '<span class="ck25-avatar" aria-hidden="true">' + n.charAt(0).toUpperCase() + '</span>' +
-        '<button type="button" class="ck25-user-btn" id="ck25-account-btn">' + n + '</button>';
-      $('ck25-account-btn').onclick = async function () {
-        if (confirm('Akaun: ' + e + '\n\nTekan OK untuk log keluar.') && sb) await sb.auth.signOut();
-      };
+      let n = (u.user_metadata && u.user_metadata.full_name) || u.email.split('@')[0] || 'U';
+      account.innerHTML = '<span class="ck25-avatar">' + n.charAt(0).toUpperCase() + '</span>' +
+        '<button type="button" class="ck25-user-btn" id="btnOut">' + n + ' (Keluar)</button>';
+      $('btnOut').onclick = async () => { if (confirm('Log keluar akaun?')) await sb.auth.signOut(); };
     } else {
-      account.innerHTML = '<button type="button" class="ck25-user-btn" id="ck25-open">\ud83d\udc64 Log Masuk</button>';
-      var b = $('ck25-open'); if (b) b.onclick = function () { buka('login'); };
+      account.innerHTML = '<button type="button" class="ck25-user-btn" id="btnIn">👤 Log Masuk</button>';
+      $('btnIn').onclick = () => overlay.classList.add('show');
     }
   }
 })();
 </script>
-<!-- ===== TAMAT AUTH v2 ===== -->
 </body>
 </html>
