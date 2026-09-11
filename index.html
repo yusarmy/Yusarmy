@@ -260,6 +260,54 @@ footer{
 }
 </style>
 
+
+<style id="cinemaklasik-2-4">
+/* CINEMAKLASIK 2.4 — ACCOUNT UI */
+.ck24-user-btn{
+  border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);
+  color:inherit;border-radius:999px;padding:9px 14px;cursor:pointer;font-weight:800
+}
+.ck24-overlay{
+ position:fixed;inset:0;z-index:10020;display:none;place-items:center;
+ padding:18px;background:rgba(2,5,10,.82);backdrop-filter:blur(16px)
+}
+.ck24-overlay.show{display:grid}
+.ck24-box{
+ width:min(430px,100%);background:#0d131d;border:1px solid rgba(255,255,255,.1);
+ border-radius:24px;padding:24px;box-shadow:0 30px 100px rgba(0,0,0,.65)
+}
+.ck24-box h2{margin:0 0 7px;font-size:1.7rem}
+.ck24-box p{opacity:.68;line-height:1.5}
+.ck24-tabs{display:flex;gap:6px;margin:18px 0}
+.ck24-tab{
+ flex:1;padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,.08);
+ background:rgba(255,255,255,.04);color:inherit;font-weight:800;cursor:pointer
+}
+.ck24-tab.active{background:rgba(0,200,255,.12);border-color:rgba(0,200,255,.3)}
+.ck24-form{display:grid;gap:11px}
+.ck24-form input{
+ width:100%;box-sizing:border-box;padding:12px 14px;border-radius:12px;
+ border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);
+ color:inherit;font:inherit
+}
+.ck24-submit{
+ border:0;border-radius:12px;padding:12px;background:#fff;color:#080b10;
+ font-weight:900;cursor:pointer
+}
+.ck24-x{
+ float:right;border:0;background:none;color:inherit;font-size:1.4rem;cursor:pointer
+}
+.ck24-account{
+ display:flex;align-items:center;gap:9px
+}
+.ck24-avatar{
+ width:30px;height:30px;border-radius:50%;display:grid;place-items:center;
+ background:linear-gradient(135deg,#fff,rgba(0,200,255,.7));color:#071018;font-weight:900
+}
+.ck24-note{font-size:.78rem;opacity:.55;margin-top:12px}
+.ck24-error{color:#ffb0b0;font-size:.84rem;display:none}
+</style>
+
 </head>
 <body>
 <a class="skip" href="#utama">Langkau ke kandungan utama</a>
@@ -597,5 +645,92 @@ document.addEventListener('DOMContentLoaded',()=>{
 });
 </script>
 
+
+<script id="cinemaklasik-2-4-js">
+document.addEventListener('DOMContentLoaded',()=>{
+  const KEY='cinemaklasik24_user';
+  const user=()=>{try{return JSON.parse(localStorage.getItem(KEY)||'null')}catch{return null}};
+  const save=u=>localStorage.setItem(KEY,JSON.stringify(u));
+  const clear=()=>localStorage.removeItem(KEY);
+
+  const auth=document.createElement('div');
+  auth.className='ck24-overlay';
+  auth.innerHTML=`
+   <div class="ck24-box">
+    <button class="ck24-x" id="ck24-x" aria-label="Tutup">×</button>
+    <h2 id="ck24-heading">Selamat datang</h2>
+    <p id="ck24-sub">Log masuk untuk pengalaman CinemaKlasik yang lebih peribadi.</p>
+    <div class="ck24-tabs">
+      <button class="ck24-tab active" data-mode="login">Log Masuk</button>
+      <button class="ck24-tab" data-mode="register">Daftar</button>
+    </div>
+    <form class="ck24-form" id="ck24-form">
+      <input id="ck24-name" placeholder="Nama" autocomplete="name" style="display:none">
+      <input id="ck24-email" type="email" placeholder="Emel" autocomplete="email" required>
+      <input id="ck24-pass" type="password" placeholder="Kata laluan" autocomplete="current-password" minlength="6" required>
+      <div class="ck24-error" id="ck24-error"></div>
+      <button class="ck24-submit" id="ck24-submit">Log Masuk</button>
+    </form>
+    <div class="ck24-note">Versi 2.4 menyediakan antaramuka akaun. Sambungan backend Supabase boleh diaktifkan kemudian tanpa mengubah reka bentuk ini.</div>
+   </div>`;
+  document.body.appendChild(auth);
+
+  const userArea=document.createElement('div');
+  userArea.id='ck24-user-area';
+  userArea.className='ck24-account';
+
+  // Put account control into the existing header, if available.
+  const header=document.querySelector('header');
+  if(header){
+    const nav=header.querySelector('nav') || header;
+    nav.appendChild(userArea);
+  } else document.body.prepend(userArea);
+
+  let mode='login';
+  function render(){
+    const u=user();
+    if(u){
+      userArea.innerHTML=`<span class="ck24-avatar">${(u.name||u.email||'U').charAt(0).toUpperCase()}</span>
+        <button class="ck24-user-btn" id="ck24-account">Akaun</button>`;
+      document.getElementById('ck24-account').onclick=accountMenu;
+    }else{
+      userArea.innerHTML=`<button class="ck24-user-btn" id="ck24-open">👤 Log Masuk</button>`;
+      document.getElementById('ck24-open').onclick=()=>open('login');
+    }
+  }
+  function open(m='login'){
+    mode=m; auth.classList.add('show');
+    document.querySelectorAll('.ck24-tab').forEach(x=>x.classList.toggle('active',x.dataset.mode===mode));
+    document.getElementById('ck24-name').style.display=mode==='register'?'block':'none';
+    document.getElementById('ck24-submit').textContent=mode==='register'?'Daftar Akaun':'Log Masuk';
+    document.getElementById('ck24-heading').textContent=mode==='register'?'Cipta akaun':'Selamat datang';
+    document.getElementById('ck24-sub').textContent=mode==='register'?'Bina profil CinemaKlasik anda.':'Log masuk untuk pengalaman yang lebih peribadi.';
+    document.getElementById('ck24-error').style.display='none';
+  }
+  function close(){auth.classList.remove('show')}
+  function accountMenu(){
+    const u=user();
+    if(confirm(`Akaun: ${u.email}\n\nTekan OK untuk log keluar.`)){clear();render();}
+  }
+  document.getElementById('ck24-x').onclick=close;
+  auth.addEventListener('click',e=>{if(e.target===auth)close()});
+  document.querySelectorAll('.ck24-tab').forEach(t=>t.onclick=()=>open(t.dataset.mode));
+
+  document.getElementById('ck24-form').onsubmit=e=>{
+    e.preventDefault();
+    const email=document.getElementById('ck24-email').value.trim();
+    const pass=document.getElementById('ck24-pass').value;
+    const name=document.getElementById('ck24-name').value.trim();
+    const err=document.getElementById('ck24-error');
+    if(pass.length<6){err.textContent='Kata laluan mesti sekurang-kurangnya 6 aksara.';err.style.display='block';return;}
+    // Local account shell for 2.4; no password is sent anywhere.
+    save({name:name||email.split('@')[0],email});
+    close();render();
+    alert(mode==='register'?'Akaun berjaya dibuat pada peranti ini.':'Log masuk berjaya pada peranti ini.');
+  };
+  render();
+});
+</script>
+
 </body>
-  </html>
+</html>
