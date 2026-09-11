@@ -164,6 +164,52 @@ footer{
 }
 </style>
 
+
+<style id="cinemaklasik-2-2">
+/* CINEMAKLASIK 2.2 — SMART DISCOVERY */
+.ck22-tools{
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+  margin:0 0 22px;
+}
+.ck22-tools .ck22-search{
+  flex:1 1 260px;position:relative;
+}
+.ck22-search input{
+  width:100%;box-sizing:border-box;padding:13px 44px 13px 18px;
+  border-radius:999px;border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.055);color:inherit;font:inherit;
+}
+.ck22-search span{
+  position:absolute;right:17px;top:50%;transform:translateY(-50%);opacity:.65;
+}
+.ck22-filters{display:flex;gap:8px;flex-wrap:wrap}
+.ck22-filter{
+  border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.045);
+  color:inherit;padding:9px 14px;border-radius:999px;cursor:pointer;font-weight:700;
+}
+.ck22-filter.active,.ck22-filter:hover{
+  background:rgba(0,200,255,.12);border-color:rgba(0,200,255,.38);
+}
+.ck22-result{
+  margin:0 0 14px;opacity:.7;font-size:.88rem;
+}
+.ck22-empty{
+  grid-column:1/-1;text-align:center;padding:45px 20px;
+  border:1px dashed rgba(255,255,255,.12);border-radius:18px;opacity:.7;
+}
+.ck22-section-head{
+  display:flex;justify-content:space-between;align-items:end;gap:15px;
+  margin-bottom:15px;
+}
+.ck22-section-head h2{margin-bottom:0}
+.ck22-section-head small{opacity:.55}
+@media(max-width:650px){
+  .ck22-tools{display:block}
+  .ck22-filters{margin-top:10px;overflow-x:auto;flex-wrap:nowrap;padding-bottom:3px}
+  .ck22-filter{white-space:nowrap}
+}
+</style>
+
 </head>
 <body>
 <a class="skip" href="#utama">Langkau ke kandungan utama</a>
@@ -308,5 +354,85 @@ document.getElementById('year').textContent=new Date().getFullYear();renderMovie
 function comingSoon(name){alert(name+' akan tersedia selepas sistem akaun dan pembayaran CinemaKlasik siap dalam Fasa 3.')}
 if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').then(r=>console.log('CinemaKlasik SW aktif',r.scope)).catch(e=>console.warn('SW gagal',e)))}
 </script>
+
+<script id="cinemaklasik-2-2-js">
+document.addEventListener('DOMContentLoaded',()=>{
+  const cards=[...document.querySelectorAll('.card')];
+  if(!cards.length) return;
+
+  // Build a discovery toolbar immediately before the first card grid.
+  const grid = cards[0].closest('[class*="grid"]') || cards[0].parentElement;
+  if(!grid || document.getElementById('ck22-tools')) return;
+
+  const tools=document.createElement('div');
+  tools.id='ck22-tools';
+  tools.className='ck22-tools';
+  tools.innerHTML=`
+    <div class="ck22-search">
+      <input id="ck22-search" type="search" placeholder="Cari filem, tahun, genre..." aria-label="Cari filem">
+      <span>⌕</span>
+    </div>
+    <div class="ck22-filters" role="group" aria-label="Kategori">
+      <button class="ck22-filter active" data-filter="all">Semua</button>
+      <button class="ck22-filter" data-filter="action">Aksi</button>
+      <button class="ck22-filter" data-filter="comedy">Komedi</button>
+      <button class="ck22-filter" data-filter="drama">Drama</button>
+      <button class="ck22-filter" data-filter="mystery">Misteri</button>
+      <button class="ck22-filter" data-filter="classic">Klasik</button>
+    </div>
+  `;
+  grid.parentNode.insertBefore(tools,grid);
+
+  const result=document.createElement('div');
+  result.className='ck22-result';
+  tools.parentNode.insertBefore(result,grid);
+
+  // Add a small category hint based on card text.
+  const getText=c=>(c.innerText||'').toLowerCase();
+  const matches=(c,q,filter)=>{
+    const t=getText(c);
+    const query=!q || t.includes(q);
+    if(!query) return false;
+    if(filter==='all') return true;
+    const map={
+      action:['action','adventure','war','fight','general','sherlock'],
+      comedy:['comedy','komedi','chaplin','charade','gold rush'],
+      drama:['drama','city lights','metropolis','potemkin'],
+      mystery:['mystery','sherlock','phantom','nosferatu','cabinet'],
+      classic:['1920','1921','1922','1924','1925','1931','1939','1940','1950','1960','klasik']
+    };
+    return (map[filter]||[]).some(x=>t.includes(x));
+  };
+
+  let filter='all';
+  const empty=document.createElement('div');
+  empty.className='ck22-empty';
+  empty.innerHTML='<strong>Tiada filem dijumpai</strong><br><small>Cuba kata kunci atau kategori lain.</small>';
+  grid.appendChild(empty);
+
+  function render(){
+    const q=(document.getElementById('ck22-search').value||'').trim().toLowerCase();
+    let count=0;
+    cards.forEach(c=>{
+      const show=matches(c,q,filter);
+      c.style.display=show?'':'none';
+      if(show) count++;
+    });
+    empty.style.display=count?'none':'block';
+    result.textContent=`${count} filem dipaparkan${q?' untuk “'+q+'”':''}`;
+  }
+  document.getElementById('ck22-search').addEventListener('input',render);
+  tools.querySelectorAll('.ck22-filter').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      tools.querySelectorAll('.ck22-filter').forEach(x=>x.classList.remove('active'));
+      btn.classList.add('active');
+      filter=btn.dataset.filter;
+      render();
+    });
+  });
+  render();
+});
+</script>
+
 </body>
-  </html>
+</html>
