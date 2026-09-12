@@ -8,7 +8,7 @@
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" type="image/png" href="./favicon-32.png">
 <link rel="apple-touch-icon" href="./apple-touch-icon.png">
-<title>CinemaKlasik 3.4 — Filem, Live & Akaun</title>
+<title>CinemaKlasik 3.6 — Filem, Live & Akaun</title>
 <style>
 :root{--bg:#080b14;--panel:#101522;--panel2:#151b2b;--line:#202a3d;--text:#f5f7fb;--muted:#91a0b7;--cyan:#19d3ff;--gold:#ffb84d;--accent:#ff6b35;--max:1220px}
 *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;background:radial-gradient(circle at 50% -10%,#14213b 0,#080b14 42%);color:var(--text);line-height:1.6;overflow-x:hidden}a{color:inherit;text-decoration:none}button,input{font:inherit}button{cursor:pointer}
@@ -314,6 +314,13 @@ footer{
 }
 </style>
 
+
+<style id="cinemaklasik-app-download-3-6">
+.ck-apk-card{margin:18px 0 10px;padding:22px;border:1px solid #263650;border-radius:20px;background:linear-gradient(135deg,#101a2b,#0a101c);box-shadow:0 12px 35px rgba(0,0,0,.22)}
+.ck-apk-card h3{margin:0 0 8px;font-size:24px}.ck-apk-card p{color:#9eacc0;margin:0 0 15px;line-height:1.6}.ck-apk-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:12px;background:#ff9a3d;color:#07101c!important;font-weight:800;text-decoration:none!important}.ck-apk-note{font-size:11px;color:#6f7e94;margin-top:10px}
+@media(max-width:700px){.ck-apk-card{padding:18px}.ck-apk-btn{width:100%;justify-content:center}}
+</style>
+
 </head>
 <body>
 <a class="skip" href="#utama">Langkau ke kandungan utama</a>
@@ -437,12 +444,21 @@ footer{
 </section>
 </main>
 
+<section class="wrap" id="muat-turun-apk">
+  <div class="ck-apk-card">
+    <h3>📱 CinemaKlasik APK v1.4</h3>
+    <p>Versi aplikasi untuk pengalaman <strong>satu tempat sahaja</strong>. Bila dibuka melalui APK, pautan TV, Live dan Radio dikendalikan dalam aplikasi tanpa dihantar ke Chrome.</p>
+    <a class="ck-apk-btn" href="./CinemaKlasik-v1.4.apk" download>⬇️ Muat Turun APK v1.4 Build 15</a>
+    <div class="ck-apk-note">Jika fail APK belum dimuat naik ke repo GitHub, butang ini belum mempunyai fail untuk dimuat turun.</div>
+  </div>
+</section>
+
 <footer class="footer">
 <div class="footer-grid">
   <div><h4>CinemaKlasik</h4><p>Filem klasik, siri TV dan cerita pilihan dengan pengalaman web yang moden.</p></div>
   <div><h4>Navigasi</h4><a href="#beranda">Beranda</a><a href="#filem">Filem</a><a href="#tv">TV Series</a><a href="#premium">Premium</a></div>
   <div><h4>Bantuan</h4><a href="#" id="ck28-footer-login">👤 Daftar / Log Masuk</a><a href="#faq">Soalan Lazim</a><a href="#hubungi">Hubungi Kami</a><a href="#syarat">Syarat & Terma</a><a href="#privasi">Dasar Privasi</a></div>
-  <div><h4>Komuniti</h4><a href="https://www.youtube.com/@yunuschannel86" rel="noopener noreferrer">YouTube</a><a href="https://cerita-malaysiaku.blogspot.com" rel="noopener noreferrer">Blog Cerita</a><a href="https://www.facebook.com/share/1EK9tkYq2s/" rel="noopener noreferrer">Facebook</a><a href="./CinemaKlasik-v1.3.apk" download>📱 APK v1.3 (backup)</a></div>
+  <div><h4>Komuniti</h4><a href="https://www.youtube.com/@yunuschannel86" rel="noopener noreferrer">YouTube</a><a href="https://cerita-malaysiaku.blogspot.com" rel="noopener noreferrer">Blog Cerita</a><a href="https://www.facebook.com/share/1EK9tkYq2s/" rel="noopener noreferrer">Facebook</a><a href="./CinemaKlasik-v1.4.apk" download>📱 Muat Turun APK v1.4</a></div>
 </div>
 <div class="copyright">© <span id="year"></span> CinemaKlasik. Semua hak terpelihara. 🇲🇾</div>
 </footer>
@@ -862,40 +878,40 @@ const SUPABASE_KEY="sb_publishable_RqMwY1LOCw9tzroSw4Ei_A_c8yZDLCp";
 
 
 
-<script id="cinemaklasik-3-4-app-first">
+<script id="cinemaklasik-3-6-app-marker">
 (function(){
-  // CinemaKlasik 3.4: app-first link handling.
-  // External destinations are opened in the current WebView/tab rather than
-  // spawning a separate browser window. Sites that forbid iframe embedding
-  // will still be handled by normal navigation, which keeps the user inside
-  // the Android WebView when running the APK.
-  document.addEventListener('click', function(e){
-    const a = e.target.closest('a[href]');
+  try{
+    var ua=navigator.userAgent||'';
+    var inApp=/CinemaKlasikApp\/1\.4/i.test(ua);
+    document.documentElement.classList.toggle('cinemaklasik-app',inApp);
+  }catch(e){}
+})();
+</script>
+<script id="cinemaklasik-3-6-app-first">
+(()=>{
+  // CINEMAKLASIK 3.5 — APP-FIRST / SINGLE-PLACE NAVIGATION
+  // Normal web links are forced into the current page; no new tabs.
+  document.addEventListener('click',e=>{
+    const a=e.target.closest && e.target.closest('a[href]');
     if(!a) return;
-    const href = a.getAttribute('href');
-    if(!href || href.startsWith('#') || href.startsWith('javascript:')) return;
     if(a.hasAttribute('download')) return;
-
-    // Keep CinemaKlasik internal navigation untouched.
-    try {
-      const u = new URL(href, location.href);
-      if(u.origin === location.origin) return;
+    const raw=(a.getAttribute('href')||'').trim();
+    if(!raw || raw.startsWith('#') || raw.startsWith('javascript:')) return;
+    let u; try{u=new URL(raw,location.href)}catch(_){return}
+    if(u.protocol==='http:'||u.protocol==='https:'){
       e.preventDefault();
-      location.href = u.href;
-    } catch(err) {}
-  }, true);
-
-  // Prevent scripts from opening external links in a new browser window.
-  const originalOpen = window.open;
-  window.open = function(url){
-    if(url){
-      try { location.href = new URL(url, location.href).href; }
-      catch(e) { location.href = url; }
+      location.href=u.href;
     }
-    return null;
-  };
+  },true);
+  try{
+    const originalOpen=window.open;
+    window.open=(url)=>{
+      if(url){ location.href=String(url); return window; }
+      return null;
+    };
+  }catch(_){}
 })();
 </script>
 
 </body>
-  </html>
+                                                                </html>
