@@ -1,649 +1,661 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ms">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>CinemaKlasik — Streaming Filem Klasik Percuma</title>
-<meta name="description" content="CinemaKlasik — platform streaming filem klasik dunia dan siri TV klasik. 100% percuma & sah (public domain)." />
-<meta name="theme-color" content="#0a0e27" />
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080b14">
+<meta name="description" content="CinemaKlasik — pengalaman menonton filem klasik dan siri TV pilihan dalam satu platform.">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" type="image/png" href="./favicon-32.png">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<title>CinemaKlasik 2.6 — Player & Akaun Supabase</title>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family:'Segoe UI',system-ui,-apple-system,sans-serif; background:#0a0e27; color:#e8edf3; line-height:1.6; overflow-x:hidden; }
-  html { scroll-behavior: smooth; }
-  
-  a { color:#00d4ff; text-decoration:none; transition:.2s; }
-  a:hover { color:#00ffff; }
-  
-  /* ============ HEADER ============ */
-  header {
-    background:linear-gradient(180deg,#0f1729 0%,#0a0e27 100%);
-    border-bottom:1px solid #1a2847; padding:16px 20px;
-    display:flex; align-items:center; gap:12px; position:sticky; top:0; z-index:100;
-    box-shadow:0 4px 20px rgba(0,0,0,.5);
-  }
-  
-  .logo { width:44px; height:44px; border-radius:12px; background:linear-gradient(135deg,#ff6b35 0%,#004e89 100%);
-    display:flex; align-items:center; justify-content:center; font-weight:900; color:#fff; flex-shrink:0; font-size:22px; }
-  
-  .brand h1 { font-size:18px; font-weight:900; letter-spacing:1px; background:linear-gradient(135deg,#00d4ff,#0099ff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-  .brand p { font-size:10px; color:#7a8ba0; text-transform:uppercase; }
-  
-  .nav { margin-left:auto; display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
-  .nav-btn { padding:7px 12px; border-radius:8px; font-size:12px; font-weight:600; border:1px solid #1a2847; color:#e8edf3; background:rgba(26,40,71,.6); cursor:pointer; }
-  
-  /* ============ HERO ============ */
-  .hero {
-    background:linear-gradient(135deg,rgba(0,212,255,.1) 0%,rgba(0,78,137,.1) 100%);
-    padding:50px 20px 30px; text-align:center; position:relative;
-  }
-  .hero-content { max-width:800px; margin:0 auto; }
-  .hero .badge { display:inline-block; background:rgba(0,212,255,.1); border:1px solid rgba(0,212,255,.3); border-radius:30px; padding:6px 14px; font-size:11px; color:#00d4ff; margin-bottom:14px; font-weight:700; }
-  .hero h2 { font-size:36px; font-weight:900; margin-bottom:12px; color:#00ffff; line-height:1.2; }
-  .hero p { font-size:15px; color:#a0b2c8; margin-bottom:20px; line-height:1.6; max-width:600px; margin-left:auto; margin-right:auto; }
-  
-  .search-box { max-width: 480px; margin: 0 auto 20px; }
-  .search-box input { width: 100%; padding: 12px 18px; border-radius: 30px; border: 2px solid rgba(0,212,255,.3); background: rgba(13,20,35,.9); color: #fff; font-size: 14px; outline: none; }
-  .search-box input:focus { border-color: #00d4ff; box-shadow: 0 0 15px rgba(0,212,255,.3); }
-
-  .hero-buttons { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
-  .btn { padding:12px 24px; border-radius:10px; font-size:13px; font-weight:700; border:none; cursor:pointer; text-transform:uppercase; display:inline-block; }
-  .btn-primary { background:linear-gradient(135deg,#ff6b35 0%,#ff5722 100%); color:#0a0e27; }
-  .btn-secondary { background:rgba(255,255,255,.1); color:#00d4ff; border:2px solid #00d4ff; }
-  
-  /* ============ FEATURED SECTION ============ */
-  .featured-section { max-width:1200px; margin:0 auto; padding:40px 20px; }
-  .section-title { font-size:22px; font-weight:900; margin-bottom:6px; color:#fff; text-transform:uppercase; }
-  .section-subtitle { font-size:13px; color:#7a8ba0; margin-bottom:20px; text-transform:uppercase; }
-  
-  /* ============ CAROUSEL ============ */
-  .carousel {
-    position:relative; height:400px; border-radius:16px; overflow:hidden; margin-bottom:40px;
-    background:linear-gradient(135deg,#1a2635 0%,#0d141d 100%); box-shadow:0 15px 40px rgba(0,0,0,.5);
-  }
-  .carousel-slide {
-    position:absolute; inset:0; opacity:0; transition:opacity .8s ease;
-    background:linear-gradient(to right, rgba(10,14,39,.95), rgba(10,14,39,.6));
-    display:flex; align-items:center; padding:30px 24px;
-  }
-  .carousel-slide.active { opacity:1; }
-  .carousel-content { max-width:500px; }
-  .carousel-badge { display:inline-block; background:rgba(255,107,53,.2); border:1px solid #ff6b35; color:#ff6b35; padding:4px 10px; border-radius:6px; font-size:11px; font-weight:700; margin-bottom:10px; }
-  .carousel-title { font-size:32px; font-weight:900; margin-bottom:8px; color:#fff; line-height:1.2; }
-  .carousel-meta { font-size:12px; color:#a0b2c8; margin-bottom:12px; }
-  .carousel-desc { font-size:14px; color:#b0c2d8; margin-bottom:18px; line-height:1.5; }
-  .carousel-tag { display:inline-block; background:linear-gradient(135deg,#ff6b35,#ff5722); color:#0a0e27; padding:4px 10px; border-radius:6px; font-size:11px; font-weight:700; }
-  .carousel-buttons { display:flex; gap:10px; margin-top:18px; }
-  .carousel-buttons .btn { padding:10px 18px; font-size:12px; }
-  .carousel-controls { position:absolute; bottom:14px; left:50%; transform:translateX(-50%); display:flex; gap:8px; z-index:10; }
-  .carousel-dot { width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,.3); cursor:pointer; border:none; padding:0; }
-  .carousel-dot.active { background:#ff6b35; width:22px; border-radius:6px; }
-  
-  /* ============ GRID ============ */
-  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:14px; }
-  .card {
-    background:linear-gradient(135deg,#1a2635 0%,#0d141d 100%);
-    border:1px solid rgba(0,212,255,.1); border-radius:12px; overflow:hidden;
-    transition:.3s; cursor:pointer; position:relative; display:flex; flex-direction:column;
-  }
-  .card:hover { transform:translateY(-5px); border-color:rgba(0,212,255,.3); }
-  .card-thumb {
-    aspect-ratio:9/13; background:linear-gradient(135deg,#2a3f5f,#1a2f4f);
-    position:relative; display:flex; align-items:center; justify-content:center;
-  }
-  .card-thumb-content { text-align:center; z-index:2; color:#fff; }
-  .card-thumb-emoji { font-size:46px; margin-bottom:4px; display:block; }
-  .card-thumb-title { font-size:12px; font-weight:700; }
-  .card-badge { position:absolute; top:8px; left:8px; z-index:5; padding:3px 7px; border-radius:4px; font-size:10px; font-weight:700; background:#0e7d38; color:#fff; }
-  .card-lock { position:absolute; inset:0; background:rgba(10,14,39,.8); display:flex; align-items:center; justify-content:center; z-index:3; opacity:0; transition:.3s; }
-  .card:hover .card-lock { opacity:1; }
-  .card-lock-icon { font-size:32px; color:#00d4ff; }
-  .card-body { padding:12px; flex:1; display:flex; flex-direction:column; }
-  .card-title { font-size:13px; font-weight:800; margin-bottom:4px; color:#fff; }
-  .card-meta { font-size:11px; color:#93a5ba; margin-bottom:6px; }
-  .card-rating { display:flex; gap:2px; margin-bottom:6px; font-size:10px; color:#ffc107; }
-  .card-cta { margin-top:auto; display:inline-block; color:#00d4ff; font-size:12px; font-weight:700; }
-  
-  /* ============ FOOTER ============ */
-  footer { background:linear-gradient(180deg,#0a0e27,#050810); border-top:1px solid #1a2847; padding:30px 20px; margin-top:40px; }
-  .footer-content { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:20px; margin-bottom:20px; }
-  .footer-section h4 { font-size:13px; font-weight:900; text-transform:uppercase; margin-bottom:10px; color:#00d4ff; }
-  .footer-section p { font-size:12px; color:#7a8ba0; line-height:1.6; }
-  .footer-section a { display:block; margin-bottom:6px; font-size:12px; cursor:pointer; color:#a0b2c8; }
-  .footer-section a:hover { color:#00d4ff; }
-  .footer-bottom { border-top:1px solid #1a2847; padding-top:16px; text-align:center; font-size:12px; color:#5a6b80; }
-
-  /* ============ MODALS ============ */
-  .modal-backdrop {
-    position:fixed; inset:0; background:rgba(3,7,18,0.88); z-index:99999;
-    display:none; align-items:center; justify-content:center; padding:16px;
-    backdrop-filter:blur(6px);
-  }
-  .modal-backdrop.show { display:flex; }
-  .modal-box {
-    width:100%; max-width:400px; background:#0d141f; border:1px solid rgba(0,212,255,0.3);
-    border-radius:18px; padding:22px; position:relative; box-shadow:0 20px 50px rgba(0,0,0,0.8);
-  }
-  .modal-box.video-box { max-width:850px; }
-  .modal-box.info-box { max-width:550px; max-height:80vh; overflow-y:auto; color:#cbd5e1; }
-  
-  .modal-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; border-bottom:1px solid #1e2a38; padding-bottom:8px; }
-  .modal-title { font-weight:800; font-size:15px; color:#00d4ff; }
-  .modal-close { background:#1a2847; border:1px solid #2a3f5f; color:#e8edf3; width:30px; height:30px; border-radius:6px; font-size:14px; cursor:pointer; }
-  
-  .player-frame { width:100%; aspect-ratio:16/9; border:0; border-radius:10px; background:#000; }
-  .player-loading { position:absolute; inset:50px 0 0; color:#7fd0ff; font-size:13px; text-align:center; pointer-events:none; }
-  
-  /* ============ BORANG DAFTAR / LOG MASUK ============ */
-  .auth-tabs { display:flex; gap:6px; margin:14px 0; }
-  .auth-tab {
-    flex:1; padding:9px; border-radius:8px; border:1px solid rgba(255,255,255,0.1);
-    background:rgba(255,255,255,0.05); color:#e8edf3; font-weight:700; font-size:13px; cursor:pointer;
-  }
-  .auth-tab.active { background:#fff; color:#080b10; }
-  
-  .auth-form { display:grid; gap:12px; }
-  .auth-input {
-    width:100%; padding:12px 14px; border-radius:10px;
-    border:1px solid rgba(255,255,255,0.2); background:#141e2e;
-    color:#ffffff !important; font-size:15px; outline:none;
-    -webkit-user-select: auto; user-select: auto;
-  }
-  .auth-input:focus { border-color:#00d4ff; }
-  .auth-submit {
-    border:0; border-radius:10px; padding:12px; background:linear-gradient(135deg,#ff6b35,#ff5722);
-    color:#0a0e27; font-weight:800; font-size:14px; cursor:pointer; margin-top:4px;
-  }
-  .auth-error { color:#ff8585; font-size:12px; display:none; background:rgba(255,0,0,0.1); padding:8px; border-radius:6px; }
-
-  /* User Info in Header */
-  .user-badge { display:flex; align-items:center; gap:8px; }
-  .user-avatar { width:28px; height:28px; border-radius:50%; display:grid; place-items:center; background:#ff6b35; color:#0a0e27; font-weight:900; font-size:11px; }
+:root{--bg:#080b14;--panel:#101522;--panel2:#151b2b;--line:#202a3d;--text:#f5f7fb;--muted:#91a0b7;--cyan:#19d3ff;--gold:#ffb84d;--accent:#ff6b35;--max:1220px}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;background:radial-gradient(circle at 50% -10%,#14213b 0,#080b14 42%);color:var(--text);line-height:1.6;overflow-x:hidden}a{color:inherit;text-decoration:none}button,input{font:inherit}button{cursor:pointer}
+.skip{position:absolute;left:-9999px;top:0;background:#fff;color:#000;padding:10px 16px;z-index:999}.skip:focus{left:0}
+header{position:sticky;top:0;z-index:100;background:rgba(8,11,20,.82);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.07)}
+.navbar{max-width:var(--max);margin:auto;padding:12px 20px;display:flex;align-items:center;gap:18px}.brand{display:flex;align-items:center;gap:11px;min-width:max-content}.logo{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),#ff9a5c);box-shadow:0 8px 28px rgba(255,107,53,.22);font-size:21px}.brand strong{font-size:17px;letter-spacing:1.4px}.brand small{display:block;color:var(--muted);font-size:9px;letter-spacing:1.2px;text-transform:uppercase}.navlinks{margin-left:auto;display:flex;gap:6px}.navlinks a{padding:9px 12px;border-radius:9px;color:#b9c5d8;font-size:13px}.navlinks a:hover,.navlinks a.active{background:#151c2c;color:#fff}.nav-premium{padding:9px 14px!important;background:linear-gradient(135deg,var(--gold),#ff8b3d)!important;color:#17100a!important;font-weight:800!important}
+.hero{max-width:var(--max);margin:auto;padding:78px 20px 55px;position:relative}.hero:before{content:"";position:absolute;width:520px;height:520px;right:-160px;top:-120px;background:radial-gradient(circle,rgba(25,211,255,.13),transparent 68%);pointer-events:none}.eyebrow{display:inline-flex;gap:7px;align-items:center;border:1px solid rgba(25,211,255,.22);background:rgba(25,211,255,.06);color:var(--cyan);padding:7px 12px;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:.7px;text-transform:uppercase}.hero h1{font-size:clamp(42px,7vw,76px);line-height:1.02;max-width:850px;margin:18px 0 18px;letter-spacing:-2.5px}.gradient{background:linear-gradient(90deg,#fff 0%,#bfeeff 45%,var(--cyan) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}.hero p{max-width:700px;color:#aebbd0;font-size:17px}.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 18px;border-radius:11px;border:1px solid var(--line);font-weight:800;font-size:13px;transition:.2s}.btn:hover{transform:translateY(-2px)}.primary{background:linear-gradient(135deg,var(--accent),#ff8a4d);color:#140d09;border:0}.secondary{background:#111827;color:#d9e5f4}.ghost{background:transparent;color:#b8c6d9}
+.wrap{max-width:var(--max);margin:auto;padding:0 20px}.section{padding:48px 0}.section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:20px}.section h2{font-size:27px;letter-spacing:-.5px}.section-head p{color:var(--muted);font-size:13px}.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin:0 0 22px}.search{flex:1;min-width:220px;background:#0e1421;border:1px solid var(--line);color:#fff;padding:12px 14px;border-radius:10px;outline:none}.search:focus{border-color:rgba(25,211,255,.55)}.filter{background:#0e1421;border:1px solid var(--line);color:#cbd6e6;padding:10px 12px;border-radius:10px}
+.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}.card{background:linear-gradient(180deg,#131a29,#0e1420);border:1px solid rgba(255,255,255,.06);border-radius:14px;overflow:hidden;transition:.25s}.card:hover{transform:translateY(-5px);border-color:rgba(25,211,255,.3);box-shadow:0 18px 45px rgba(0,0,0,.28)}.poster{aspect-ratio:2/3;display:grid;place-items:center;position:relative;background:linear-gradient(145deg,#20334e,#111a2a);overflow:hidden}.poster:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.65))}.poster-emoji{font-size:54px;filter:drop-shadow(0 10px 16px rgba(0,0,0,.35))}.badge{position:absolute;top:9px;left:9px;z-index:2;padding:5px 8px;border-radius:7px;font-size:9px;font-weight:900;letter-spacing:.5px;background:#0d7e43;color:#fff}.badge.gold{background:linear-gradient(135deg,var(--gold),#ff8b3d);color:#17100a}.poster-title{position:absolute;bottom:10px;left:10px;right:10px;z-index:2;font-weight:800;font-size:12px}.card-body{padding:12px}.card h3{font-size:13px;line-height:1.35}.meta{color:var(--muted);font-size:10px;margin:4px 0 9px}.watch{color:var(--cyan);font-size:11px;font-weight:900}.empty{display:none;padding:30px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:12px}
+.featured{display:grid;grid-template-columns:1.25fr .75fr;gap:16px}.feature{min-height:320px;border-radius:18px;border:1px solid rgba(255,255,255,.07);padding:30px;display:flex;align-items:end;background:linear-gradient(110deg,rgba(8,11,20,.98) 0%,rgba(8,11,20,.65) 48%,rgba(8,11,20,.15)),linear-gradient(135deg,#19324b,#111827);position:relative;overflow:hidden}.feature:after{content:"🎬";position:absolute;right:8%;top:16%;font-size:120px;opacity:.12}.feature h3{font-size:36px;line-height:1.1;margin:10px 0}.feature p{color:#aab8cb;max-width:600px;font-size:13px}.mini-feature{border-radius:18px;border:1px solid rgba(255,255,255,.07);padding:25px;background:linear-gradient(135deg,#151b2b,#0d121d)}.mini-feature .icon{font-size:30px}.mini-feature h3{margin:10px 0 6px}.mini-feature p{color:var(--muted);font-size:13px}.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.chip{padding:7px 10px;border:1px solid var(--line);border-radius:999px;color:#aebbd0;font-size:11px}
+.pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.plan{position:relative;padding:28px;border:1px solid var(--line);background:linear-gradient(180deg,#121a29,#0d131f);border-radius:16px}.plan.popular{border-color:rgba(255,184,77,.65);box-shadow:0 20px 50px rgba(255,184,77,.08)}.popular-tag{position:absolute;right:15px;top:15px;background:var(--gold);color:#17100a;padding:5px 8px;border-radius:6px;font-size:9px;font-weight:900}.plan h3{font-size:20px}.price{font-size:34px;font-weight:900;margin:12px 0}.price small{font-size:11px;color:var(--muted);font-weight:500}.plan ul{list-style:none;margin:18px 0;color:#aebbd0;font-size:12px}.plan li{padding:7px 0}.plan li:before{content:"✓";color:var(--cyan);font-weight:900;margin-right:8px}
+.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.info-card{padding:22px;border:1px solid var(--line);background:#0e1420;border-radius:14px}.info-card h3{font-size:15px;margin-bottom:7px}.info-card p{font-size:12px;color:var(--muted)}
+details{border:1px solid var(--line);background:#0e1420;border-radius:12px;padding:15px 17px}details+details{margin-top:9px}summary{cursor:pointer;font-weight:800;font-size:13px}details p{color:var(--muted);font-size:12px;margin-top:9px}
+footer{margin-top:55px;border-top:1px solid var(--line);background:#060912;padding:42px 20px 85px}.footer-grid{max-width:var(--max);margin:auto;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:30px}.footer h4{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--cyan);margin-bottom:12px}.footer p,.footer a{font-size:12px;color:var(--muted)}.footer a{display:block;margin:7px 0}.copyright{max-width:var(--max);margin:30px auto 0;padding-top:20px;border-top:1px solid var(--line);text-align:center;color:#66758c;font-size:10px}
+.player{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.86);backdrop-filter:blur(10px);display:grid;place-items:center;padding:15px}.player[hidden]{display:none}.player-box{width:min(960px,100%);background:#0c121e;border:1px solid #26334a;border-radius:16px;padding:12px;box-shadow:0 30px 90px rgba(0,0,0,.55)}.player-head{display:flex;gap:12px;align-items:center;padding:3px 3px 11px}.player-title{font-weight:900;flex:1;font-size:13px}.close{width:38px;height:38px;border:1px solid #2a3850;background:#172033;color:#fff;border-radius:10px}.frame{width:100%;aspect-ratio:16/9;border:0;border-radius:10px;background:#000}
+.bottom{display:none}
+@media(max-width:1050px){.grid{grid-template-columns:repeat(4,1fr)}.featured{grid-template-columns:1fr}.footer-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.navbar{padding:10px 14px}.navlinks{display:none}.hero{padding:55px 16px 40px}.hero h1{font-size:43px;letter-spacing:-1.5px}.hero p{font-size:14px}.wrap{padding:0 14px}.section{padding:34px 0}.section-head{display:block}.section-head p{margin-top:5px}.grid{grid-template-columns:repeat(2,1fr);gap:10px}.featured{grid-template-columns:1fr}.feature{min-height:280px;padding:22px}.feature h3{font-size:29px}.pricing,.info-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr 1fr;gap:22px}.bottom{position:fixed;display:grid;grid-template-columns:repeat(4,1fr);left:10px;right:10px;bottom:10px;z-index:120;background:rgba(10,15,25,.94);backdrop-filter:blur(18px);border:1px solid #27344b;border-radius:15px;padding:7px;box-shadow:0 10px 35px rgba(0,0,0,.45)}.bottom a{text-align:center;color:#8493a9;font-size:9px;padding:5px}.bottom a b{display:block;font-size:17px;line-height:1.2;color:#cdd8e8}.bottom a:hover{color:#fff}.actions .btn{width:100%}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+:focus-visible{outline:3px solid var(--cyan);outline-offset:2px}
 </style>
+
+<style id="cinemaklasik-2-1-polish">
+/* CINEMAKLASIK 2.1 — VISUAL POLISH */
+:root{
+  --ck-glow:0 0 0 1px rgba(255,255,255,.07),0 18px 55px rgba(0,0,0,.32);
+  --ck-radius:18px;
+}
+html{scroll-behavior:smooth}
+body{
+  background:
+    radial-gradient(circle at 12% 0%,rgba(0,200,255,.08),transparent 28%),
+    radial-gradient(circle at 88% 8%,rgba(255,170,0,.07),transparent 25%),
+    #070b12;
+}
+header{
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  background:rgba(7,11,18,.82)!important;
+  border-bottom:1px solid rgba(255,255,255,.07)!important;
+}
+.brand{
+  letter-spacing:.08em!important;
+  text-shadow:0 0 24px rgba(0,200,255,.2);
+}
+.hero{
+  min-height:clamp(520px,72vh,760px)!important;
+  position:relative;
+  overflow:hidden;
+}
+.hero:after{
+  content:"";
+  position:absolute;inset:auto 0 0;height:35%;
+  background:linear-gradient(transparent,#070b12);
+  pointer-events:none;
+}
+.hero-content{position:relative;z-index:2}
+.hero h1{
+  letter-spacing:-.04em!important;
+  text-wrap:balance;
+  text-shadow:0 8px 40px rgba(0,0,0,.55);
+}
+.hero p{max-width:650px;line-height:1.75!important}
+.btn{
+  border-radius:999px!important;
+  padding:.82rem 1.25rem!important;
+  font-weight:800!important;
+  transition:transform .2s ease,box-shadow .2s ease,filter .2s ease!important;
+}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.btn-primary{box-shadow:0 10px 30px rgba(0,200,255,.15)}
+section{scroll-margin-top:90px}
+.section-title{
+  letter-spacing:-.025em;
+  font-weight:900!important;
+}
+.card{
+  border-radius:var(--ck-radius)!important;
+  overflow:hidden!important;
+  box-shadow:var(--ck-glow)!important;
+  border:1px solid rgba(255,255,255,.07)!important;
+  background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.018))!important;
+  transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease!important;
+}
+.card:hover{
+  transform:translateY(-7px);
+  border-color:rgba(0,200,255,.22)!important;
+  box-shadow:0 22px 65px rgba(0,0,0,.42),0 0 30px rgba(0,200,255,.06)!important;
+}
+.card img{
+  transition:transform .45s cubic-bezier(.2,.7,.2,1),filter .35s ease!important;
+}
+.card:hover img{transform:scale(1.045);filter:saturate(1.08)}
+.badge,.tag{
+  border-radius:999px!important;
+  font-size:.72rem!important;
+  font-weight:900!important;
+  letter-spacing:.04em;
+}
+.search-wrap input,.search-box input{
+  border-radius:999px!important;
+  min-height:48px;
+  border:1px solid rgba(255,255,255,.1)!important;
+  background:rgba(255,255,255,.055)!important;
+  transition:border-color .2s,box-shadow .2s,background .2s;
+}
+.search-wrap input:focus,.search-box input:focus{
+  border-color:rgba(0,200,255,.55)!important;
+  box-shadow:0 0 0 4px rgba(0,200,255,.08)!important;
+  background:rgba(255,255,255,.075)!important;
+  outline:none;
+}
+select{
+  border-radius:999px!important;
+  border:1px solid rgba(255,255,255,.1)!important;
+  background:rgba(255,255,255,.055)!important;
+}
+.pricing-card{
+  border-radius:22px!important;
+  box-shadow:var(--ck-glow)!important;
+  border:1px solid rgba(255,255,255,.08)!important;
+  transition:transform .25s ease,box-shadow .25s ease!important;
+}
+.pricing-card:hover{transform:translateY(-5px)}
+.pricing-card.featured{
+  border-color:rgba(255,180,0,.42)!important;
+  box-shadow:0 20px 65px rgba(0,0,0,.42),0 0 35px rgba(255,180,0,.08)!important;
+}
+.modal{
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+}
+.modal-content{
+  border-radius:22px!important;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.1)!important;
+  box-shadow:0 30px 100px rgba(0,0,0,.65)!important;
+}
+footer{
+  border-top:1px solid rgba(255,255,255,.07)!important;
+}
+@media(max-width:700px){
+  body{padding-bottom:72px}
+  .hero{min-height:600px!important}
+  .hero h1{font-size:clamp(2.1rem,10vw,3.4rem)!important}
+  .hero p{font-size:.95rem!important}
+  .card{border-radius:15px!important}
+  .section-title{font-size:1.35rem!important}
+  .btn{padding:.72rem 1rem!important}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}
+}
+</style>
+
+
+<style id="cinemaklasik-2-2">
+/* CINEMAKLASIK 2.2 — SMART DISCOVERY */
+.ck22-tools{
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+  margin:0 0 22px;
+}
+.ck22-tools .ck22-search{
+  flex:1 1 260px;position:relative;
+}
+.ck22-search input{
+  width:100%;box-sizing:border-box;padding:13px 44px 13px 18px;
+  border-radius:999px;border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.055);color:inherit;font:inherit;
+}
+.ck22-search span{
+  position:absolute;right:17px;top:50%;transform:translateY(-50%);opacity:.65;
+}
+.ck22-filters{display:flex;gap:8px;flex-wrap:wrap}
+.ck22-filter{
+  border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.045);
+  color:inherit;padding:9px 14px;border-radius:999px;cursor:pointer;font-weight:700;
+}
+.ck22-filter.active,.ck22-filter:hover{
+  background:rgba(0,200,255,.12);border-color:rgba(0,200,255,.38);
+}
+.ck22-result{
+  margin:0 0 14px;opacity:.7;font-size:.88rem;
+}
+.ck22-empty{
+  grid-column:1/-1;text-align:center;padding:45px 20px;
+  border:1px dashed rgba(255,255,255,.12);border-radius:18px;opacity:.7;
+}
+.ck22-section-head{
+  display:flex;justify-content:space-between;align-items:end;gap:15px;
+  margin-bottom:15px;
+}
+.ck22-section-head h2{margin-bottom:0}
+.ck22-section-head small{opacity:.55}
+@media(max-width:650px){
+  .ck22-tools{display:block}
+  .ck22-filters{margin-top:10px;overflow-x:auto;flex-wrap:nowrap;padding-bottom:3px}
+  .ck22-filter{white-space:nowrap}
+}
+</style>
+
+
+<style id="cinemaklasik-2-3">
+/* CINEMAKLASIK 2.3 — MOVIE DETAIL + WATCHLIST + HISTORY */
+.ck23-detail{
+ position:fixed;inset:0;z-index:9999;display:none;overflow:auto;
+ background:rgba(4,7,12,.97);backdrop-filter:blur(18px);
+}
+.ck23-detail.show{display:block}
+.ck23-panel{max-width:1050px;margin:0 auto;padding:24px 18px 60px}
+.ck23-close{
+ border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);
+ color:inherit;border-radius:999px;padding:9px 15px;cursor:pointer;font-weight:800
+}
+.ck23-main{
+ display:grid;grid-template-columns:260px 1fr;gap:28px;margin-top:22px;align-items:start
+}
+.ck23-poster{width:100%;border-radius:18px;box-shadow:0 25px 70px rgba(0,0,0,.55)}
+.ck23-meta h2{font-size:clamp(2rem,5vw,3.4rem);margin:0 0 10px;letter-spacing:-.04em}
+.ck23-meta p{line-height:1.75;opacity:.82}
+.ck23-chips{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.ck23-chip{padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.07);font-size:.78rem}
+.ck23-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}
+.ck23-action{
+ border:0;border-radius:999px;padding:11px 17px;cursor:pointer;font-weight:900
+}
+.ck23-primary{background:#fff;color:#080b10}
+.ck23-secondary{background:rgba(255,255,255,.08);color:inherit;border:1px solid rgba(255,255,255,.12)}
+.ck23-toast{
+ position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);
+ opacity:0;pointer-events:none;background:#101721;border:1px solid rgba(255,255,255,.12);
+ padding:11px 16px;border-radius:999px;z-index:10001;transition:.25s
+}
+.ck23-toast.show{opacity:1;transform:translate(-50%,0)}
+.ck23-section{margin-top:32px}
+.ck23-section h3{margin-bottom:12px}
+.ck23-mini{
+ display:inline-flex;align-items:center;gap:6px;margin-left:8px;
+ padding:5px 9px;border-radius:999px;font-size:.72rem;
+ background:rgba(255,180,0,.13);border:1px solid rgba(255,180,0,.2)
+}
+.ck23-fav{font-size:1rem}
+@media(max-width:700px){
+ .ck23-main{grid-template-columns:1fr;gap:18px}
+ .ck23-poster{max-width:230px;margin:auto}
+ .ck23-meta{text-align:center}
+ .ck23-chips,.ck23-actions{justify-content:center}
+ .ck23-panel{padding-top:15px}
+}
+</style>
+
+
+<style id="cinemaklasik-2-5">.ck25-account{display:flex;align-items:center;gap:8px;margin-left:8px}.ck25-user-btn{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:inherit;border-radius:999px;padding:9px 13px;cursor:pointer;font-weight:800}.ck25-avatar{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#fff,rgba(0,200,255,.7));color:#071018;font-weight:900}.ck25-overlay{position:fixed;inset:0;z-index:10020;display:none;place-items:center;padding:18px;background:rgba(2,5,10,.84);backdrop-filter:blur(16px)}.ck25-overlay.show{display:grid}.ck25-box{width:min(430px,100%);background:#0d131d;border:1px solid rgba(255,255,255,.1);border-radius:24px;padding:24px;box-shadow:0 30px 100px rgba(0,0,0,.65)}.ck25-box h2{margin:0 0 7px;font-size:1.7rem}.ck25-box p{opacity:.68;line-height:1.5}.ck25-tabs{display:flex;gap:6px;margin:18px 0}.ck25-tab{flex:1;padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);color:inherit;font-weight:800;cursor:pointer}.ck25-tab.active{background:rgba(0,200,255,.12);border-color:rgba(0,200,255,.3)}.ck25-form{display:grid;gap:11px}.ck25-form input{width:100%;box-sizing:border-box;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);color:inherit;font:inherit}.ck25-submit{border:0;border-radius:12px;padding:12px;background:#fff;color:#080b10;font-weight:900;cursor:pointer}.ck25-x{float:right;border:0;background:none;color:inherit;font-size:1.4rem;cursor:pointer}.ck25-error{color:#ffb0b0;font-size:.84rem;display:none}.ck25-note{font-size:.78rem;opacity:.55;margin-top:12px}</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style id="ck27-live-css">
+.ck27-live{padding:70px 20px;background:linear-gradient(180deg,#08111f,#050914)}
+.ck27-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:24px}
+.ck27-card{background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:20px;box-shadow:0 12px 35px rgba(0,0,0,.18)}
+.ck27-card h3{margin:8px 0}.ck27-card p{color:#b8c3d4;line-height:1.5}.ck27-badge{display:inline-flex;padding:5px 9px;border-radius:999px;background:#e11d48;color:#fff;font-size:11px;font-weight:800}.ck27-btn{display:inline-block;margin-top:10px;padding:10px 14px;border-radius:10px;background:#0ea5e9;color:#fff;text-decoration:none;font-weight:700}.ck27-btn.alt{background:#1e293b}.ck27-note{margin-top:20px;color:#94a3b8;font-size:13px}
+@media(max-width:700px){.ck27-live{padding:45px 14px}.ck27-grid{grid-template-columns:1fr 1fr}.ck27-card{padding:15px}}
+@media(max-width:460px){.ck27-grid{grid-template-columns:1fr}}
+</style>
+
 </head>
 <body>
+<a class="skip" href="#utama">Langkau ke kandungan utama</a>
 
-<!-- ============ HEADER ============ -->
 <header>
-  <div class="logo" aria-hidden="true">🎬</div>
-  <div class="brand">
-    <h1>CINEMAKLASIK</h1>
-    <p>Streaming Percuma</p>
+  <div class="navbar">
+    <a class="brand" href="#beranda" aria-label="CinemaKlasik Beranda">
+      <span class="logo" aria-hidden="true">🎬</span>
+      <span><strong>CINEMAKLASIK</strong><small>Classic Cinema • Modern Experience</small></span>
+    </a>
+    <nav class="navlinks" aria-label="Navigasi utama">
+      <a href="#beranda">Beranda</a><a href="#filem">Filem</a><a href="#tv">TV</a><a href="#premium" class="nav-premium">⭐ Premium</a>
+    </nav>
   </div>
-  <nav class="nav">
-    <a class="nav-btn" href="#beranda">🏠 Beranda</a>
-    <a class="nav-btn" href="#filem">🎬 Filem</a>
-    <a class="nav-btn" href="#tv">📺 Siri TV</a>
-    <span id="accountArea" class="user-badge">
-      <button type="button" class="nav-btn" onclick="openAuth('login')">👤 Log Masuk</button>
-    </span>
-  </nav>
 </header>
 
 <main id="utama">
-
-<!-- ============ HERO ============ -->
 <section class="hero" id="beranda">
-  <div class="hero-content">
-    <span class="badge">✨ Percuma & Sah — Public Domain</span>
-    <h2>Hiburan Klasik Tanpa Had</h2>
-    <p>Tonton koleksi filem klasik legenda, serial TV retro, dan cerita warisan secara percuma tanpa langganan.</p>
-    
-    <div class="search-box">
-      <input type="text" id="searchInput" placeholder="🔍 Cari tajuk filem atau siri TV..." onkeyup="filterContent()">
-    </div>
+  <span class="eyebrow">✨ Koleksi Klasik • Era Digital</span>
+  <h1><span class="gradient">Filem klasik.</span><br>Pengalaman menonton moden.</h1>
+  <p>Temui filem legenda, siri TV klasik dan koleksi pilihan dalam satu ruang tontonan yang ringkas, pantas dan mesra telefon.</p>
+  <div class="actions"><a class="btn primary" href="#filem">▶ Mula Menonton</a><a class="btn secondary" href="#premium">⭐ Lihat Premium</a></div>
+</section>
 
-    <div class="hero-buttons">
-      <a class="btn btn-primary" href="#filem">▶ Mula Menonton</a>
-      <a class="btn btn-secondary" href="#tayangan">ℹ Tayangan Pilihan</a>
+<section class="section">
+<div class="wrap">
+  <div class="featured">
+    <article class="feature">
+      <div>
+        <span class="eyebrow">FILEM PILIHAN • PERCUMA</span>
+        <h3>The Gold Rush</h3>
+        <p>Charlie Chaplin • 1925 • Komedi Klasik</p>
+        <div class="actions"><button class="btn primary" data-watch="the-gold-rush-film-1925" data-title="The Gold Rush (1925)">▶ Tonton Sekarang</button><a class="btn ghost" href="https://archive.org/details/the-gold-rush-film-1925" target="_blank" rel="noopener noreferrer">Info ↗</a></div>
+      </div>
+    </article>
+    <aside class="mini-feature">
+      <div class="icon">🇲🇾</div><h3>Cerita & Warisan</h3><p>Selain filem klasik, nikmati kandungan sejarah, budaya dan cerita Malaysia.</p>
+      <div class="chips"><span class="chip">Sejarah</span><span class="chip">Budaya</span><span class="chip">Klasik</span></div>
+      <div class="actions"><a class="btn secondary" href="https://cerita-malaysiaku.blogspot.com" target="_blank" rel="noopener noreferrer">📖 Baca Cerita</a></div>
+    </aside>
+  </div>
+</div>
+</section>
+
+<section class="section" id="filem">
+<div class="wrap">
+  <div class="section-head"><div><h2>🎬 Filem Pilihan</h2><p>Koleksi klasik yang boleh ditonton secara percuma.</p></div></div>
+  <div class="toolbar">
+    <input class="search" id="search" type="search" placeholder="🔎 Cari tajuk filem..." aria-label="Cari tajuk filem">
+    <select class="filter" id="genre" aria-label="Tapis genre"><option value="all">Semua</option><option value="comedy">Komedi</option><option value="drama">Drama</option><option value="horror">Horror</option><option value="mystery">Misteri</option><option value="action">Aksi</option></select>
+  </div>
+  <div class="grid" id="movieGrid"></div><div class="empty" id="empty">Tiada tajuk ditemui. Cuba carian lain.</div>
+</div>
+</section>
+
+<section class="section" id="tv">
+<div class="wrap">
+  <div class="section-head"><div><h2>📺 Siri TV Klasik</h2><p>Golden-age television dan serial pilihan.</p></div></div>
+  <div class="grid" id="tvGrid"></div>
+</div>
+</section>
+
+<section class="section" id="premium">
+<div class="wrap">
+  <div class="section-head"><div><h2>⭐ Pelan CinemaKlasik</h2><p>Struktur premium disediakan dahulu sebagai UI. Pembayaran akan masuk Fasa 3.</p></div></div>
+  <div class="pricing">
+    <article class="plan"><h3>Percuma</h3><div class="price">RM0 <small>/ selamanya</small></div><ul><li>Koleksi public-domain</li><li>Tontonan terus dalam pelayar</li><li>Akses mesra telefon</li></ul><a class="btn secondary" href="#filem">Mula Percuma</a></article>
+    <article class="plan popular"><span class="popular-tag">PALING POPULAR</span><h3>Premium</h3><div class="price">RM9.90 <small>/ bulan*</small></div><ul><li>Koleksi premium</li><li>Watchlist & sejarah tontonan</li><li>Pengalaman tanpa gangguan</li></ul><button class="btn primary" onclick="comingSoon('Premium')">⭐ Pilih Premium</button></article>
+    <article class="plan"><h3>Premium Plus</h3><div class="price">RM14.90 <small>/ bulan*</small></div><ul><li>Semua ciri Premium</li><li>Koleksi eksklusif</li><li>Keutamaan kandungan baharu</li></ul><button class="btn secondary" onclick="comingSoon('Premium Plus')">👑 Pilih Plus</button></article>
+  </div>
+  <p style="color:#68778e;font-size:10px;margin-top:12px">*Harga ialah cadangan UI untuk perancangan Fasa 3 dan belum merupakan transaksi sebenar.</p>
+</div>
+</section>
+
+<section class="section" id="faq">
+<div class="wrap"><div class="section-head"><div><h2>❓ Soalan Lazim</h2><p>Maklumat ringkas tentang CinemaKlasik.</p></div></div>
+<details><summary>Adakah CinemaKlasik menyediakan filem percuma?</summary><p>Ya. Koleksi percuma menggunakan pautan kandungan yang tersedia melalui sumber seperti Internet Archive. Status hak cipta dan ketersediaan kandungan perlu disemak sebelum diterbitkan.</p></details>
+<details><summary>Adakah pembayaran Premium sudah aktif?</summary><p>Belum. Fasa 1 hanya menyediakan reka bentuk dan struktur antaramuka. Sistem akaun, langganan dan pembayaran akan dibina kemudian.</p></details>
+<details><summary>Boleh digunakan di telefon?</summary><p>Ya. Reka bentuk ini responsif dan menyediakan navigasi bawah pada skrin kecil.</p></details>
+</div>
+</section>
+
+<section class="section" id="hubungi">
+<div class="wrap"><div class="info-grid">
+<article class="info-card"><h3>📩 Hubungi</h3><p>Untuk pertanyaan atau cadangan kandungan, gunakan saluran komuniti yang tersedia di bahagian footer.</p></article>
+<article class="info-card" id="syarat"><h3>📜 Syarat & Terma</h3><p>Pengguna bertanggungjawab menggunakan platform secara sah dan menghormati hak pemilik kandungan.</p></article>
+<article class="info-card" id="privasi"><h3>🔒 Dasar Privasi</h3><p>Versi Fasa 1 tidak memerlukan pendaftaran atau menyimpan data akaun pengguna.</p></article>
+</div></div>
+</section>
+
+<section class="ck27-live" id="live-bola">
+  <div class="wrap">
+    <div class="section-head"><div><h2>⚽ LIVE BOLA</h2><p>Siaran dan kemas kini bola sepak melalui platform rasmi.</p></div><span class="ck27-badge">LIVE</span></div>
+    <div class="ck27-grid">
+      <article class="ck27-card"><span class="ck27-badge">MFL</span><h3>Malaysian Football League</h3><p>Lihat kandungan <b>Live Now</b> dan siaran rasmi MFL yang tersedia.</p><a class="ck27-btn" href="https://www.malaysianfootballleague.com/" target="_blank" rel="noopener">Tonton / Live MFL</a></article>
+      <article class="ck27-card"><span class="ck27-badge">ASTRO</span><h3>Astro Arena / Sooka</h3><p>Untuk perlawanan Liga Malaysia yang mempunyai hak siaran Astro.</p><a class="ck27-btn" href="https://www.sooka.my/" target="_blank" rel="noopener">Buka Sooka</a></article>
+    </div>
+    <div class="ck27-note">Nota: CinemaKlasik hanya menghubungkan kepada platform siaran rasmi; tiada stream cetak rompak dimasukkan.</div>
+  </div>
+</section>
+
+<section class="ck27-live" id="radio-live">
+  <div class="wrap">
+    <div class="section-head"><div><h2>📻 RADIO LIVE</h2><p>Dengar radio RTM secara langsung.</p></div></div>
+    <div class="ck27-grid">
+      <article class="ck27-card"><h3>Johor FM</h3><p>Radio RTM untuk pendengar Johor.</p><a class="ck27-btn" href="https://rtmklik.rtm.gov.my/radio/negeri/johor-fm" target="_blank" rel="noopener">▶ Dengar Live</a></article>
+      <article class="ck27-card"><h3>RTMKlik Radio</h3><p>Akses rangkaian radio RTM melalui platform rasmi.</p><a class="ck27-btn alt" href="https://rtmklik.rtm.gov.my/" target="_blank" rel="noopener">Buka RTMKlik</a></article>
     </div>
   </div>
 </section>
 
-<!-- ============ FEATURED ============ -->
-<section class="featured-section" id="tayangan">
-  <h2 class="section-title">🔥 TAYANGAN PILIHAN</h2>
-  <p class="section-subtitle">Koleksi terpilih untuk tontonan hari ini</p>
-  
-  <div class="carousel">
-    <div class="carousel-slide active">
-      <div class="carousel-content">
-        <span class="carousel-badge">FILEM KLASIK</span>
-        <h3 class="carousel-title">The Gold Rush</h3>
-        <p class="carousel-meta">1925 · Komedi Klasik · 95 Minit</p>
-        <p class="carousel-desc">Karya agung Charlie Chaplin yang penuh tawa. Kisah pencari emas di Yukon mencari cinta dan rezeki.</p>
-        <span class="carousel-tag">PERCUMA</span>
-        <div class="carousel-buttons">
-          <a class="btn btn-primary card-cta" href="https://archive.org/details/the-gold-rush-film-1925" aria-label="Tonton The Gold Rush">▶ Tonton Sekarang</a>
-          <a class="btn btn-secondary" href="https://archive.org/details/the-gold-rush-film-1925" target="_blank" rel="noopener">ℹ Info Lanjut</a>
-        </div>
-      </div>
-    </div>
-    
-    <div class="carousel-slide">
-      <div class="carousel-content">
-        <span class="carousel-badge">CERITA MALAYSIA</span>
-        <h3 class="carousel-title">Cerita Hikayat Melayu</h3>
-        <p class="carousel-meta">Sejarah & Budaya · Artikel Mendalam</p>
-        <p class="carousel-desc">Jelajahi kisah hikayat dan warisan budaya Melayu tradisional yang penuh pengajaran.</p>
-        <span class="carousel-tag">BLOG</span>
-        <div class="carousel-buttons">
-          <a class="btn btn-primary" href="https://cerita-malaysiaku.blogspot.com" target="_blank" rel="noopener">📖 Baca Artikel</a>
-          <a class="btn btn-secondary" href="https://www.facebook.com/share/1EK9tkYq2s/" target="_blank" rel="noopener">💬 Bincang</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="carousel-controls">
-      <button type="button" class="carousel-dot active" onclick="changeSlide(0)"></button>
-      <button type="button" class="carousel-dot" onclick="changeSlide(1)"></button>
+<section class="ck27-live" id="tv-live">
+  <div class="wrap">
+    <div class="section-head"><div><h2>📺 LIVE TV</h2><p>Saluran TV yang mempunyai halaman siaran rasmi RTMKlik.</p></div></div>
+    <div class="ck27-grid">
+      <article class="ck27-card"><h3>TV1</h3><p>Saluran perdana RTM termasuk kandungan langsung terpilih.</p><a class="ck27-btn" href="https://rtmklik.rtm.gov.my/live/khas/tv1" target="_blank" rel="noopener">▶ Tonton TV1</a></article>
+      <article class="ck27-card"><h3>RTM Live TV</h3><p>Akses halaman live TV RTMKlik.</p><a class="ck27-btn alt" href="https://rtmklik.rtm.gov.my/live/tv/tv" target="_blank" rel="noopener">Buka Live TV</a></article>
+      <article class="ck27-card"><h3>Berita RTM</h3><p>Halaman live rasmi Berita RTM.</p><a class="ck27-btn alt" href="https://rtmklik.rtm.gov.my/live/tv/beritartm" target="_blank" rel="noopener">Tonton Berita</a></article>
     </div>
   </div>
 </section>
-
-<!-- ============ FILEM POPULAR ============ -->
-<section class="featured-section" id="filem">
-  <h2 class="section-title">🎬 FILEM POPULAR</h2>
-  <p class="section-subtitle">Filem-filem klasik berstatus Domain Awam</p>
-  
-  <div class="grid" id="movieGrid">
-    <div class="card" data-title="The Phantom of the Opera">
-      <div class="card-thumb">
-        <span class="card-badge">PERCUMA</span>
-        <div class="card-lock"><div class="card-lock-icon">▶</div></div>
-        <div class="card-thumb-content"><span class="card-thumb-emoji">🎭</span><p class="card-thumb-title">Phantom of the Opera</p></div>
-      </div>
-      <div class="card-body">
-        <h3 class="card-title">The Phantom of the Opera</h3>
-        <p class="card-meta">1925 · Lon Chaney</p>
-        <div class="card-rating">★★★★★</div>
-        <a href="https://archive.org/details/ThePhantomoftheOpera" class="card-cta" aria-label="Tonton The Phantom of the Opera">TONTON →</a>
-      </div>
-    </div>
-
-    <div class="card" data-title="The Cabinet of Dr. Caligari">
-      <div class="card-thumb">
-        <span class="card-badge">PERCUMA</span>
-        <div class="card-lock"><div class="card-lock-icon">▶</div></div>
-        <div class="card-thumb-content"><span class="card-thumb-emoji">🧟</span><p class="card-thumb-title">Dr. Caligari</p></div>
-      </div>
-      <div class="card-body">
-        <h3 class="card-title">The Cabinet of Dr. Caligari</h3>
-        <p class="card-meta">1920 · Robert Wiene</p>
-        <div class="card-rating">★★★★★</div>
-        <a href="https://archive.org/details/the-cabinet-of-dr-caligari-1920" class="card-cta" aria-label="Tonton The Cabinet of Dr. Caligari">TONTON →</a>
-      </div>
-    </div>
-
-    <div class="card" data-title="Charade">
-      <div class="card-thumb">
-        <span class="card-badge">PERCUMA</span>
-        <div class="card-lock"><div class="card-lock-icon">▶</div></div>
-        <div class="card-thumb-content"><span class="card-thumb-emoji">💛</span><p class="card-thumb-title">Charade</p></div>
-      </div>
-      <div class="card-body">
-        <h3 class="card-title">Charade</h3>
-        <p class="card-meta">1963 · Audrey Hepburn</p>
-        <div class="card-rating">★★★★★</div>
-        <a href="https://archive.org/details/charade-1963-cary-grant-audrey-hepburn-comedy-mystery-romance-thriller-full-movie" class="card-cta" aria-label="Tonton Charade">TONTON →</a>
-      </div>
-    </div>
-
-    <div class="card" data-title="Metropolis">
-      <div class="card-thumb">
-        <span class="card-badge">PERCUMA</span>
-        <div class="card-lock"><div class="card-lock-icon">▶</div></div>
-        <div class="card-thumb-content"><span class="card-thumb-emoji">⚙️</span><p class="card-thumb-title">Metropolis</p></div>
-      </div>
-      <div class="card-body">
-        <h3 class="card-title">Metropolis</h3>
-        <p class="card-meta">1927 · Fritz Lang</p>
-        <div class="card-rating">★★★★★</div>
-        <a href="https://archive.org/details/metropolis-lang" class="card-cta" aria-label="Tonton Metropolis">TONTON →</a>
-      </div>
-    </div>
-
-    <div class="card" data-title="Sherlock Jr.">
-      <div class="card-thumb">
-        <span class="card-badge">PERCUMA</span>
-        <div class="card-lock"><div class="card-lock-icon">▶</div></div>
-        <div class="card-thumb-content"><span class="card-thumb-emoji">🎩</span><p class="card-thumb-title">Sherlock Jr</p></div>
-      </div>
-      <div class="card-body">
-        <h3 class="card-title">Sherlock Jr.</h3>
-        <p class="card-meta">1924 · Buster Keaton</p>
-        <div class="card-rating">★★★★★</div>
-        <a href="https://archive.org/details/sherlock-jr-1924-restored-720p-hd" class="card-cta" aria-label="Tonton Sherlock Jr.">TONTON →</a>
-      </div>
-    </div>
-
-    <div class="card" data-title="The Kid">
-      <div class="card-thumb">
-        <span class="card-badge">PERCUMA</span>
-        <div class="card-lock"><div class="card-lock-icon">▶</div></div>
-        <div class="card-thumb-content"><span class="card-thumb-emoji">👶</span><p class="card-thumb-title">The Kid</p></div>
-      </div>
-      <div class="card-body">
-        <h3 class="card-title">The Kid</h3>
-        <p class="card-meta">1921 · Charlie Chaplin</p>
-        <div class="card-rating">★★★★★</div>
-        <a href="https://archive.org/details/Brzdac1921" class="card-cta" aria-label="Tonton The Kid">TONTON →</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ TV SERIES ============ -->
-<section class="featured-section" id="tv">
-  <h2 class="section-title">📺 SIRI TV KLASIK</h2>
-  <p class="section-subtitle">Siri televisyen nostalgia retro</p>
-  
-  <div class="grid" id="tvGrid">
-    <div class="card" data-title="Sherlock Holmes">
-      <div class="card-thumb">
-        <span class="card-badge">PERCUMA</span>
-        <div class="card-lock"><div class="card-lock-icon">▶</div></div>
-        <div class="card-thumb-content"><span class="card-thumb-emoji">🔎</span><p class="card-thumb-title">Sherlock Holmes</p></div>
-      </div>
-      <div class="card-body">
-        <h3 class="card-title">Sherlock Holmes</h3>
-        <p class="card-meta">Siri TV · 1954</p>
-        <div class="card-rating">★★★★★</div>
-        <a href="https://archive.org/details/SherlockHolmes-TheCaseoftheCunninghamHeritage" class="card-cta" aria-label="Tonton Sherlock Holmes">TONTON →</a>
-      </div>
-    </div>
-    
-    <div class="card" data-title="One Step Beyond">
-      <div class="card-thumb">
-        <span class="card-badge">PERCUMA</span>
-        <div class="card-lock"><div class="card-lock-icon">▶</div></div>
-        <div class="card-thumb-content"><span class="card-thumb-emoji">🌙</span><p class="card-thumb-title">One Step Beyond</p></div>
-      </div>
-      <div class="card-body">
-        <h3 class="card-title">One Step Beyond</h3>
-        <p class="card-meta">Siri TV · 1959</p>
-        <div class="card-rating">★★★★★</div>
-        <a href="https://archive.org/details/one-step-beyond-season-1-1959" class="card-cta" aria-label="Tonton One Step Beyond">TONTON →</a>
-      </div>
-    </div>
-    
-    <div class="card" data-title="Flash Gordon">
-      <div class="card-thumb">
-        <span class="card-badge">PERCUMA</span>
-        <div class="card-lock"><div class="card-lock-icon">▶</div></div>
-        <div class="card-thumb-content"><span class="card-thumb-emoji">🚀</span><p class="card-thumb-title">Flash Gordon</p></div>
-      </div>
-      <div class="card-body">
-        <h3 class="card-title">Flash Gordon</h3>
-        <p class="card-meta">Siri TV · 1936</p>
-        <div class="card-rating">★★★★★</div>
-        <a href="https://archive.org/details/flashgordone03capturedbysharkmen" class="card-cta" aria-label="Tonton Flash Gordon">TONTON →</a>
-      </div>
-    </div>
-    
-    <div class="card" data-title="The Lucy Show">
-      <div class="card-thumb">
-        <span class="card-badge">PERCUMA</span>
-        <div class="card-lock"><div class="card-lock-icon">▶</div></div>
-        <div class="card-thumb-content"><span class="card-thumb-emoji">😄</span><p class="card-thumb-title">The Lucy Show</p></div>
-      </div>
-      <div class="card-body">
-        <h3 class="card-title">The Lucy Show</h3>
-        <p class="card-meta">Siri TV · 1962</p>
-        <div class="card-rating">★★★★★</div>
-        <a href="https://archive.org/details/the-lucy-show-lucy-buys-a-boat" class="card-cta" aria-label="Tonton The Lucy Show">TONTON →</a>
-      </div>
-    </div>
-  </div>
-</section>
-
 </main>
 
-<!-- ============ FOOTER ============ -->
-<footer>
-  <div class="footer-content">
-    <div class="footer-section">
-      <h4>Platform</h4>
-      <p>CinemaKlasik menyediakan filem klasik dunia dan cerita Malaysia secara percuma tanpa langganan.</p>
-    </div>
-    
-    <div class="footer-section">
-      <h4>Navigasi</h4>
-      <a href="#beranda">Beranda</a>
-      <a href="#filem">Filem</a>
-      <a href="#tv">Siri TV</a>
-    </div>
-    
-    <div class="footer-section">
-      <h4>Bantuan & Info</h4>
-      <a onclick="bukaModalInfo('faq')">Soalan Lazim (FAQ)</a>
-      <a onclick="bukaModalInfo('contact')">Hubungi Kami</a>
-      <a onclick="bukaModalInfo('terms')">Syarat & Terma</a>
-      <a onclick="bukaModalInfo('privacy')">Dasar Privasi</a>
-    </div>
-  </div>
-  
-  <div class="footer-bottom">
-    <p>© 2024 CinemaKlasik. Hak Cipta Terpelihara. 🇲🇾</p>
-  </div>
+<footer class="footer">
+<div class="footer-grid">
+  <div><h4>CinemaKlasik</h4><p>Filem klasik, siri TV dan cerita pilihan dengan pengalaman web yang moden.</p></div>
+  <div><h4>Navigasi</h4><a href="#beranda">Beranda</a><a href="#filem">Filem</a><a href="#tv">TV Series</a><a href="#premium">Premium</a></div>
+  <div><h4>Bantuan</h4><a href="#faq">Soalan Lazim</a><a href="#hubungi">Hubungi Kami</a><a href="#syarat">Syarat & Terma</a><a href="#privasi">Dasar Privasi</a></div>
+  <div><h4>Komuniti</h4><a href="https://www.youtube.com/@yunuschannel86" target="_blank" rel="noopener noreferrer">YouTube</a><a href="https://cerita-malaysiaku.blogspot.com" target="_blank" rel="noopener noreferrer">Blog Cerita</a><a href="https://www.facebook.com/share/1EK9tkYq2s/" target="_blank" rel="noopener noreferrer">Facebook</a><a href="./CinemaKlasik-v1.3.apk" download>📱 Muat Turun APK</a></div>
+</div>
+<div class="copyright">© <span id="year"></span> CinemaKlasik. Semua hak terpelihara. 🇲🇾</div>
 </footer>
 
-<!-- ============ MODAL LOG MASUK & DAFTAR ============ -->
-<div class="modal-backdrop" id="authModal">
-  <div class="modal-box">
-    <div class="modal-head">
-      <span class="modal-title" id="authHeading">Selamat Datang</span>
-      <button type="button" class="modal-close" onclick="closeAuth()">✕</button>
-    </div>
-    
-    <div class="auth-tabs">
-      <button type="button" class="auth-tab active" id="tabLogin" onclick="switchAuthMode('login')">Log Masuk</button>
-      <button type="button" class="auth-tab" id="tabRegister" onclick="switchAuthMode('register')">Daftar</button>
-    </div>
-    
-    <form class="auth-form" id="authForm" onsubmit="handleAuthSubmit(event)">
-      <input id="authName" class="auth-input" type="text" placeholder="Nama Penuh" style="display:none;" autocomplete="name">
-      <input id="authEmail" class="auth-input" type="email" placeholder="Alamat Emel" required autocomplete="email">
-      <input id="authPassword" class="auth-input" type="password" placeholder="Kata Laluan (min. 6 aksara)" minlength="6" required autocomplete="current-password">
-      <div class="auth-error" id="authError"></div>
-      <button type="submit" class="auth-submit" id="authSubmitBtn">Log Masuk</button>
-    </form>
+<nav class="bottom" aria-label="Navigasi mudah alih"><a href="#beranda"><b>⌂</b>Home</a><a href="#filem"><b>🎬</b>Filem</a><a href="#tv"><b>📺</b>TV</a><a href="#premium"><b>⭐</b>Premium</a></nav>
+
+<div class="player" id="player" hidden>
+  <div class="player-box">
+    <div class="player-head"><span class="player-title" id="playerTitle">Pemain video</span><button class="close" id="closePlayer" aria-label="Tutup pemain">✕</button></div>
+    <iframe class="frame" id="playerFrame" src="about:blank" title="Pemain video CinemaKlasik" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe><div id="ck26-player-loading" class="ck26-loading">⏳ Memuatkan video…</div><div id="ck26-player-error" class="ck26-player-error">Video tidak dapat dimuatkan dalam pemain ini. Tekan <b>Buka Archive.org</b> untuk menonton terus.</div><div class="ck26-player-actions"><a id="ck26-direct-link" href="#" target="_blank" rel="noopener">▶ Buka Archive.org</a><button type="button" onclick="closePlayer()">Tutup</button></div>
   </div>
 </div>
 
-<!-- ============ MODAL PLAYER ============ -->
-<div class="modal-backdrop" id="playerModal">
-  <div class="modal-box video-box">
-    <div class="modal-head">
-      <span class="modal-title" id="playerTitle">Pemain Video</span>
-      <button type="button" class="modal-close" onclick="closePlayer()">✕</button>
-    </div>
-    <div style="position:relative">
-      <div class="player-loading" id="playerLoading">⏳ Memuatkan video dari Archive.org...</div>
-      <iframe class="player-frame" id="playerFrame" src="about:blank" allow="fullscreen; autoplay" allowfullscreen></iframe>
-    </div>
-  </div>
-</div>
-
-<!-- ============ MODAL INFO ============ -->
-<div class="modal-backdrop" id="infoModal">
-  <div class="modal-box info-box">
-    <div class="modal-head">
-      <span class="modal-title" id="infoModalTitle">Maklumat</span>
-      <button type="button" class="modal-close" onclick="closeInfo()">✕</button>
-    </div>
-    <div id="infoModalBody" style="line-height:1.7; font-size:14px;"></div>
-  </div>
-</div>
-
-<!-- ============ SCRIPTS ============ -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-  // SUPABASE CONFIG
-  const SUPABASE_URL = "https://fcstezpekgajyezoyeil.supabase.co";
-  const SUPABASE_KEY = "sb_publishable_RqMwY1LOCw9tzroSw4Ei_A_c8yZDLCp";
-  let sb = null;
-  let currentAuthMode = 'login';
-
-  try {
-    if (window.supabase) sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-  } catch (e) { console.error("Supabase init error:", e); }
-
-  // AUTH MODAL FUNCTIONS
-  function openAuth(mode) {
-    switchAuthMode(mode || 'login');
-    document.getElementById('authModal').classList.add('show');
-  }
-
-  function closeAuth() {
-    document.getElementById('authModal').classList.remove('show');
-    document.getElementById('authError').style.display = 'none';
-  }
-
-  function switchAuthMode(mode) {
-    currentAuthMode = mode;
-    document.getElementById('authError').style.display = 'none';
-    const isReg = mode === 'register';
-    document.getElementById('tabLogin').classList.toggle('active', !isReg);
-    document.getElementById('tabRegister').classList.toggle('active', isReg);
-    document.getElementById('authName').style.display = isReg ? 'block' : 'none';
-    document.getElementById('authHeading').textContent = isReg ? 'Cipta Akaun Baharu' : 'Selamat Datang';
-    document.getElementById('authSubmitBtn').textContent = isReg ? 'Daftar Sekarang' : 'Log Masuk';
-  }
-
-  async function handleAuthSubmit(e) {
-    e.preventDefault();
-    const errBox = document.getElementById('authError');
-    errBox.style.display = 'none';
-
-    if (!sb) {
-      errBox.textContent = "Sistem Supabase belum tersedia.";
-      errBox.style.display = 'block';
-      return;
-    }
-
-    const email = document.getElementById('authEmail').value.trim();
-    const pass = document.getElementById('authPassword').value;
-    const name = document.getElementById('authName').value.trim();
-    const submitBtn = document.getElementById('authSubmitBtn');
-
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Memproses...";
-
-    try {
-      if (currentAuthMode === 'register') {
-        const { data, error } = await sb.auth.signUp({
-          email: email,
-          password: pass,
-          options: { data: { full_name: name || email.split('@')[0] } }
-        });
-        if (error) throw error;
-        alert("Pendaftaran berjaya!");
-        closeAuth();
-      } else {
-        const { data, error } = await sb.auth.signInWithPassword({ email: email, password: pass });
-        if (error) throw error;
-        closeAuth();
-      }
-    } catch (err) {
-      errBox.textContent = "Ralat: " + (err.message || "Gagal log masuk/daftar.");
-      errBox.style.display = 'block';
-    } finally {
-      submitBtn.disabled = false;
-      submitBtn.textContent = currentAuthMode === 'register' ? 'Daftar Sekarang' : 'Log Masuk';
-    }
-  }
-
-  function updateUserDisplay(user) {
-    const area = document.getElementById('accountArea');
-    if (user) {
-      const n = (user.user_metadata && user.user_metadata.full_name) || user.email.split('@')[0] || 'U';
-      area.innerHTML = `
-        <span class="user-avatar">${n.charAt(0).toUpperCase()}</span>
-        <button type="button" class="nav-btn" onclick="signOutUser()">${n} (Keluar)</button>
-      `;
-    } else {
-      area.innerHTML = `<button type="button" class="nav-btn" onclick="openAuth('login')">👤 Log Masuk</button>`;
-    }
-  }
-
-  async function signOutUser() {
-    if (confirm("Adakah anda mahu log keluar?") && sb) {
-      await sb.auth.signOut();
-    }
-  }
-
-  // AUTO AUTH STATE CHECK
-  window.addEventListener('DOMContentLoaded', async () => {
-    if (sb) {
-      try {
-        const { data } = await sb.auth.getSession();
-        updateUserDisplay(data.session ? data.session.user : null);
-        sb.auth.onAuthStateChange((_, session) => updateUserDisplay(session ? session.user : null));
-      } catch (e) {}
-    }
-  });
-
-  // CAROUSEL
-  let currentSlide = 0;
-  const slides = document.querySelectorAll('.carousel-slide');
-  const dots = document.querySelectorAll('.carousel-dot');
-  function changeSlide(n) {
-    slides.forEach(s => s.classList.remove('active'));
-    dots.forEach(d => d.classList.remove('active'));
-    if (slides[n]) slides[n].classList.add('active');
-    if (dots[n]) dots[n].classList.add('active');
-    currentSlide = n;
-  }
-  setInterval(() => {
-    currentSlide = (currentSlide + 1) % slides.length;
-    changeSlide(currentSlide);
-  }, 6000);
-
-  // SEARCH FILTER
-  function filterContent() {
-    let input = document.getElementById('searchInput').value.toLowerCase();
-    document.querySelectorAll('.card').forEach(card => {
-      let t = (card.getAttribute('data-title') || '').toLowerCase();
-      card.style.display = t.includes(input) ? 'flex' : 'none';
-    });
-  }
-
-  // VIDEO PLAYER
-  function closePlayer() {
-    const p = document.getElementById('playerModal');
-    p.classList.remove('show');
-    document.getElementById('playerFrame').src = 'about:blank';
-  }
-  document.querySelectorAll('.card-cta').forEach(a => {
-    a.addEventListener('click', e => {
-      const href = a.getAttribute('href') || '';
-      const match = href.match(/archive\.org\/details\/([^\/?#]+)/);
-      if (!match) return;
-      e.preventDefault();
-      document.getElementById('playerFrame').src = 'https://archive.org/embed/' + match[1];
-      document.getElementById('playerTitle').textContent = a.getAttribute('aria-label') || 'Pemain Video';
-      document.getElementById('playerModal').classList.add('show');
-    });
-  });
-
-  // INFO MODALS
-  const infoData = {
-    faq: { title: "Soalan Lazim (FAQ)", content: "<p><strong>Adakah percuma?</strong><br>Ya! 100% percuma tanpa sebarang bayaran.</p><br><p><strong>Status Filem:</strong><br>Semua filem adalah berstatus Domain Awam (Public Domain).</p>" },
-    contact: { title: "Hubungi Kami", content: "<p>Hubungi kami melalui:</p><br><p>• Blog: <strong>cerita-malaysiaku.blogspot.com</strong><br>• YouTube: <strong>@yunuschannel86</strong></p>" },
-    terms: { title: "Syarat & Terma", content: "<p>Filem disediakan untuk tujuan hiburan & kajian sejarah.</p>" },
-    privacy: { title: "Dasar Privasi", content: "<p>Data akaun anda dijamin selamat melalui Supabase Auth.</p>" }
-  };
-  function bukaModalInfo(type) {
-    const d = infoData[type];
-    if (!d) return;
-    document.getElementById('infoModalTitle').textContent = d.title;
-    document.getElementById('infoModalBody').innerHTML = d.content;
-    document.getElementById('infoModal').classList.add('show');
-  }
-  function closeInfo() {
-    document.getElementById('infoModal').classList.remove('show');
-  }
+const movies=[
+ {t:"The Phantom of the Opera",m:"1925 · Lon Chaney",e:"🎭",g:"drama",id:"ThePhantomoftheOpera"},
+ {t:"The Cabinet of Dr. Caligari",m:"1920 · Robert Wiene",e:"🧟",g:"horror",id:"the-cabinet-of-dr-caligari-1920"},
+ {t:"Charade",m:"1963 · Cary Grant & Audrey Hepburn",e:"💛",g:"mystery",id:"charade-1963-cary-grant-audrey-hepburn-comedy-mystery-romance-thriller-full-movie"},
+ {t:"Metropolis",m:"1927 · Fritz Lang",e:"⚙️",g:"drama",id:"metropolis-lang"},
+ {t:"Sherlock Jr.",m:"1924 · Buster Keaton",e:"🎩",g:"comedy",id:"sherlock-jr-1924-restored-720p-hd"},
+ {t:"The Kid",m:"1921 · Charlie Chaplin",e:"👶",g:"drama",id:"Brzdac1921"},
+ {t:"The Gold Rush",m:"1925 · Charlie Chaplin",e:"🎪",g:"comedy",id:"the-gold-rush-film-1925"},
+ {t:"The General",m:"1926 · Buster Keaton",e:"🚂",g:"comedy",id:"TheGeneral"},
+ {t:"Nosferatu",m:"1922 · F.W. Murnau",e:"🧛",g:"horror",id:"Nosferatu1922"},
+ {t:"City Lights",m:"1931 · Charlie Chaplin",e:"🏙️",g:"comedy",id:"charlie-chaplin-city-lights-1931"}
+];
+const tv=[
+ {t:"Sherlock Holmes",m:"Siri TV Klasik PD · 1954",e:"🔎",id:"SherlockHolmes-TheCaseoftheCunninghamHeritage"},
+ {t:"One Step Beyond",m:"Siri TV Klasik PD · 1959",e:"🌙",id:"one-step-beyond-season-1-1959"},
+ {t:"Flash Gordon",m:"Filem Bersiri PD · 1936",e:"🚀",id:"flashgordone03capturedbysharkmen"},
+ {t:"Dick Tracy",m:"Filem Bersiri PD · 1937",e:"🕵️",id:"dicktracy_chapter4"},
+ {t:"The Lucy Show",m:"Siri TV Klasik PD · 1962",e:"😄",id:"the-lucy-show-lucy-buys-a-boat"},
+ {t:"The Beverly Hillbillies",m:"Siri TV Klasik PD · 1962",e:"🛢️",id:"thebeverlyhillbilliesgettingsettledhq"}
+];
+function card(x){return `<article class="card"><div class="poster"><span class="badge">PERCUMA</span><span class="poster-emoji" aria-hidden="true">${x.e}</span><span class="poster-title">${x.t}</span></div><div class="card-body"><h3>${x.t}</h3><div class="meta">${x.m}</div><button class="watch" data-watch="${x.id}" data-title="${x.t}">TONTON →</button></div></article>`}
+function renderMovies(){const q=document.getElementById('search').value.toLowerCase().trim(),g=document.getElementById('genre').value, list=movies.filter(x=>(!q||x.t.toLowerCase().includes(q)||x.m.toLowerCase().includes(q))&&(g==='all'||x.g===g));document.getElementById('movieGrid').innerHTML=list.map(card).join('');document.getElementById('empty').style.display=list.length?'none':'block';bindWatch()}
+function renderTV(){document.getElementById('tvGrid').innerHTML=tv.map(card).join('');bindWatch()}
+const player=document.getElementById('player'),frame=document.getElementById('playerFrame'),pt=document.getElementById('playerTitle');let lastFocus=null;
+function openPlayer(id,title){
+  lastFocus=document.activeElement;
+  pt.textContent=title||'Pemain Video';
+  const safeId=String(id||'').trim();
+  if(!safeId){return;}
+  frame.src='https://archive.org/embed/'+encodeURIComponent(safeId);
+  player.hidden=false; document.body.style.overflow='hidden';
+  const load=document.getElementById('ck26-player-loading'); if(load) load.style.display='block';
+  const err=document.getElementById('ck26-player-error'); if(err) err.style.display='none';
+  frame.onload=()=>{if(load)load.style.display='none'};
+  frame.onerror=()=>{if(load)load.style.display='none'; if(err)err.style.display='block'};
+  const direct=document.getElementById('ck26-direct-link'); if(direct) direct.href='https://archive.org/details/'+encodeURIComponent(safeId);
+  document.getElementById('closePlayer')?.focus();
+}
+function closePlayer(){player.hidden=true;frame.src='about:blank';document.body.style.overflow='';if(lastFocus)lastFocus.focus()}
+function bindWatch(){document.querySelectorAll('[data-watch]').forEach(b=>b.addEventListener('click',()=>openPlayer(b.dataset.watch,b.dataset.title)))}
+document.getElementById('closePlayer').addEventListener('click',closePlayer);player.addEventListener('click',e=>{if(e.target===player)closePlayer()});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!player.hidden)closePlayer()});
+document.getElementById('search').addEventListener('input',renderMovies);document.getElementById('genre').addEventListener('change',renderMovies);
+document.getElementById('year').textContent=new Date().getFullYear();renderMovies();renderTV();
+function comingSoon(name){alert(name+' akan tersedia selepas sistem akaun dan pembayaran CinemaKlasik siap dalam Fasa 3.')}
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').then(r=>console.log('CinemaKlasik SW aktif',r.scope)).catch(e=>console.warn('SW gagal',e)))}
 </script>
+
+<script id="cinemaklasik-2-2-js">
+document.addEventListener('DOMContentLoaded',()=>{
+  const cards=[...document.querySelectorAll('.card')];
+  if(!cards.length) return;
+
+  // Build a discovery toolbar immediately before the first card grid.
+  const grid = cards[0].closest('[class*="grid"]') || cards[0].parentElement;
+  if(!grid || document.getElementById('ck22-tools')) return;
+
+  const tools=document.createElement('div');
+  tools.id='ck22-tools';
+  tools.className='ck22-tools';
+  tools.innerHTML=`
+    <div class="ck22-search">
+      <input id="ck22-search" type="search" placeholder="Cari filem, tahun, genre..." aria-label="Cari filem">
+      <span>⌕</span>
+    </div>
+    <div class="ck22-filters" role="group" aria-label="Kategori">
+      <button class="ck22-filter active" data-filter="all">Semua</button>
+      <button class="ck22-filter" data-filter="action">Aksi</button>
+      <button class="ck22-filter" data-filter="comedy">Komedi</button>
+      <button class="ck22-filter" data-filter="drama">Drama</button>
+      <button class="ck22-filter" data-filter="mystery">Misteri</button>
+      <button class="ck22-filter" data-filter="classic">Klasik</button>
+    </div>
+  `;
+  grid.parentNode.insertBefore(tools,grid);
+
+  const result=document.createElement('div');
+  result.className='ck22-result';
+  tools.parentNode.insertBefore(result,grid);
+
+  // Add a small category hint based on card text.
+  const getText=c=>(c.innerText||'').toLowerCase();
+  const matches=(c,q,filter)=>{
+    const t=getText(c);
+    const query=!q || t.includes(q);
+    if(!query) return false;
+    if(filter==='all') return true;
+    const map={
+      action:['action','adventure','war','fight','general','sherlock'],
+      comedy:['comedy','komedi','chaplin','charade','gold rush'],
+      drama:['drama','city lights','metropolis','potemkin'],
+      mystery:['mystery','sherlock','phantom','nosferatu','cabinet'],
+      classic:['1920','1921','1922','1924','1925','1931','1939','1940','1950','1960','klasik']
+    };
+    return (map[filter]||[]).some(x=>t.includes(x));
+  };
+
+  let filter='all';
+  const empty=document.createElement('div');
+  empty.className='ck22-empty';
+  empty.innerHTML='<strong>Tiada filem dijumpai</strong><br><small>Cuba kata kunci atau kategori lain.</small>';
+  grid.appendChild(empty);
+
+  function render(){
+    const q=(document.getElementById('ck22-search').value||'').trim().toLowerCase();
+    let count=0;
+    cards.forEach(c=>{
+      const show=matches(c,q,filter);
+      c.style.display=show?'':'none';
+      if(show) count++;
+    });
+    empty.style.display=count?'none':'block';
+    result.textContent=`${count} filem dipaparkan${q?' untuk “'+q+'”':''}`;
+  }
+  document.getElementById('ck22-search').addEventListener('input',render);
+  tools.querySelectorAll('.ck22-filter').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      tools.querySelectorAll('.ck22-filter').forEach(x=>x.classList.remove('active'));
+      btn.classList.add('active');
+      filter=btn.dataset.filter;
+      render();
+    });
+  });
+  render();
+});
+</script>
+
+
+<script id="cinemaklasik-2-3-js">
+document.addEventListener('DOMContentLoaded',()=>{
+ const cards=[...document.querySelectorAll('.card')];
+ if(!cards.length) return;
+
+ const storeKey='cinemaklasik23';
+ const saved=JSON.parse(localStorage.getItem(storeKey)||'{"watchlist":[],"history":[]}');
+ const byId=id=>saved[id]||(saved[id]=[]);
+ function persist(){localStorage.setItem(storeKey,JSON.stringify(saved));}
+
+ const detail=document.createElement('div');
+ detail.className='ck23-detail';
+ detail.innerHTML=`
+  <div class="ck23-panel">
+   <button class="ck23-close" id="ck23-close">← Kembali</button>
+   <div class="ck23-main">
+    <div><img class="ck23-poster" id="ck23-poster" alt=""></div>
+    <div class="ck23-meta">
+     <div class="ck23-chips" id="ck23-chips"></div>
+     <h2 id="ck23-title"></h2>
+     <p id="ck23-desc"></p>
+     <div class="ck23-actions">
+      <button class="ck23-action ck23-primary" id="ck23-watch">▶ Tonton Sekarang</button>
+      <button class="ck23-action ck23-secondary" id="ck23-list">♡ Watchlist</button>
+      <button class="ck23-action ck23-secondary" id="ck23-share">↗ Kongsi</button>
+     </div>
+    </div>
+   </div>
+  </div>`;
+ document.body.appendChild(detail);
+
+ const toast=document.createElement('div');
+ toast.className='ck23-toast'; document.body.appendChild(toast);
+ const showToast=t=>{toast.textContent=t;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),1800)};
+
+ let current=null;
+
+ function info(card){
+  const img=card.querySelector('img');
+  const title=card.querySelector('h3,h2,.title,.card-title')?.textContent?.trim() || 'Filem Klasik';
+  const text=(card.innerText||'').replace(/\s+/g,' ').trim();
+  const src=img?.src||'';
+  const match=src.match(/archive\.org\/services\/img\/([^/?#]+)/);
+  const id=match?match[1]:'';
+  return {title,text,src,id};
+ }
+ function openDetail(card){
+  current=info(card);
+  const key=current.id||current.title;
+  detail.dataset.key=key;
+  document.getElementById('ck23-title').textContent=current.title;
+  document.getElementById('ck23-poster').src=current.src;
+  document.getElementById('ck23-poster').alt=current.title;
+  document.getElementById('ck23-desc').textContent=
+    'Filem klasik pilihan CinemaKlasik. Nikmati tontonan dan nostalgia dalam koleksi kami.';
+  document.getElementById('ck23-chips').innerHTML=
+    `<span class="ck23-chip">🎬 Klasik</span><span class="ck23-chip">CinemaKlasik</span>`;
+  updateListButton();
+  detail.classList.add('show');
+  document.body.style.overflow='hidden';
+ }
+ function closeDetail(){detail.classList.remove('show');document.body.style.overflow='';}
+ function updateListButton(){
+  const key=detail.dataset.key;
+  const exists=(saved.watchlist||[]).includes(key);
+  const b=document.getElementById('ck23-list');
+  b.textContent=exists?'♥ Dalam Watchlist':'♡ Tambah ke Watchlist';
+ }
+ cards.forEach(card=>{
+  // Add a non-destructive detail button to each card.
+  if(card.querySelector('.ck23-open')) return;
+  const b=document.createElement('button');
+  b.className='ck23-action ck23-secondary ck23-open';
+  b.type='button';b.textContent='ℹ Detail';
+  b.style.margin='10px';
+  b.addEventListener('click',e=>{e.stopPropagation();openDetail(card)});
+  card.appendChild(b);
+ });
+
+ document.getElementById('ck23-close').onclick=closeDetail;
+ detail.addEventListener('click',e=>{if(e.target===detail)closeDetail()});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDetail()});
+
+ document.getElementById('ck23-list').onclick=()=>{
+  const key=detail.dataset.key;
+  const arr=saved.watchlist||[];
+  const i=arr.indexOf(key);
+  if(i>=0){arr.splice(i,1);showToast('Dibuang daripada Watchlist')}
+  else{arr.push(key);showToast('Ditambah ke Watchlist ❤️')}
+  saved.watchlist=arr;persist();updateListButton();
+ };
+ document.getElementById('ck23-share').onclick=async()=>{
+  const data={title:current.title,url:location.href};
+  try{
+   if(navigator.share) await navigator.share(data);
+   else{await navigator.clipboard.writeText(location.href);showToast('Pautan disalin')}
+  }catch(e){}
+ };
+ document.getElementById('ck23-watch').onclick=()=>{
+  const key=detail.dataset.key;
+  saved.history=saved.history||[];
+  saved.history=[key,...saved.history.filter(x=>x!==key)].slice(0,20);
+  persist(); closeDetail();
+  const play=cards.find(c=>info(c).id===current.id || info(c).title===current.title)
+    ?.querySelector('button[onclick*="play"],.watch-btn');
+  if(play) play.click();
+ };
+
+ // If existing cards already have a Tonton button, clicking Detail won't interfere.
+});
+</script>
+
+
+<script id="cinemaklasik-2-5-js">const SUPABASE_URL="https://fcstezpekgajyezoyeil.supabase.co";const SUPABASE_KEY="sb_publishable_RqMwY1LOCw9tzroSw4Ei_A_c8yZDLCp";document.addEventListener('DOMContentLoaded',async()=>{const configured=SUPABASE_URL.startsWith('https://')&&SUPABASE_KEY&&SUPABASE_KEY!=='PASTE_YOUR_PUBLISHABLE_KEY_HERE';const account=document.createElement('div');account.id='ck25-account';account.className='ck25-account';const header=document.querySelector('header'),nav=header?.querySelector('.navlinks');if(nav)nav.appendChild(account);else if(header)header.querySelector('.navbar')?.appendChild(account);const overlay=document.createElement('div');overlay.className='ck25-overlay';overlay.innerHTML=`<div class="ck25-box"><button class="ck25-x" id="ck25-x">×</button><h2 id="ck25-heading">Selamat datang</h2><p id="ck25-sub">Log masuk untuk pengalaman CinemaKlasik yang lebih peribadi.</p><div class="ck25-tabs"><button class="ck25-tab active" data-mode="login">Log Masuk</button><button class="ck25-tab" data-mode="register">Daftar</button></div><form class="ck25-form" id="ck25-form"><input id="ck25-name" placeholder="Nama" autocomplete="name" style="display:none"><input id="ck25-email" type="email" placeholder="Emel" autocomplete="email" required><input id="ck25-pass" type="password" placeholder="Kata laluan" autocomplete="current-password" minlength="6" required><div class="ck25-error" id="ck25-error"></div><button class="ck25-submit" id="ck25-submit">Log Masuk</button></form><div class="ck25-note" id="ck25-note"></div></div>`;document.body.appendChild(overlay);const $=id=>document.getElementById(id);let mode='login',sb=null;if(!configured){$('ck25-note').textContent='Supabase belum aktif. Paste Publishable Key pada SUPABASE_KEY dalam fail ini.'}else if(window.supabase){sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);$('ck25-note').textContent='Akaun anda akan disimpan melalui Supabase Auth. Jika pendaftaran berjaya tetapi belum boleh log masuk, semak emel pengesahan.'}else{$('ck25-note').textContent='Pustaka Supabase belum dimuatkan.'}function open(m='login'){mode=m;overlay.classList.add('show');document.querySelectorAll('.ck25-tab').forEach(x=>x.classList.toggle('active',x.dataset.mode===mode));$('ck25-name').style.display=mode==='register'?'block':'none';$('ck25-submit').textContent=mode==='register'?'Daftar Akaun':'Log Masuk';$('ck25-heading').textContent=mode==='register'?'Cipta akaun':'Selamat datang';$('ck25-sub').textContent=mode==='register'?'Bina profil CinemaKlasik anda.':'Log masuk untuk pengalaman yang lebih peribadi.'}function close(){overlay.classList.remove('show')}function err(m){$('ck25-error').textContent=m;$('ck25-error').style.display='block'}function render(u){if(u){let e=u.email||'',n=u.user_metadata?.full_name||e.split('@')[0]||'U';account.innerHTML=`<span class="ck25-avatar">${n.charAt(0).toUpperCase()}</span><button class="ck25-user-btn" id="ck25-account-btn">Akaun</button>`;$('ck25-account-btn').onclick=async()=>{if(confirm(`Akaun: ${e}\n\nTekan OK untuk log keluar.`)&&sb)await sb.auth.signOut()} }else{account.innerHTML='<button class="ck25-user-btn" id="ck25-open">👤 Log Masuk</button>';$('ck25-open').onclick=()=>open('login')}}$('ck25-x').onclick=close;overlay.addEventListener('click',e=>{if(e.target===overlay)close()});document.querySelectorAll('.ck25-tab').forEach(t=>t.onclick=()=>open(t.dataset.mode));$('ck25-form').onsubmit=async e=>{e.preventDefault();$('ck25-error').style.display='none';if(!sb)return err('Supabase belum dikonfigurasi. Paste Publishable Key dahulu.');let email=$('ck25-email').value.trim(),password=$('ck25-pass').value,name=$('ck25-name').value.trim();if(password.length<6)return err('Kata laluan mesti sekurang-kurangnya 6 aksara.');$('ck25-submit').disabled=true;try{let r=mode==='register'?await sb.auth.signUp({email,password,options:{data:{full_name:name||email.split('@')[0]},emailRedirectTo:location.origin+location.pathname}}):await sb.auth.signInWithPassword({email,password});if(r.error)throw r.error;close();if(mode==='register')alert(r.data.session?'Akaun berjaya dibuat dan anda sudah log masuk.':'Akaun berjaya dibuat. Jika pengesahan emel diaktifkan, semak inbox/spam dahulu.')}catch(x){err(x?.message||'Operasi akaun gagal.')}finally{$('ck25-submit').disabled=false;$('ck25-submit').textContent=mode==='register'?'Daftar Akaun':'Log Masuk'}};if(sb){let r=await sb.auth.getSession();render(r.data.session?.user||null);sb.auth.onAuthStateChange((_e,s)=>render(s?.user||null))}else render(null)});</script>
 </body>
-                                                                                </html>
+     </html>
