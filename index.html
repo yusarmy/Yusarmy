@@ -8,7 +8,7 @@
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" type="image/png" href="./favicon-32.png">
 <link rel="apple-touch-icon" href="./apple-touch-icon.png">
-<title>CinemaKlasik 2.6 — Player & Akaun Supabase</title>
+<title>CinemaKlasik 2.9 — Filem, Live & Akaun</title>
 <style>
 :root{--bg:#080b14;--panel:#101522;--panel2:#151b2b;--line:#202a3d;--text:#f5f7fb;--muted:#91a0b7;--cyan:#19d3ff;--gold:#ffb84d;--accent:#ff6b35;--max:1220px}
 *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;background:radial-gradient(circle at 50% -10%,#14213b 0,#080b14 42%);color:var(--text);line-height:1.6;overflow-x:hidden}a{color:inherit;text-decoration:none}button,input{font:inherit}button{cursor:pointer}
@@ -292,6 +292,7 @@ footer{
 }
 </style>
 
+<style id="cinemaklasik-2-9">.ck29-livebar{max-width:var(--max);margin:0 auto;padding:12px 20px;display:flex;gap:8px;overflow:auto}.ck29-livebar a{white-space:nowrap;padding:8px 12px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.045);border-radius:999px;font-size:11px;font-weight:800}.ck29-livebar a:hover{border-color:rgba(25,211,255,.4)}@media(max-width:700px){.ck29-livebar{padding:10px 14px}}</style>
 </head>
 <body>
 <a class="skip" href="#utama">Langkau ke kandungan utama</a>
@@ -307,7 +308,7 @@ footer{
     </nav>
   </div>
 </header>
-
+<div class="ck29-livebar"><a href="#live-bola">⚽ Live Bola</a><a href="#radio-live">📻 Radio Live</a><a href="#tv-live">📺 Live TV</a><a href="#premium">⭐ Premium</a></div>
 <main id="utama">
 <section class="hero" id="beranda">
   <span class="eyebrow">✨ Koleksi Klasik • Era Digital</span>
@@ -369,7 +370,7 @@ footer{
 <section class="section" id="faq">
 <div class="wrap"><div class="section-head"><div><h2>❓ Soalan Lazim</h2><p>Maklumat ringkas tentang CinemaKlasik.</p></div></div>
 <details><summary>Adakah CinemaKlasik menyediakan filem percuma?</summary><p>Ya. Koleksi percuma menggunakan pautan kandungan yang tersedia melalui sumber seperti Internet Archive. Status hak cipta dan ketersediaan kandungan perlu disemak sebelum diterbitkan.</p></details>
-<details><summary>Adakah pembayaran Premium sudah aktif?</summary><p>Belum. Fasa 1 hanya menyediakan reka bentuk dan struktur antaramuka. Sistem akaun, langganan dan pembayaran akan dibina kemudian.</p></details>
+<details><summary>Adakah pembayaran Premium sudah aktif?</summary><p>Akaun CinemaKlasik sudah tersedia melalui Supabase Auth. Sistem langganan dan pembayaran Premium masih dalam pembangunan.</p></details>
 <details><summary>Boleh digunakan di telefon?</summary><p>Ya. Reka bentuk ini responsif dan menyediakan navigasi bawah pada skrin kecil.</p></details>
 </div>
 </section>
@@ -378,7 +379,7 @@ footer{
 <div class="wrap"><div class="info-grid">
 <article class="info-card"><h3>📩 Hubungi</h3><p>Untuk pertanyaan atau cadangan kandungan, gunakan saluran komuniti yang tersedia di bahagian footer.</p></article>
 <article class="info-card" id="syarat"><h3>📜 Syarat & Terma</h3><p>Pengguna bertanggungjawab menggunakan platform secara sah dan menghormati hak pemilik kandungan.</p></article>
-<article class="info-card" id="privasi"><h3>🔒 Dasar Privasi</h3><p>Versi Fasa 1 tidak memerlukan pendaftaran atau menyimpan data akaun pengguna.</p></article>
+<article class="info-card" id="privasi"><h3>🔒 Dasar Privasi</h3><p>CinemaKlasik menggunakan Supabase Auth untuk pendaftaran dan log masuk. Maklumat akaun dikendalikan melalui perkhidmatan pengesahan tersebut.</p></article>
 </div></div>
 </section>
 
@@ -564,113 +565,23 @@ document.addEventListener('DOMContentLoaded',()=>{
 
 <script id="cinemaklasik-2-3-js">
 document.addEventListener('DOMContentLoaded',()=>{
- const cards=[...document.querySelectorAll('.card')];
- if(!cards.length) return;
-
- const storeKey='cinemaklasik23';
- const saved=JSON.parse(localStorage.getItem(storeKey)||'{"watchlist":[],"history":[]}');
- const byId=id=>saved[id]||(saved[id]=[]);
- function persist(){localStorage.setItem(storeKey,JSON.stringify(saved));}
-
- const detail=document.createElement('div');
- detail.className='ck23-detail';
- detail.innerHTML=`
-  <div class="ck23-panel">
-   <button class="ck23-close" id="ck23-close">← Kembali</button>
-   <div class="ck23-main">
-    <div><img class="ck23-poster" id="ck23-poster" alt=""></div>
-    <div class="ck23-meta">
-     <div class="ck23-chips" id="ck23-chips"></div>
-     <h2 id="ck23-title"></h2>
-     <p id="ck23-desc"></p>
-     <div class="ck23-actions">
-      <button class="ck23-action ck23-primary" id="ck23-watch">▶ Tonton Sekarang</button>
-      <button class="ck23-action ck23-secondary" id="ck23-list">♡ Watchlist</button>
-      <button class="ck23-action ck23-secondary" id="ck23-share">↗ Kongsi</button>
-     </div>
-    </div>
-   </div>
-  </div>`;
- document.body.appendChild(detail);
-
- const toast=document.createElement('div');
- toast.className='ck23-toast'; document.body.appendChild(toast);
- const showToast=t=>{toast.textContent=t;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),1800)};
-
- let current=null;
-
- function info(card){
-  const img=card.querySelector('img');
-  const title=card.querySelector('h3,h2,.title,.card-title')?.textContent?.trim() || 'Filem Klasik';
-  const text=(card.innerText||'').replace(/\s+/g,' ').trim();
-  const src=img?.src||'';
-  const match=src.match(/archive\.org\/services\/img\/([^/?#]+)/);
-  const id=match?match[1]:'';
-  return {title,text,src,id};
- }
- function openDetail(card){
-  current=info(card);
-  const key=current.id||current.title;
-  detail.dataset.key=key;
-  document.getElementById('ck23-title').textContent=current.title;
-  document.getElementById('ck23-poster').src=current.src;
-  document.getElementById('ck23-poster').alt=current.title;
-  document.getElementById('ck23-desc').textContent=
-    'Filem klasik pilihan CinemaKlasik. Nikmati tontonan dan nostalgia dalam koleksi kami.';
-  document.getElementById('ck23-chips').innerHTML=
-    `<span class="ck23-chip">🎬 Klasik</span><span class="ck23-chip">CinemaKlasik</span>`;
-  updateListButton();
-  detail.classList.add('show');
-  document.body.style.overflow='hidden';
- }
- function closeDetail(){detail.classList.remove('show');document.body.style.overflow='';}
- function updateListButton(){
-  const key=detail.dataset.key;
-  const exists=(saved.watchlist||[]).includes(key);
-  const b=document.getElementById('ck23-list');
-  b.textContent=exists?'♥ Dalam Watchlist':'♡ Tambah ke Watchlist';
- }
- cards.forEach(card=>{
-  // Add a non-destructive detail button to each card.
-  if(card.querySelector('.ck23-open')) return;
-  const b=document.createElement('button');
-  b.className='ck23-action ck23-secondary ck23-open';
-  b.type='button';b.textContent='ℹ Detail';
-  b.style.margin='10px';
-  b.addEventListener('click',e=>{e.stopPropagation();openDetail(card)});
-  card.appendChild(b);
- });
-
- document.getElementById('ck23-close').onclick=closeDetail;
- detail.addEventListener('click',e=>{if(e.target===detail)closeDetail()});
- document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDetail()});
-
- document.getElementById('ck23-list').onclick=()=>{
-  const key=detail.dataset.key;
-  const arr=saved.watchlist||[];
-  const i=arr.indexOf(key);
-  if(i>=0){arr.splice(i,1);showToast('Dibuang daripada Watchlist')}
-  else{arr.push(key);showToast('Ditambah ke Watchlist ❤️')}
-  saved.watchlist=arr;persist();updateListButton();
- };
- document.getElementById('ck23-share').onclick=async()=>{
-  const data={title:current.title,url:location.href};
-  try{
-   if(navigator.share) await navigator.share(data);
-   else{await navigator.clipboard.writeText(location.href);showToast('Pautan disalin')}
-  }catch(e){}
- };
- document.getElementById('ck23-watch').onclick=()=>{
-  const key=detail.dataset.key;
-  saved.history=saved.history||[];
-  saved.history=[key,...saved.history.filter(x=>x!==key)].slice(0,20);
-  persist(); closeDetail();
-  const play=cards.find(c=>info(c).id===current.id || info(c).title===current.title)
-    ?.querySelector('button[onclick*="play"],.watch-btn');
-  if(play) play.click();
- };
-
- // If existing cards already have a Tonton button, clicking Detail won't interfere.
+ const cards=[...document.querySelectorAll('.card')]; if(!cards.length)return;
+ const storeKey='cinemaklasik23'; const saved=JSON.parse(localStorage.getItem(storeKey)||'{"watchlist":[],"history":[]}');
+ saved.watchlist=saved.watchlist||[]; saved.history=saved.history||[];
+ const persist=()=>localStorage.setItem(storeKey,JSON.stringify(saved));
+ const detail=document.createElement('div'); detail.className='ck23-detail';
+ detail.innerHTML=`<div class="ck23-panel"><button class="ck23-close" id="ck23-close">← Kembali</button><div class="ck23-main"><div><div class="ck23-poster" id="ck23-poster" style="aspect-ratio:2/3;display:grid;place-items:center;background:linear-gradient(145deg,#20334e,#111a2a);font-size:90px">🎬</div></div><div class="ck23-meta"><div class="ck23-chips" id="ck23-chips"></div><h2 id="ck23-title"></h2><p id="ck23-desc"></p><div class="ck23-actions"><button class="ck23-action ck23-primary" id="ck23-watch">▶ Tonton Sekarang</button><button class="ck23-action ck23-secondary" id="ck23-list">♡ Watchlist</button><button class="ck23-action ck23-secondary" id="ck23-share">↗ Kongsi</button></div></div></div></div>`;
+ document.body.appendChild(detail); const toast=document.createElement('div'); toast.className='ck23-toast'; document.body.appendChild(toast);
+ const showToast=x=>{toast.textContent=x;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),1800)}; let current=null;
+ const info=card=>{const w=card.querySelector('[data-watch]'); return {card,title:w?.dataset.title||card.querySelector('h3')?.textContent?.trim()||'Filem Klasik',id:w?.dataset.watch||'',emoji:card.querySelector('.poster-emoji')?.textContent?.trim()||'🎬',meta:card.querySelector('.meta')?.textContent?.trim()||''}};
+ const update=()=>{const k=detail.dataset.key;document.getElementById('ck23-list').textContent=saved.watchlist.includes(k)?'♥ Dalam Watchlist':'♡ Tambah ke Watchlist'};
+ const open=card=>{current=info(card);detail.dataset.key=current.id||current.title;document.getElementById('ck23-title').textContent=current.title;document.getElementById('ck23-poster').textContent=current.emoji;document.getElementById('ck23-desc').textContent=`${current.meta}. Filem klasik pilihan CinemaKlasik. Nikmati tontonan dan nostalgia dalam koleksi kami.`;document.getElementById('ck23-chips').innerHTML='<span class="ck23-chip">🎬 Klasik</span><span class="ck23-chip">CinemaKlasik</span><span class="ck23-chip">✓ Percuma</span>';update();detail.classList.add('show');document.body.style.overflow='hidden'};
+ const close=()=>{detail.classList.remove('show');document.body.style.overflow=''};
+ cards.forEach(card=>{if(card.querySelector('.ck23-open'))return;const b=document.createElement('button');b.className='ck23-action ck23-secondary ck23-open';b.type='button';b.textContent='ℹ Detail';b.style.margin='10px';b.onclick=e=>{e.stopPropagation();open(card)};card.appendChild(b)});
+ document.getElementById('ck23-close').onclick=close; detail.onclick=e=>{if(e.target===detail)close()}; document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+ document.getElementById('ck23-list').onclick=()=>{const k=detail.dataset.key,i=saved.watchlist.indexOf(k);if(i>=0){saved.watchlist.splice(i,1);showToast('Dibuang daripada Watchlist')}else{saved.watchlist.push(k);showToast('Ditambah ke Watchlist ❤️')}persist();update()};
+ document.getElementById('ck23-share').onclick=async()=>{try{if(navigator.share)await navigator.share({title:current.title,url:location.href});else{await navigator.clipboard.writeText(location.href);showToast('Pautan disalin')}}catch(e){}};
+ document.getElementById('ck23-watch').onclick=()=>{if(!current)return;const k=current.id||current.title;saved.history=[k,...saved.history.filter(x=>x!==k)].slice(0,20);persist();close();current.card.querySelector('[data-watch]')?.click()};
 });
 </script>
 
@@ -693,4 +604,4 @@ document.addEventListener('DOMContentLoaded',()=>{
 </script>
 
 </body>
-                                   </html>
+        </html>
