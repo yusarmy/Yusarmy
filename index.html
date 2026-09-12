@@ -586,7 +586,97 @@ document.addEventListener('DOMContentLoaded',()=>{
 </script>
 
 
-<script id="cinemaklasik-2-5-js">const SUPABASE_URL="https://fcstezpekgajyezoyeil.supabase.co";const SUPABASE_KEY="sb_publishable_RqMwY1LOCw9tzroSw4Ei_A_c8yZDLCp";document.addEventListener('DOMContentLoaded',async()=>{const configured=SUPABASE_URL.startsWith('https://')&&SUPABASE_KEY&&SUPABASE_KEY!=='PASTE_YOUR_PUBLISHABLE_KEY_HERE';const account=document.createElement('div');account.id='ck25-account';account.className='ck25-account';const header=document.querySelector('header'),nav=header?.querySelector('.navlinks');if(nav)nav.appendChild(account);else if(header)header.querySelector('.navbar')?.appendChild(account);const overlay=document.createElement('div');overlay.className='ck25-overlay';overlay.innerHTML=`<div class="ck25-box"><button class="ck25-x" id="ck25-x">×</button><h2 id="ck25-heading">Selamat datang</h2><p id="ck25-sub">Log masuk untuk pengalaman CinemaKlasik yang lebih peribadi.</p><div class="ck25-tabs"><button class="ck25-tab active" data-mode="login">Log Masuk</button><button class="ck25-tab" data-mode="register">Daftar</button></div><form class="ck25-form" id="ck25-form"><input id="ck25-name" placeholder="Nama" autocomplete="name" style="display:none"><input id="ck25-email" type="email" placeholder="Emel" autocomplete="email" required><input id="ck25-pass" type="password" placeholder="Kata laluan" autocomplete="current-password" minlength="6" required><div class="ck25-error" id="ck25-error"></div><button class="ck25-submit" id="ck25-submit">Log Masuk</button></form><div class="ck25-note" id="ck25-note"></div></div>`;document.body.appendChild(overlay);const $=id=>document.getElementById(id);let mode='login',sb=null;if(!configured){$('ck25-note').textContent='Supabase belum aktif. Paste Publishable Key pada SUPABASE_KEY dalam fail ini.'}else if(window.supabase){sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);$('ck25-note').textContent='Akaun anda akan disimpan melalui Supabase Auth. Jika pendaftaran berjaya tetapi belum boleh log masuk, semak emel pengesahan.'}else{$('ck25-note').textContent='Pustaka Supabase belum dimuatkan.'}function open(m='login'){mode=m;overlay.classList.add('show');document.querySelectorAll('.ck25-tab').forEach(x=>x.classList.toggle('active',x.dataset.mode===mode));$('ck25-name').style.display=mode==='register'?'block':'none';$('ck25-submit').textContent=mode==='register'?'Daftar Akaun':'Log Masuk';$('ck25-heading').textContent=mode==='register'?'Cipta akaun':'Selamat datang';$('ck25-sub').textContent=mode==='register'?'Bina profil CinemaKlasik anda.':'Log masuk untuk pengalaman yang lebih peribadi.'}function close(){overlay.classList.remove('show')}function err(m){$('ck25-error').textContent=m;$('ck25-error').style.display='block'}function render(u){if(u){let e=u.email||'',n=u.user_metadata?.full_name||e.split('@')[0]||'U';account.innerHTML=`<span class="ck25-avatar">${n.charAt(0).toUpperCase()}</span><button class="ck25-user-btn" id="ck25-account-btn">Akaun</button>`;$('ck25-account-btn').onclick=async()=>{if(confirm(`Akaun: ${e}\n\nTekan OK untuk log keluar.`)&&sb)await sb.auth.signOut()} }else{account.innerHTML='<button class="ck25-user-btn" id="ck25-open">👤 Log Masuk</button>';$('ck25-open').onclick=()=>open('login')}}$('ck25-x').onclick=close;overlay.addEventListener('click',e=>{if(e.target===overlay)close()});document.querySelectorAll('.ck25-tab').forEach(t=>t.onclick=()=>open(t.dataset.mode));$('ck25-form').onsubmit=async e=>{e.preventDefault();$('ck25-error').style.display='none';if(!sb)return err('Supabase belum dikonfigurasi. Paste Publishable Key dahulu.');let email=$('ck25-email').value.trim(),password=$('ck25-pass').value,name=$('ck25-name').value.trim();if(password.length<6)return err('Kata laluan mesti sekurang-kurangnya 6 aksara.');$('ck25-submit').disabled=true;try{let r=mode==='register'?await sb.auth.signUp({email,password,options:{data:{full_name:name||email.split('@')[0]},emailRedirectTo:location.origin+location.pathname}}):await sb.auth.signInWithPassword({email,password});if(r.error)throw r.error;close();if(mode==='register')alert(r.data.session?'Akaun berjaya dibuat dan anda sudah log masuk.':'Akaun berjaya dibuat. Jika pengesahan emel diaktifkan, semak inbox/spam dahulu.')}catch(x){err(x?.message||'Operasi akaun gagal.')}finally{$('ck25-submit').disabled=false;$('ck25-submit').textContent=mode==='register'?'Daftar Akaun':'Log Masuk'}};if(sb){let r=await sb.auth.getSession();render(r.data.session?.user||null);sb.auth.onAuthStateChange((_e,s)=>render(s?.user||null))}else render(null)});</script>
+<script id="cinemaklasik-3-0-auth-js">
+const SUPABASE_URL="https://fcstezpekgajyezoyeil.supabase.co";
+const SUPABASE_KEY="sb_publishable_RqMwY1LOCw9tzroSw4Ei_A_c8yZDLCp";
+
+(function(){
+  const boot=async()=>{
+    const header=document.querySelector('header');
+    const nav=document.querySelector('.navlinks');
+    if(!header) return;
+    const account=document.createElement('div');
+    account.id='ck30-account'; account.className='ck25-account';
+    (nav||header.querySelector('.navbar'))?.appendChild(account);
+
+    const overlay=document.createElement('div');
+    overlay.className='ck25-overlay';
+    overlay.innerHTML=`<div class="ck25-box" role="dialog" aria-modal="true" aria-labelledby="ck30-heading">
+      <button class="ck25-x" id="ck30-x" type="button" aria-label="Tutup">×</button>
+      <h2 id="ck30-heading">Selamat datang</h2>
+      <p id="ck30-sub">Log masuk untuk pengalaman CinemaKlasik yang lebih peribadi.</p>
+      <div class="ck25-tabs"><button class="ck25-tab active" type="button" data-mode="login">Log Masuk</button><button class="ck25-tab" type="button" data-mode="register">Daftar</button></div>
+      <form class="ck25-form" id="ck30-form">
+        <input id="ck30-name" placeholder="Nama" autocomplete="name" style="display:none">
+        <input id="ck30-email" type="email" placeholder="Emel" autocomplete="email" required>
+        <input id="ck30-pass" type="password" placeholder="Kata laluan (min. 6 aksara)" autocomplete="current-password" minlength="6" required>
+        <div class="ck25-error" id="ck30-error"></div>
+        <button class="ck25-submit" id="ck30-submit" type="submit">Log Masuk</button>
+      </form>
+      <div class="ck25-note" id="ck30-note">Menyambung ke sistem akaun…</div>
+    </div>`;
+    document.body.appendChild(overlay);
+    const $=id=>document.getElementById(id);
+    let mode='login', sb=null;
+
+    function message(t,ok=false){const el=$('ck30-error');el.textContent=t;el.style.display='block';el.style.color=ok?'#9ff0c2':'#ffb0b0'}
+    function clearMsg(){$('ck30-error').style.display='none';$('ck30-error').textContent=''}
+    function open(m='login'){mode=m;clearMsg();overlay.classList.add('show');document.body.style.overflow='hidden';document.querySelectorAll('#ck30-form ~ *');document.querySelectorAll('.ck25-tab').forEach(x=>x.classList.toggle('active',x.dataset.mode===mode));$('ck30-name').style.display=mode==='register'?'block':'none';$('ck30-submit').textContent=mode==='register'?'Daftar Akaun':'Log Masuk';$('ck30-heading').textContent=mode==='register'?'Cipta akaun':'Selamat datang';$('ck30-sub').textContent=mode==='register'?'Daftar akaun CinemaKlasik anda.':'Log masuk untuk pengalaman yang lebih peribadi.'}
+    function close(){overlay.classList.remove('show');document.body.style.overflow=''}
+    function render(user){
+      if(user){
+        const email=user.email||''; const n=user.user_metadata?.full_name||email.split('@')[0]||'U';
+        account.innerHTML=`<span class="ck25-avatar">${n.charAt(0).toUpperCase()}</span><button class="ck25-user-btn" id="ck30-account-btn" type="button">Akaun</button>`;
+        $('ck30-account-btn').onclick=async()=>{if(confirm('Akaun: '+email+'\n\nLog keluar?')) await sb.auth.signOut()};
+      }else{
+        account.innerHTML='<button class="ck25-user-btn" id="ck30-open" type="button">👤 Daftar / Log Masuk</button>';
+        $('ck30-open').onclick=()=>open('login');
+      }
+    }
+
+    $('ck30-x').onclick=close;
+    overlay.addEventListener('click',e=>{if(e.target===overlay)close()});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&overlay.classList.contains('show'))close()});
+    document.querySelectorAll('.ck25-tab').forEach(t=>t.onclick=()=>open(t.dataset.mode));
+
+    if(!window.supabase){$('ck30-note').textContent='Ralat: pustaka Supabase tidak dimuatkan. Cuba refresh halaman.';render(null);return}
+    if(!SUPABASE_URL||!SUPABASE_KEY){$('ck30-note').textContent='Ralat konfigurasi Supabase.';render(null);return}
+    sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+    $('ck30-note').textContent='Akaun disimpan melalui Supabase Auth.';
+
+    $('ck30-form').onsubmit=async(e)=>{
+      e.preventDefault(); clearMsg();
+      const email=$('ck30-email').value.trim().toLowerCase(), password=$('ck30-pass').value, name=$('ck30-name').value.trim();
+      if(!email) return message('Sila masukkan emel.');
+      if(password.length<6) return message('Kata laluan mesti sekurang-kurangnya 6 aksara.');
+      const btn=$('ck30-submit'); btn.disabled=true; btn.textContent='Memproses…';
+      try{
+        let r;
+        if(mode==='register'){
+          r=await sb.auth.signUp({email,password,options:{data:{full_name:name||email.split('@')[0]},emailRedirectTo:location.href.split('#')[0]}});
+          if(r.error) throw r.error;
+          if(r.data.session){message('Akaun berjaya dibuat. Anda sudah log masuk.',true);setTimeout(close,900)}
+          else {message('Pendaftaran berjaya. Semak emel pengesahan (termasuk Spam/Junk), kemudian tekan Log Masuk.',true)}
+        }else{
+          r=await sb.auth.signInWithPassword({email,password});
+          if(r.error) throw r.error;
+          render(r.data.user); message('Log masuk berjaya.',true); setTimeout(close,500);
+        }
+      }catch(err){
+        let m=err?.message||'Operasi akaun gagal.';
+        if(/invalid login credentials/i.test(m)) m='Emel atau kata laluan tidak betul.';
+        if(/email not confirmed/i.test(m)) m='Emel belum disahkan. Semak inbox/Spam dan tekan pautan pengesahan.';
+        if(/user already registered/i.test(m)) m='Emel ini sudah berdaftar. Gunakan Log Masuk.';
+        message(m);
+      }finally{btn.disabled=false;btn.textContent=mode==='register'?'Daftar Akaun':'Log Masuk'}
+    };
+
+    try{const r=await sb.auth.getSession();render(r.data.session?.user||null)}catch(e){render(null);message('Sesi akaun gagal dimuatkan. Sila refresh halaman.')}
+    sb.auth.onAuthStateChange((_event,session)=>render(session?.user||null));
+  };
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot); else boot();
+})();
+</script>
 
 <script id="ck28-auth-helper">
 document.addEventListener('DOMContentLoaded',()=>{
@@ -604,4 +694,4 @@ document.addEventListener('DOMContentLoaded',()=>{
 </script>
 
 </body>
-        </html>
+           </html>
