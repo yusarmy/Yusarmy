@@ -714,3 +714,119 @@
 </script>
 </body>
 </html>
+<script>
+(function () {
+  var SUPABASE_URL = "https://fcstezpekgajyezoyeil.supabase.co";
+  var SUPABASE_KEY = "sb_publishable_RqMwY1LOCw9tzroSw4Ei_A_c8yZDLCp";
+  var sb = null, mode = 'login', account, overlay;
+  function $(id) { return document.getElementById(id); }
+
+  window.addEventListener('DOMContentLoaded', async function () {
+    account = $('ck25-account');
+    overlay = document.createElement('div');
+    overlay.className = 'ck25-overlay';
+    overlay.innerHTML = '<div class="ck25-box"><button class="ck25-x" id="ck25-x">&times;</button>' +
+      '<h2 id="ck25-heading">Selamat datang</h2>' +
+      '<p id="ck25-sub">Log masuk untuk akses lebih peribadi.</p>' +
+      '<div class="ck25-tabs"><button type="button" class="ck25-tab active" data-mode="login">Log Masuk</button>' +
+      '<button type="button" class="ck25-tab" data-mode="register">Daftar</button></div>' +
+      '<form class="ck25-form" id="ck25-form">' +
+      '<input id="ck25-name" class="ck25-input" placeholder="Nama Penuh" style="display:none">' +
+      '<input id="ck25-email" class="ck25-input" type="email" placeholder="Emel" required>' +
+      '<input id="ck25-pass" class="ck25-input" type="password" placeholder="Kata laluan (min 6 aksara)" minlength="6" required>' +
+      '<div class="ck25-error" id="ck25-error"></div>' +
+      '<button class="ck25-submit" id="ck25-submit">Log Masuk</button></form>' +
+      '<div class="ck25-note">Dilindungi oleh Supabase Auth.</div></div>';
+    document.body.appendChild(overlay);
+
+    try { 
+      sb = (window.supabase && window.supabase.createClient) ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null; 
+    } catch (e) {
+      console.error("Gagal sambung ke Supabase:", e);
+    }
+
+    $('ck25-x').onclick = () => overlay.classList.remove('show');
+    overlay.onclick = (e) => { if (e.target === overlay) overlay.classList.remove('show'); };
+    
+    document.querySelectorAll('.ck25-tab').forEach(t => t.onclick = () => {
+      mode = t.dataset.mode;
+      document.querySelectorAll('.ck25-tab').forEach(tb => tb.classList.toggle('active', tb.dataset.mode === mode));
+      $('ck25-name').style.display = (mode === 'register') ? 'block' : 'none';
+      $('ck25-submit').textContent = (mode === 'register') ? 'Daftar Akaun' : 'Log Masuk';
+      $('ck25-heading').textContent = (mode === 'register') ? 'Cipta Akaun' : 'Selamat Datang';
+      $('ck25-error').style.display = 'none';
+    });
+
+    $('ck25-form').onsubmit = async (e) => {
+      e.preventDefault();
+      let er = $('ck25-error');
+      er.style.display = 'none';
+      
+      if (!sb) {
+        er.textContent = 'Sambungan Supabase belum sedia. Sila semak sambungan internet.';
+        er.style.display = 'block';
+        return;
+      }
+      
+      let email = $('ck25-email').value.trim();
+      let pass = $('ck25-pass').value;
+      let name = $('ck25-name').value.trim();
+      let btn = $('ck25-submit');
+      
+      btn.disabled = true;
+      btn.textContent = 'Memproses...';
+
+      try {
+        if (mode === 'register') {
+          let { data, error } = await sb.auth.signUp({
+            email: email,
+            password: pass,
+            options: { data: { full_name: name || email.split('@')[0] } }
+          });
+          if (error) throw error;
+          
+          if (data.session) {
+            alert('Pendaftaran berjaya! Anda telah log masuk secara automatik.');
+            overlay.classList.remove('show');
+          } else {
+            alert('Akaun dicipta! Sila semak inbox emel anda untuk klik pautan pengesahan (atau matikan Confirm Email di Supabase jika mahu terus aktif).');
+            overlay.classList.remove('show');
+          }
+        } else {
+          let { data, error } = await sb.auth.signInWithPassword({ email: email, password: pass });
+          if (error) throw error;
+          overlay.classList.remove('show');
+        }
+      } catch (err) {
+        er.textContent = 'Ralat: ' + (err.message || 'Gagal mendaftar/log masuk.');
+        er.style.display = 'block';
+      } finally {
+        btn.disabled = false;
+        btn.textContent = (mode === 'register') ? 'Daftar Akaun' : 'Log Masuk';
+      }
+    };
+
+    if (sb) {
+      try {
+        let s = await sb.auth.getSession();
+        renderUser(s.data.session ? s.data.session.user : null);
+        sb.auth.onAuthStateChange((_, ses) => renderUser(ses ? ses.user : null));
+      } catch (e) { renderUser(null); }
+    } else { renderUser(null); }
+  });
+
+  function renderUser(u) {
+    if (u) {
+      let n = (u.user_metadata && u.user_metadata.full_name) || u.email.split('@')[0] || 'U';
+      account.innerHTML = '<span class="ck25-avatar">' + n.charAt(0).toUpperCase() + '</span>' +
+        '<button type="button" class="ck25-user-btn" id="btnOut">' + n + ' (Log Keluar)</button>';
+      $('btnOut').onclick = async () => { 
+        if (confirm('Adakah anda mahu log keluar?')) await sb.auth.signOut(); 
+      };
+    } else {
+      account.innerHTML = '<button type="button" class="ck25-user-btn" id="btnIn">👤 Log Masuk</button>';
+      $('btnIn').onclick = () => overlay.classList.add('show');
+    }
+  }
+})();
+</script>
