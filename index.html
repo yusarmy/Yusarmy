@@ -586,7 +586,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 </script>
 
 
-<script id="cinemaklasik-3-0-auth-js">
+<script id="cinemaklasik-3-1-auth-js">
 const SUPABASE_URL="https://fcstezpekgajyezoyeil.supabase.co";
 const SUPABASE_KEY="sb_publishable_RqMwY1LOCw9tzroSw4Ei_A_c8yZDLCp";
 
@@ -621,7 +621,7 @@ const SUPABASE_KEY="sb_publishable_RqMwY1LOCw9tzroSw4Ei_A_c8yZDLCp";
 
     function message(t,ok=false){const el=$('ck30-error');el.textContent=t;el.style.display='block';el.style.color=ok?'#9ff0c2':'#ffb0b0'}
     function clearMsg(){$('ck30-error').style.display='none';$('ck30-error').textContent=''}
-    function open(m='login'){mode=m;clearMsg();overlay.classList.add('show');document.body.style.overflow='hidden';document.querySelectorAll('#ck30-form ~ *');document.querySelectorAll('.ck25-tab').forEach(x=>x.classList.toggle('active',x.dataset.mode===mode));$('ck30-name').style.display=mode==='register'?'block':'none';$('ck30-submit').textContent=mode==='register'?'Daftar Akaun':'Log Masuk';$('ck30-heading').textContent=mode==='register'?'Cipta akaun':'Selamat datang';$('ck30-sub').textContent=mode==='register'?'Daftar akaun CinemaKlasik anda.':'Log masuk untuk pengalaman yang lebih peribadi.'}
+    function open(m='login'){mode=m;clearMsg();overlay.classList.add('show');document.body.style.overflow='hidden';document.querySelectorAll('.ck25-tab').forEach(x=>x.classList.toggle('active',x.dataset.mode===mode));$('ck30-name').style.display=mode==='register'?'block':'none';$('ck30-submit').textContent=mode==='register'?'Daftar Akaun':'Log Masuk';$('ck30-heading').textContent=mode==='register'?'Cipta akaun':'Selamat datang';$('ck30-sub').textContent=mode==='register'?'Daftar akaun CinemaKlasik anda.':'Log masuk untuk pengalaman yang lebih peribadi.'}
     function close(){overlay.classList.remove('show');document.body.style.overflow=''}
     function render(user){
       if(user){
@@ -634,6 +634,7 @@ const SUPABASE_KEY="sb_publishable_RqMwY1LOCw9tzroSw4Ei_A_c8yZDLCp";
       }
     }
 
+    const footerLogin=document.getElementById('ck28-footer-login'); if(footerLogin) footerLogin.addEventListener('click',e=>{e.preventDefault();open('login')});
     $('ck30-x').onclick=close;
     overlay.addEventListener('click',e=>{if(e.target===overlay)close()});
     document.addEventListener('keydown',e=>{if(e.key==='Escape'&&overlay.classList.contains('show'))close()});
@@ -678,20 +679,7 @@ const SUPABASE_KEY="sb_publishable_RqMwY1LOCw9tzroSw4Ei_A_c8yZDLCp";
 })();
 </script>
 
-<script id="ck28-auth-helper">
-document.addEventListener('DOMContentLoaded',()=>{
-  const link=document.getElementById('ck28-footer-login');
-  if(link) link.addEventListener('click',e=>{
-    e.preventDefault();
-    const b=document.getElementById('ck25-open');
-    if(b) b.click();
-    else {
-      const a=document.getElementById('ck25-account-btn');
-      if(a) a.click();
-    }
-  });
-});
-</script>
+
 
 </body>
-                                                                                                                                                                          </html>
+  </html>
