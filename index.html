@@ -273,6 +273,25 @@ footer{
 @media(max-width:460px){.ck27-grid{grid-template-columns:1fr}}
 </style>
 
+
+<style id="ck28-complete">
+.ck28-livebar{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.ck28-livebar a{padding:9px 13px;border:1px solid rgba(25,211,255,.2);border-radius:999px;background:rgba(25,211,255,.06);font-weight:800;font-size:12px}
+.ck28-status{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:#b8c6d9}
+.ck28-dot{width:8px;height:8px;border-radius:50%;background:#ef4444;box-shadow:0 0 12px rgba(239,68,68,.8)}
+.ck28-auth-note{margin-top:10px;font-size:12px;color:#9aa9bd}
+.ck28-live-player{display:none;margin-top:20px;background:#05080e;border:1px solid #26334a;border-radius:16px;padding:10px}
+.ck28-live-player.show{display:block}
+.ck28-live-frame{width:100%;aspect-ratio:16/9;border:0;border-radius:10px;background:#000}
+.ck28-live-player small{display:block;color:#8fa0b8;padding:8px 2px 0}
+@media(max-width:700px){
+ .navlinks{display:flex;overflow-x:auto;max-width:100%;margin-left:0}
+ .navlinks a{white-space:nowrap;font-size:11px;padding:8px 9px}
+ .navbar{flex-wrap:wrap}
+ .ck25-account{margin-left:auto}
+}
+</style>
+
 </head>
 <body>
 <a class="skip" href="#utama">Langkau ke kandungan utama</a>
@@ -284,7 +303,7 @@ footer{
       <span><strong>CINEMAKLASIK</strong><small>Classic Cinema • Modern Experience</small></span>
     </a>
     <nav class="navlinks" aria-label="Navigasi utama">
-      <a href="#beranda">Beranda</a><a href="#filem">Filem</a><a href="#tv">TV</a><a href="#premium" class="nav-premium">⭐ Premium</a>
+      <a href="#beranda">Beranda</a><a href="#filem">Filem</a><a href="#tv">TV</a><a href="#live-bola">⚽ Live</a><a href="#radio-live">📻 Radio</a><a href="#tv-live">📺 Live TV</a><a href="#premium" class="nav-premium">⭐ Premium</a>
     </nav>
   </div>
 </header>
@@ -400,13 +419,13 @@ footer{
 <div class="footer-grid">
   <div><h4>CinemaKlasik</h4><p>Filem klasik, siri TV dan cerita pilihan dengan pengalaman web yang moden.</p></div>
   <div><h4>Navigasi</h4><a href="#beranda">Beranda</a><a href="#filem">Filem</a><a href="#tv">TV Series</a><a href="#premium">Premium</a></div>
-  <div><h4>Bantuan</h4><a href="#faq">Soalan Lazim</a><a href="#hubungi">Hubungi Kami</a><a href="#syarat">Syarat & Terma</a><a href="#privasi">Dasar Privasi</a></div>
+  <div><h4>Bantuan</h4><a href="#" id="ck28-footer-login">👤 Daftar / Log Masuk</a><a href="#faq">Soalan Lazim</a><a href="#hubungi">Hubungi Kami</a><a href="#syarat">Syarat & Terma</a><a href="#privasi">Dasar Privasi</a></div>
   <div><h4>Komuniti</h4><a href="https://www.youtube.com/@yunuschannel86" target="_blank" rel="noopener noreferrer">YouTube</a><a href="https://cerita-malaysiaku.blogspot.com" target="_blank" rel="noopener noreferrer">Blog Cerita</a><a href="https://www.facebook.com/share/1EK9tkYq2s/" target="_blank" rel="noopener noreferrer">Facebook</a><a href="./CinemaKlasik-v1.3.apk" download>📱 Muat Turun APK</a></div>
 </div>
 <div class="copyright">© <span id="year"></span> CinemaKlasik. Semua hak terpelihara. 🇲🇾</div>
 </footer>
 
-<nav class="bottom" aria-label="Navigasi mudah alih"><a href="#beranda"><b>⌂</b>Home</a><a href="#filem"><b>🎬</b>Filem</a><a href="#tv"><b>📺</b>TV</a><a href="#premium"><b>⭐</b>Premium</a></nav>
+<nav class="bottom" aria-label="Navigasi mudah alih"><a href="#beranda"><b>⌂</b>Home</a><a href="#filem"><b>🎬</b>Filem</a><a href="#live-bola"><b>⚽</b>Live</a><a href="#radio-live"><b>📻</b>Radio</a></nav>
 
 <div class="player" id="player" hidden>
   <div class="player-box">
@@ -657,5 +676,21 @@ document.addEventListener('DOMContentLoaded',()=>{
 
 
 <script id="cinemaklasik-2-5-js">const SUPABASE_URL="https://fcstezpekgajyezoyeil.supabase.co";const SUPABASE_KEY="sb_publishable_RqMwY1LOCw9tzroSw4Ei_A_c8yZDLCp";document.addEventListener('DOMContentLoaded',async()=>{const configured=SUPABASE_URL.startsWith('https://')&&SUPABASE_KEY&&SUPABASE_KEY!=='PASTE_YOUR_PUBLISHABLE_KEY_HERE';const account=document.createElement('div');account.id='ck25-account';account.className='ck25-account';const header=document.querySelector('header'),nav=header?.querySelector('.navlinks');if(nav)nav.appendChild(account);else if(header)header.querySelector('.navbar')?.appendChild(account);const overlay=document.createElement('div');overlay.className='ck25-overlay';overlay.innerHTML=`<div class="ck25-box"><button class="ck25-x" id="ck25-x">×</button><h2 id="ck25-heading">Selamat datang</h2><p id="ck25-sub">Log masuk untuk pengalaman CinemaKlasik yang lebih peribadi.</p><div class="ck25-tabs"><button class="ck25-tab active" data-mode="login">Log Masuk</button><button class="ck25-tab" data-mode="register">Daftar</button></div><form class="ck25-form" id="ck25-form"><input id="ck25-name" placeholder="Nama" autocomplete="name" style="display:none"><input id="ck25-email" type="email" placeholder="Emel" autocomplete="email" required><input id="ck25-pass" type="password" placeholder="Kata laluan" autocomplete="current-password" minlength="6" required><div class="ck25-error" id="ck25-error"></div><button class="ck25-submit" id="ck25-submit">Log Masuk</button></form><div class="ck25-note" id="ck25-note"></div></div>`;document.body.appendChild(overlay);const $=id=>document.getElementById(id);let mode='login',sb=null;if(!configured){$('ck25-note').textContent='Supabase belum aktif. Paste Publishable Key pada SUPABASE_KEY dalam fail ini.'}else if(window.supabase){sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);$('ck25-note').textContent='Akaun anda akan disimpan melalui Supabase Auth. Jika pendaftaran berjaya tetapi belum boleh log masuk, semak emel pengesahan.'}else{$('ck25-note').textContent='Pustaka Supabase belum dimuatkan.'}function open(m='login'){mode=m;overlay.classList.add('show');document.querySelectorAll('.ck25-tab').forEach(x=>x.classList.toggle('active',x.dataset.mode===mode));$('ck25-name').style.display=mode==='register'?'block':'none';$('ck25-submit').textContent=mode==='register'?'Daftar Akaun':'Log Masuk';$('ck25-heading').textContent=mode==='register'?'Cipta akaun':'Selamat datang';$('ck25-sub').textContent=mode==='register'?'Bina profil CinemaKlasik anda.':'Log masuk untuk pengalaman yang lebih peribadi.'}function close(){overlay.classList.remove('show')}function err(m){$('ck25-error').textContent=m;$('ck25-error').style.display='block'}function render(u){if(u){let e=u.email||'',n=u.user_metadata?.full_name||e.split('@')[0]||'U';account.innerHTML=`<span class="ck25-avatar">${n.charAt(0).toUpperCase()}</span><button class="ck25-user-btn" id="ck25-account-btn">Akaun</button>`;$('ck25-account-btn').onclick=async()=>{if(confirm(`Akaun: ${e}\n\nTekan OK untuk log keluar.`)&&sb)await sb.auth.signOut()} }else{account.innerHTML='<button class="ck25-user-btn" id="ck25-open">👤 Log Masuk</button>';$('ck25-open').onclick=()=>open('login')}}$('ck25-x').onclick=close;overlay.addEventListener('click',e=>{if(e.target===overlay)close()});document.querySelectorAll('.ck25-tab').forEach(t=>t.onclick=()=>open(t.dataset.mode));$('ck25-form').onsubmit=async e=>{e.preventDefault();$('ck25-error').style.display='none';if(!sb)return err('Supabase belum dikonfigurasi. Paste Publishable Key dahulu.');let email=$('ck25-email').value.trim(),password=$('ck25-pass').value,name=$('ck25-name').value.trim();if(password.length<6)return err('Kata laluan mesti sekurang-kurangnya 6 aksara.');$('ck25-submit').disabled=true;try{let r=mode==='register'?await sb.auth.signUp({email,password,options:{data:{full_name:name||email.split('@')[0]},emailRedirectTo:location.origin+location.pathname}}):await sb.auth.signInWithPassword({email,password});if(r.error)throw r.error;close();if(mode==='register')alert(r.data.session?'Akaun berjaya dibuat dan anda sudah log masuk.':'Akaun berjaya dibuat. Jika pengesahan emel diaktifkan, semak inbox/spam dahulu.')}catch(x){err(x?.message||'Operasi akaun gagal.')}finally{$('ck25-submit').disabled=false;$('ck25-submit').textContent=mode==='register'?'Daftar Akaun':'Log Masuk'}};if(sb){let r=await sb.auth.getSession();render(r.data.session?.user||null);sb.auth.onAuthStateChange((_e,s)=>render(s?.user||null))}else render(null)});</script>
+
+<script id="ck28-auth-helper">
+document.addEventListener('DOMContentLoaded',()=>{
+  const link=document.getElementById('ck28-footer-login');
+  if(link) link.addEventListener('click',e=>{
+    e.preventDefault();
+    const b=document.getElementById('ck25-open');
+    if(b) b.click();
+    else {
+      const a=document.getElementById('ck25-account-btn');
+      if(a) a.click();
+    }
+  });
+});
+</script>
+
 </body>
-     </html>
+                                   </html>
